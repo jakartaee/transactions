@@ -41,4 +41,4 @@ https://www.eclipse.org/projects/handbook/#resources-commit
 
 Contact the project developers via the project's "dev" list.
 
-* 
+* https://accounts.eclipse.org/mailing-list/jta-dev
