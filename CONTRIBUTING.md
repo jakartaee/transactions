@@ -20,6 +20,7 @@ more.
 
 The project maintains the following source code repositories
 
+* https://github.com/eclipse-ee4j/jta-api
 
 ## Eclipse Contributor Agreement
 
