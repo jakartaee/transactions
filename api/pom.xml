@@ -38,7 +38,7 @@
         <findbugs.threshold>Low</findbugs.threshold>
     </properties>
     <name>${extension.name} API</name>
-    <description>Eclipse Project for JTA</description>
+    <description>Jakarta Transactions</description>
     <url>https://projects.eclipse.org/projects/ee4j.jta</url>
 
     <developers>
@@ -74,7 +74,7 @@
     </issueManagement>
     <mailingLists>
       <mailingList>
-            <name>JTA mailing list</name>
+            <name>Jakarta Transactions mailing list</name>
             <post>jta-dev@eclipse.org</post>
             <subscribe>https://dev.eclipse.org/mailman/listinfo/jta-dev</subscribe>
             <unsubscribe>https://dev.eclipse.org/mailman/listinfo/jta-dev</unsubscribe>
@@ -152,7 +152,7 @@
                         <Implementation-Version>${spec.implementation.version}</Implementation-Version>
                         <Specification-Version>${spec.specification.version}</Specification-Version>                               
                         <Bundle-Description>
-                            Java(TM) JTA ${spec.version} API Design Specification
+                            Jakarta(TM) Transactions ${spec.version} API Design Specification
                         </Bundle-Description>
                         <Specification-Vendor>Oracle Corporation</Specification-Vendor>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
@@ -239,13 +239,13 @@
                 <configuration>
                     <author>false</author>
                     <description>
-                        Java Transaction API documentation
+                        Jakarta Transactions documentation
                     </description>
                     <doctitle>
-                        Java Transaction API documentation
+                        Jakarta Transactions documentation
                     </doctitle>
                     <windowtitle>
-                        Java Transaction API documentation
+                        Jakarta Transactions documentation
                     </windowtitle>
                     <splitindex>true</splitindex>
                     <use>true</use>

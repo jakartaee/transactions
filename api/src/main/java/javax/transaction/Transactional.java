@@ -23,9 +23,9 @@ import java.lang.annotation.*;
 /**
  * <p>The javax.transaction.Transactional annotation provides the application
  * the ability to declaratively control transaction boundaries on CDI managed beans, as
- * well as classes defined as managed beans by the Java EE specification, at both the class
+ * well as classes defined as managed beans by the Jakarta EE specification, at both the class
  * and method level where method level annotations override those at the class level.</p>
- * <p>See the EJB specification for restrictions on the use of @Transactional with EJBs.</p>
+ * <p>See the Jakarta Enterprise Beans specification for restrictions on the use of @Transactional with Jakarta Enterprise Beans.</p>
  * <p>This support is provided via an implementation of CDI interceptors that conduct the
  * necessary suspending, resuming, etc. The Transactional interceptor interposes on business method
  * invocations only and not on lifecycle events. Lifecycle methods are invoked in an unspecified
@@ -52,7 +52,7 @@ import java.lang.annotation.*;
  * <p>When a class is specified for either of these elements, the designated behavior applies to subclasses
  * of that class as well. If both elements are specified, dontRollbackOn takes precedence.</p>
  *
- * @since JTA1.2
+ * @since 1.2
  */
 @Inherited
 @InterceptorBinding
@@ -74,7 +74,7 @@ public @interface Transactional {
     public enum TxType {
         /**
          *  <p>If called outside a transaction context, the interceptor must begin a new
-         *  JTA transaction, the managed bean method execution must then continue
+         *  Jakarta Transactions transaction, the managed bean method execution must then continue
          *  inside this transaction context, and the transaction must be completed by
          *  the interceptor.</p>
          *  <p>If called inside a transaction context, the managed bean
@@ -84,11 +84,11 @@ public @interface Transactional {
 
         /**
          *  <p>If called outside a transaction context, the interceptor must begin a new
-         *  JTA transaction, the managed bean method execution must then continue
+         *  Jakarta Transactions transaction, the managed bean method execution must then continue
          *  inside this transaction context, and the transaction must be completed by
          *  the interceptor.</p>
          *  <p>If called inside a transaction context, the current transaction context must
-         *  be suspended, a new JTA transaction will begin, the managed bean method
+         *  be suspended, a new Jakarta Transactions transaction will begin, the managed bean method
          *  execution must then continue inside this transaction context, the transaction
          *  must be completed, and the previously suspended transaction must be resumed.</p>
          */

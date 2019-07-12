@@ -25,9 +25,9 @@ import javax.enterprise.context.NormalScope;
 /**
  * <p>The javax.transaction.TransactionScoped annotation provides the ability to
  * specify a standard CDI scope to define bean instances whose lifecycle is
- * scoped to the currently active JTA transaction. This annotation has no effect
+ * scoped to the currently active Jakarta Transactions transaction. This annotation has no effect
  * on classes which have non-contextual references such those defined as managed
- * beans by the Java EE specification.</p>
+ * beans by the Jakarta EE specification.</p>
  * The transaction scope is active when the return from a call to
  * <code>UserTransaction.getStatus</code> or
  * <code>TransactionManager.getStatus</code>
@@ -45,19 +45,19 @@ import javax.enterprise.context.NormalScope;
  * TransactionScoped annotation should also apply to its use in relation to
  * transaction context, lifecycle, etc. mentioned elsewhere in this
  * specification. The object with this annotation will be associated with the
- * current active JTA transaction when the object is used. This association must
+ * current active Jakarta Transactions transaction when the object is used. This association must
  * be retained through any transaction suspend or resume calls as well as any
  * <code>Synchronization.beforeCompletion</code> callbacks. Any
  * <code>Synchronization.afterCompletion</code> methods will be invoked in an undefined
- * context. The way in which the JTA transaction is begun and completed
+ * context. The way in which the Jakarta Transactions transaction is begun and completed
  * (for example via UserTransaction, Transactional interceptor, etc.) is of no consequence.
- * The contextual references used across different JTA transactions are distinct.
+ * The contextual references used across different Jakarta Transactions transactions are distinct.
  * Refer to the CDI specification for more details on contextual references.
  * A <code>javax.enterprise.context.ContextNotActiveException</code>
  * will be thrown if an object with this annotation is used when the
  * transaction context is not active.</p>
  *
- *  @since JTA1.2
+ *  @since 1.2
  */
 @Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})

@@ -19,7 +19,7 @@ package javax.transaction;
 /**
  * This interface is intended for use by system level application server
  * components such as persistence managers, resource adapters, as well as
- * EJB and Web application components. This provides the ability to
+ * Jakarta Enterprise Beans and Web application components. This provides the ability to
  * register synchronization objects with special ordering semantics,
  * associate resource objects with the current transaction, get the
  * transaction context of the current transaction, get current transaction
@@ -33,7 +33,7 @@ package javax.transaction;
  * implementing this interface can be looked up by a standard name via JNDI.
  * The standard name is java:comp/TransactionSynchronizationRegistry.
  *
- * @since JTA 1.1
+ * @since 1.1
  */
 public interface TransactionSynchronizationRegistry {
 
@@ -61,7 +61,7 @@ public interface TransactionSynchronizationRegistry {
      * @return an opaque object representing the transaction bound to the 
      * current thread at the time this method is called.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     Object getTransactionKey();
     
@@ -83,7 +83,7 @@ public interface TransactionSynchronizationRegistry {
      * @exception IllegalStateException if no transaction is active.
      * @exception NullPointerException if the parameter key is null.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     void putResource(Object key, Object value);
     
@@ -104,7 +104,7 @@ public interface TransactionSynchronizationRegistry {
      * @exception IllegalStateException if no transaction is active.
      * @exception NullPointerException if the parameter key is null.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     Object getResource(Object key);
 
@@ -143,7 +143,7 @@ public interface TransactionSynchronizationRegistry {
      * @param sync the Synchronization instance.
      * @exception IllegalStateException if no transaction is active.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     void registerInterposedSynchronization(Synchronization sync);
 
@@ -157,7 +157,7 @@ public interface TransactionSynchronizationRegistry {
      * @return the status of the transaction bound to the current thread 
      * at the time this method is called.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     int getTransactionStatus();
 
@@ -167,7 +167,7 @@ public interface TransactionSynchronizationRegistry {
      *
      * @exception IllegalStateException if no transaction is active.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     void setRollbackOnly();
 
@@ -178,7 +178,7 @@ public interface TransactionSynchronizationRegistry {
      * @return the rollbackOnly status.
      * @exception IllegalStateException if no transaction is active.
      *
-     * @since JTA 1.1
+     * @since 1.1
      */
     boolean getRollbackOnly();
 }
