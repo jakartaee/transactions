@@ -1,10 +1,10 @@
-# Contributing to Eclipse Project for JTA
+# Contributing to Jakarta Transactions
 
 Thanks for your interest in this project.
 
 ## Project description
 
-Java Transaction API (JTA) specifies standard Java interfaces between a
+Jakarta Transactions specifies standard Java interfaces between a
 transaction manager and the parties involved in a distributed transaction
 system: the resource manager, the application server, and the transactional
 applications.
