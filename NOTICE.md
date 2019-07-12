@@ -1,12 +1,12 @@
-# Notices for Eclipse Project for JTA
+# Notices for Jakarta Transactions
 
-This content is produced and maintained by the Eclipse Project for JTA project.
+This content is produced and maintained by the Jakarta Transactions project.
 
 * Project home: https://projects.eclipse.org/projects/ee4j.jta
 
 ## Trademarks
 
-Eclipse Project for JTA is a trademark of the Eclipse Foundation.
+Jakarta Transactions is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
