@@ -30,7 +30,7 @@ package javax.transaction;
  *  Transactional(TxType.NEVER), the transaction begun by the first bean
  *  will be marked for rollback.
  *
- * @since 1.2
+ * @since JTA 1.2
  */
 public class TransactionalException extends RuntimeException {
     /**
