@@ -57,7 +57,7 @@ import javax.enterprise.context.NormalScope;
  * will be thrown if an object with this annotation is used when the
  * transaction context is not active.</p>
  *
- *  @since 1.2
+ *  @since JTA 1.2
  */
 @Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
