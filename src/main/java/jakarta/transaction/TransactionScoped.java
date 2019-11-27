@@ -14,16 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.context.NormalScope;
+import jakarta.enterprise.context.NormalScope;
 
 /**
- * <p>The javax.transaction.TransactionScoped annotation provides the ability to
+ * <p>The jakarta.transaction.TransactionScoped annotation provides the ability to
  * specify a standard CDI scope to define bean instances whose lifecycle is
  * scoped to the currently active JTA transaction. This annotation has no effect
  * on classes which have non-contextual references such those defined as managed
@@ -53,7 +53,7 @@ import javax.enterprise.context.NormalScope;
  * (for example via UserTransaction, Transactional interceptor, etc.) is of no consequence.
  * The contextual references used across different JTA transactions are distinct.
  * Refer to the CDI specification for more details on contextual references.
- * A <code>javax.enterprise.context.ContextNotActiveException</code>
+ * A <code>jakarta.enterprise.context.ContextNotActiveException</code>
  * will be thrown if an object with this annotation is used when the
  * transaction context is not active.</p>
  *

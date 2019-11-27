@@ -14,31 +14,27 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
- * This exception indicates that the transaction associated with processing
- * of the request has been rolled back, or it has been marked to roll back. 
- * Thus the requested operation either could not be performed or was not 
- * performed because further computation on behalf of the transaction would be
- * fruitless.
+ * This exception is thrown by the commit operation to report that a heuristic
+ * decision was made and that all relevant updates have been rolled back.
  */
-public class TransactionRolledbackException extends java.rmi.RemoteException 
+public class HeuristicRollbackException extends java.lang.Exception 
 {
-	    
     /**
      * Specify serialVersionUID for backward compatibility
      */
-    private static final long serialVersionUID = -3142798139623020577L;
-    
-    public TransactionRolledbackException()
-	{
-		super();
-	}
+    private static final long serialVersionUID = -3483618944556408897L;
 
-	public TransactionRolledbackException(String msg)
-	{
-		super(msg);
-	}
+    public HeuristicRollbackException()
+    {
+	super();
+    }
+
+    public HeuristicRollbackException(String msg)
+    {
+	super(msg);
+    }
 }
 

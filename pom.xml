@@ -27,12 +27,12 @@
 
     <groupId>jakarta.transaction</groupId>
     <artifactId>jakarta.transaction-api</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     
     <properties>
         <non.final>false</non.final>
-        <extension.name>javax.transaction</extension.name>
-        <spec.version>1.4</spec.version>
+        <extension.name>jakarta.transaction</extension.name>
+        <spec.version>2.0</spec.version>
         <findbugs.version>2.3.1</findbugs.version>
         <findbugs.exclude>exclude.xml</findbugs.exclude>
         <findbugs.threshold>Low</findbugs.threshold>
@@ -117,7 +117,7 @@
             <plugin>
                 <groupId>org.glassfish.build</groupId>
                 <artifactId>spec-version-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>2.0</version>
                 <configuration>
                     <specMode>jakarta</specMode>
                     <spec>
@@ -157,7 +157,7 @@
                         <Specification-Vendor>Oracle Corporation</Specification-Vendor>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Vendor-Id>org.glassfish</Implementation-Vendor-Id>
-                        <Import-Package>javax.interceptor.*;version="[1.2,1.2.98)",*</Import-Package>
+                        <Import-Package>jakarta.interceptor.*;version="[1.2,2.0.0)",*</Import-Package>
                         <_include>-${basedir}/osgi.bundle</_include>
                     </instructions>
                 </configuration>
@@ -312,9 +312,9 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.0-SP4</version>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
