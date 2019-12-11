@@ -32,7 +32,7 @@
     <properties>
         <non.final>false</non.final>
         <extension.name>javax.transaction</extension.name>
-        <spec.version>1.4</spec.version>
+        <spec.version>1.3</spec.version>
         <findbugs.version>2.3.1</findbugs.version>
         <findbugs.exclude>exclude.xml</findbugs.exclude>
         <findbugs.threshold>Low</findbugs.threshold>
