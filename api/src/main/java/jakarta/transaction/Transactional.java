@@ -14,14 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.*;
 
 /**
- * <p>The javax.transaction.Transactional annotation provides the application
+ * <p>The jakarta.transaction.Transactional annotation provides the application
  * the ability to declaratively control transaction boundaries on CDI managed beans, as
  * well as classes defined as managed beans by the Jakarta EE specification, at both the class
  * and method level where method level annotations override those at the class level.</p>

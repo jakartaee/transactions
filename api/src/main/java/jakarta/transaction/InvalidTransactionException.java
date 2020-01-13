@@ -14,28 +14,28 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
- * This exception is thrown by the rollback operation on a resource to
- * report that a heuristic decision was made and that all relevant updates
- * have been committed.
+ * This exception indicates that the request carried an invalid transaction
+ * context. For example, this exception could be raised if an error
+ * occurred when trying to register a resource.
  */
-public class HeuristicCommitException extends java.lang.Exception  
+public class InvalidTransactionException extends java.rmi.RemoteException 
 {
     /**
      * Specify serialVersionUID for backward compatibility
      */
-    private static final long serialVersionUID = -3977609782149921760L;
-    
-    public HeuristicCommitException()
-    {
-	super();
-    }
+    private static final long serialVersionUID = 3597320220337691496L;
 
-    public HeuristicCommitException(String msg)
-    {
-	super(msg);
-    }
+    public InvalidTransactionException()
+	{
+		super();
+	}
+
+	public InvalidTransactionException(String msg)
+	{
+		super(msg);
+	}
 }
 
