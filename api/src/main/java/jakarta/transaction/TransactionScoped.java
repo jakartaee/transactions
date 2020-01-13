@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 import javax.enterprise.context.NormalScope;
 
 /**
- * <p>The javax.transaction.TransactionScoped annotation provides the ability to
+ * <p>The jakarta.transaction.TransactionScoped annotation provides the ability to
  * specify a standard CDI scope to define bean instances whose lifecycle is
  * scoped to the currently active Jakarta Transactions transaction. This annotation has no effect
  * on classes which have non-contextual references such those defined as managed

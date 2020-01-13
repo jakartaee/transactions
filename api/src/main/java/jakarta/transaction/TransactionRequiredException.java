@@ -14,26 +14,26 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
- * This exception indicates that the request carried an invalid transaction
- * context. For example, this exception could be raised if an error
- * occurred when trying to register a resource.
+ * This exception indicates that a request carried a null transaction context,
+ * but the target object requires an active transaction.
  */
-public class InvalidTransactionException extends java.rmi.RemoteException 
+public class TransactionRequiredException extends java.rmi.RemoteException 
 {
+	    
     /**
      * Specify serialVersionUID for backward compatibility
      */
-    private static final long serialVersionUID = 3597320220337691496L;
+    private static final long serialVersionUID = -1898806419937446439L;
 
-    public InvalidTransactionException()
+        public TransactionRequiredException()
 	{
 		super();
 	}
 
-	public InvalidTransactionException(String msg)
+	public TransactionRequiredException(String msg)
 	{
 		super(msg);
 	}

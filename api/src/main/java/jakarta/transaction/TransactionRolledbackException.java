@@ -14,28 +14,29 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
- * RollbackException exception is thrown when the transaction has been 
- * marked for rollback only or the transaction has been rolled back
- * instead of committed. This is a local exception thrown by methods 
- * in the <code>UserTransaction</code>, <code>Transaction</code>, and 
- * <code>TransactionManager</code> interfaces.
+ * This exception indicates that the transaction associated with processing
+ * of the request has been rolled back, or it has been marked to roll back. 
+ * Thus the requested operation either could not be performed or was not 
+ * performed because further computation on behalf of the transaction would be
+ * fruitless.
  */
-public class RollbackException extends java.lang.Exception 
+public class TransactionRolledbackException extends java.rmi.RemoteException 
 {
-        /**
-         * Specify serialVersionUID for backward compatibility
-         */
-        private static final long serialVersionUID = 4151607774785285395L;
-        
-	public RollbackException()
+	    
+    /**
+     * Specify serialVersionUID for backward compatibility
+     */
+    private static final long serialVersionUID = -3142798139623020577L;
+    
+    public TransactionRolledbackException()
 	{
 		super();
 	}
 
-	public RollbackException(String msg)
+	public TransactionRolledbackException(String msg)
 	{
 		super(msg);
 	}

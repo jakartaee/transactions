@@ -14,28 +14,28 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
- * This exception indicates that a request carried a null transaction context,
- * but the target object requires an active transaction.
+ * This exception is thrown by the rollback operation on a resource to
+ * report that a heuristic decision was made and that all relevant updates
+ * have been committed.
  */
-public class TransactionRequiredException extends java.rmi.RemoteException 
+public class HeuristicCommitException extends java.lang.Exception  
 {
-	    
     /**
      * Specify serialVersionUID for backward compatibility
      */
-    private static final long serialVersionUID = -1898806419937446439L;
+    private static final long serialVersionUID = -3977609782149921760L;
+    
+    public HeuristicCommitException()
+    {
+	super();
+    }
 
-        public TransactionRequiredException()
-	{
-		super();
-	}
-
-	public TransactionRequiredException(String msg)
-	{
-		super(msg);
-	}
+    public HeuristicCommitException(String msg)
+    {
+	super(msg);
+    }
 }
 
