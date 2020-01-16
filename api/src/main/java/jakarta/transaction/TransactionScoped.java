@@ -20,7 +20,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.context.NormalScope;
+import jakarta.enterprise.context.NormalScope;
 
 /**
  * <p>The jakarta.transaction.TransactionScoped annotation provides the ability to
@@ -53,7 +53,7 @@ import javax.enterprise.context.NormalScope;
  * (for example via UserTransaction, Transactional interceptor, etc.) is of no consequence.
  * The contextual references used across different Jakarta Transactions transactions are distinct.
  * Refer to the CDI specification for more details on contextual references.
- * A <code>javax.enterprise.context.ContextNotActiveException</code>
+ * A <code>jakarta.enterprise.context.ContextNotActiveException</code>
  * will be thrown if an object with this annotation is used when the
  * transaction context is not active.</p>
  *
