@@ -154,7 +154,7 @@
                         <Specification-Vendor>Oracle Corporation</Specification-Vendor>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Vendor-Id>org.glassfish</Implementation-Vendor-Id>
-                        <Import-Package>javax.interceptor.*;version="[1.2,1.2.98)",*</Import-Package>
+                        <Import-Package>jakarta.interceptor.*;version="[1.2,2.0.0)",*</Import-Package>
                         <_include>-${basedir}/osgi.bundle</_include>
                     </instructions>
                 </configuration>
@@ -284,7 +284,7 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>2.0.1</version>
+            <version>3.0.0-M1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
