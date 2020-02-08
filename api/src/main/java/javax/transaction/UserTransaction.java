@@ -16,7 +16,6 @@
 
 package javax.transaction;
 
-import java.lang.IllegalArgumentException;
 import java.lang.IllegalStateException;
 import java.lang.SecurityException;
 
