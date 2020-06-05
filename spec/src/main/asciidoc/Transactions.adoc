@@ -1,5 +1,5 @@
 :sectnums:
-= Jakarta Transactions Specification, Version 1.2
+= Jakarta Transactions Specification, Version 1.3
 
 Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
@@ -16,20 +16,19 @@ transaction manager and the parties involved in a distributed
 transaction system: the application, the resource manager, and the
 application server.
 
-The JTA package consists of three parts:
+The JTA package consists of two parts:
 
 * A high-level application interface that
 allows a transactional application to demarcate transaction boundaries
-* A Java mapping of the industry standard
-X/Open XA protocol that allows a transactional resource manager to
-participate in a global transaction controlled by an external
-transaction manager
 * A high-level transaction manager interface
 that allows an application server to control transaction boundary
 demarcation for an application being managed by the application server
-* 
 
-
+Note – The JTA interfaces are presented as high-level from the transaction
+manager’s perspective. In contrast, a low-level API for the transaction manager
+consists of interfaces that are used to implement the transaction manager. For
+example, the Java mapping of the OTS are low-level interfaces used internally by
+a transaction manager.
 
 .
 
@@ -100,7 +99,7 @@ of:
 JMS providers
 * Transactional resource managers, such as
 RDBMS
-* Application servers, such as EJB Servers
+* Application servers, such as Jakarta EE Servers
 * Advanced transactional applications written
 in the Java _TM_ programming language
 
@@ -109,9 +108,20 @@ in the Java _TM_ programming language
 Relationship to Other Java APIs
 
 This chapter explores the relationship
-between the Jata Transaction API and other Java APIs, including
-Enterprise JavaBeans, JDBC 4.1 Standard Extension API, Java Message
+between the Java Transaction API and other Java APIs, including
+Enterprise JavaBeans, JDBC API, Java Message
 Service, and Java Transaction Service.
+
+== Java SE
+
+Java SE provides the API that defines the contract between the transaction manager
+and the resource manager, which allows the transaction manager to enlist and delist
+resource objects in JTA transactions. Thejavax.transaction.xa package
+specifies this API consisting of the following types:
+
+* javax.transaction.xa.XAException
+* javax.transaction.xa.XAResource
+* javax.transaction.xa.Xid
 
 === Enterprise JavaBeans
 
@@ -124,12 +134,12 @@ transactions) and by the client programmer that wants to explicitly
 demarcate transaction boundaries within programs that are written in the
 Java programming language.
 
-=== JDBC 4.1
+=== JDBC
 
 A JDBC driver that supports distributed
 transactions implements the _javax.transaction.xa.XAResource_ interface,
 the _javax.sql.XAConnection_ interface, and the _javax.sql.XADataSource_
-interface. Refer to the _JDBC 4.1 Specification_ for further details.
+interface. Refer to the _JDBC 4.3 Specification_ for further details.
 
 === Java Message Service
 
@@ -478,7 +488,7 @@ a precondition to transaction completion. A transaction manager is,
 however, required to implicitly ensure the association of any associated
 XAResource is ended, via the appropriate _XAResource.end_ call,
 immediately prior to completion; that is before prepare (or
-commit/rollback in the onephase-optimized case).
+commit/rollback in the one-phase optimized case).
 
 === Transaction Synchronization
 
@@ -1353,8 +1363,8 @@ application’s transactions and resource usage are managed by the
 application server. We further assume that access to the underlying
 transactional resource manager is through some Java API implemented by
 the resource adapter representing the resource manager. For example, a
-JDBC 4.1 driver may be used to access a relational database, a SAP
-connector resource adapter may be used to access the SAP ERP system, and
+JDBC driver may be used to access a relational database, a Java EE
+Connector architecture resource adapter may be used to access an Enterprise Resource Planning (ERP) system, and
 so on. This section focuses on the usage of JTA and assumes a generic
 connection based transactional resource is in use without being specific
 about a particular type of resource manager.
@@ -1506,7 +1516,7 @@ image:transactions-5.png[image]
 
 
 The behaviors described in the Javadoc
-specification of the JTA interefaces are required functionality and must
+specification of the JTA interfaces are required functionality and must
 be implemented by compliant providers.
 
 === APPENDIX 
@@ -1542,6 +1552,11 @@ _http://jcp.org/en/jsr/detail?id=318_
 ===  aPPENDIX
 
 === Revision History
+
+== Changes for Version 1.3
+
+* Remove the javax.transaction.xa types as they have been subsumed by
+Java SE.
 
 === Changes for Version 1.2
 
