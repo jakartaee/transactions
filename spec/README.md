@@ -1,5 +1,5 @@
 Jakarta Transactions Specification
-============================
+==================================
 
 This project generates the Jakarta Transactions Specification.
 
@@ -16,7 +16,7 @@ Run the full build:
 `mvn install`
 
 Locate the html files:
-- `target/generated-docs/transactions-spec-<version>.html`
+- target/generated-docs/Transactions.html
 
 Locate the PDF files:
-- `target/generated-docs/transactions-spec-<version>.pdf`
+- target/generated-docs/Transactions.pdf
