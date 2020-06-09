@@ -1573,7 +1573,7 @@ as a precondition to transaction completion. A transaction manager is,
 however, required to implicitly insure the association of any associated
 _XAResource_ is ended, via the appropriate _XAResource.end_ call,
 immediately prior to completion; that is before prepare (or
-commit/rollback in the onephase-optimized case)."
+commit/rollback in the one-phase optimized case)."
 * Various update of stale material, version
 updates, etc.
 
