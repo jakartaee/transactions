@@ -49,7 +49,7 @@ The notice is:
 
 "Copyright (c) 2018, 2020 Eclipse Foundation. This software or
 document includes material copied from or derived from Jakarta(R)
-Transactions https://jakarta.ee/specifications/transactions/2.0/"
+Transactions https://jakarta.ee/specifications/transactions/2.0/."
 
 ==== Disclaimers
 
