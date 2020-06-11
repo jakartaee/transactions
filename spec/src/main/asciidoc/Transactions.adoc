@@ -10,13 +10,13 @@ affiliates. Other names may be trademarks of their respective owners.
 
 Introduction
 
-This document describes the Java
-Transaction API (JTA). JTA specifies local Java interfaces between a
+This document describes Jakarta
+Transactions. Jakarta Transactions specifies local Java interfaces between a
 transaction manager and the parties involved in a distributed
 transaction system: the application, the resource manager, and the
 application server.
 
-The JTA package consists of two parts:
+The Jakarta Transactions package consists of two parts:
 
 * A high-level application interface that
 allows a transactional application to demarcate transaction boundaries
@@ -24,7 +24,7 @@ allows a transactional application to demarcate transaction boundaries
 that allows an application server to control transaction boundary
 demarcation for an application being managed by the application server
 
-Note – The JTA interfaces are presented as high-level from the transaction
+Note – The Jakarta Transactions interfaces are presented as high-level from the transaction
 manager’s perspective. In contrast, a low-level API for the transaction manager
 consists of interfaces that are used to implement the transaction manager. For
 example, the Java mapping of the OTS are low-level interfaces used internally by
@@ -67,7 +67,7 @@ control their transaction boundaries using a high-level interface
 provided by the application server or the transaction manager.
 * A communication resource manager (CRM)
 supports transaction context propagation and access to the transaction
-service for incoming and outgoing requests. The JTA document does not
+service for incoming and outgoing requests. The Jakarta Transactions document does not
 specify requirements pertained to communication. Refer to the JTS
 Specification [2] for more details on interoperability between
 transaction managers.
@@ -77,12 +77,12 @@ the actual implementation of the transaction services does not need to
 be exposed; only high-level interfaces need to be defined to allow
 transaction demarcation, resource enlistment, synchronization and
 recovery process to be driven from the users of the transaction
-services. The purpose of JTA is to define the local Java interfaces
+services. The purpose of Jakarta Transactions is to define the local Java interfaces
 required for the transaction manager to support transaction management
 in the Java enterprise distributed computing environment.
 
 In the diagram shown below, the small
-half-circle represents the JTA specification. Chapter 3 of the document
+half-circle represents the Jakarta Transactions specification. Chapter 3 of the document
 describes each portion of the specification in details.
 
 
@@ -108,7 +108,7 @@ in the Java _TM_ programming language
 Relationship to Other Java APIs
 
 This chapter explores the relationship
-between the Java Transaction API and other Java APIs, including
+between Jakarta Transactions and other Java APIs, including
 Enterprise JavaBeans, JDBC API, Java Message
 Service, and Java Transaction Service.
 
@@ -116,7 +116,7 @@ Service, and Java Transaction Service.
 
 Java SE provides the API that defines the contract between the transaction manager
 and the resource manager, which allows the transaction manager to enlist and delist
-resource objects in JTA transactions. Thejavax.transaction.xa package
+resource objects in Jakarta Transactions transactions. The javax.transaction.xa package
 specifies this API consisting of the following types:
 
 * javax.transaction.xa.XAException
@@ -143,7 +143,7 @@ interface. Refer to the _JDBC 4.3 Specification_ for further details.
 
 === Java Message Service
 
-The Java Transaction API may be used by a
+Jakarta Transactions may be used by a
 Java Message Service provider to support distributed transactions. A JMS
 provider that supports the _XAResource_ interface is able to participate
 as a resource manager in a distributed transaction processing system
@@ -155,7 +155,7 @@ interface. Refer to the JMS 2.0 Specification for further details.
 === Java Transaction Service
 
 Java Transaction Service (JTS) is a
-specification for building a transaction manager which supports the JTA
+specification for building a transaction manager which supports the Jakarta Transactions
 interfaces at the high-level and the standard Java mapping of the CORBA
 Object Transaction Service 1.1 specification at the low-level. JTS
 provides transaction interoperability using the CORBA standard IIOP
@@ -165,9 +165,9 @@ enterprise middleware.
 
 == CHAPTER 3 - 
 
-Java Transaction API
+Jakarta Transactions API
 
-The Java Transaction API consists of
+The Jakarta Transactions API consists of
 three elements: a high-level application transaction demarcation
 interface, a high-level transaction manager interface intended for an
 application server, and a standard Java mapping of the X/Open XA
@@ -353,7 +353,7 @@ the transaction manager throws the _IllegalStateException_ __ exception.
 
 Note that some transaction manager
 implementations allow a suspended transaction to be resumed by a
-different thread. This feature is not required by JTA.
+different thread. This feature is not required by Jakarta Transactions.
 
 The application server is responsible for
 ensuring that the resources in use by the application are properly
@@ -1099,7 +1099,7 @@ context where the values provide the following corresponding behavior
 and _TxType.REQUIRED_ is the default:
 
 *  _TxType.REQUIRED_ : If called outside a
-transaction context, the interceptor must begin a new JTA transaction,
+transaction context, the interceptor must begin a new Jakarta Transactions transaction,
 the managed bean method execution must then continue inside this
 transaction context, and the transaction must be completed by the
 interceptor.
@@ -1109,13 +1109,13 @@ managed bean method execution must then continue inside this transaction
 context.
 
 *  _TxType.REQUIRES_NEW_ : If called outside
-a transaction context, the interceptor must begin a new JTA transaction,
+a transaction context, the interceptor must begin a new Jakarta Transactions transaction,
 the managed bean method execution must then continue inside this
 transaction context, and the transaction must be completed by the
 interceptor.
 
 If called inside a transaction context, the
-current transaction context must be suspended, a new JTA transaction
+current transaction context must be suspended, a new Jakarta Transactions transaction
 will begin, the managed bean method execution must then continue inside
 this transaction context, the transaction must be completed, and the
 previously suspended transaction must be resumed.
@@ -1205,7 +1205,7 @@ begun by the first bean will be marked for rollback.
 The _javax.transaction.TransactionScoped_
 annotation provides the ability to specify a standard CDI scope to
 define bean instances whose lifecycle is scoped to the currently active
-JTA transaction. This annotation has no effect on classes which have
+Jakarta Transactions transaction. This annotation has no effect on classes which have
 non-contextual references such those defined as managed beans by the
 Java EE specification . The transaction scope is active when the return
 from a call to _UserTransaction.getStatus_ or
@@ -1229,15 +1229,15 @@ It is not intended that the term “active” as
 defined here in relation to the _TransactionScoped_ annotation should
 also apply to its use in relation to transaction context, lifecycle,
 etc. mentioned elsewhere in this specification. The object with this
-annotation will be associated with the current active JTA transaction
+annotation will be associated with the current active Jakarta Transactions transaction
 when the object is used. This association must be retained through any
 transaction suspend or resume calls as well as any
 _Synchronization.beforeCompletion_ callbacks. Any
 _Synchronization.afterCompletion_ methods will be invoked in an
-undefined context. The way in which the JTA transaction is begun and
+undefined context. The way in which the Jakarta Transactions transaction is begun and
 completed (for example via _UserTransaction_ , _Transactional_
 interceptor, etc.) is of no consequence. The contextual references used
-across different JTA transactions are distinct. Refer to the CDI
+across different Jakarta Transactions transactions are distinct. Refer to the CDI
 specification for more details on contextual references. A
 _javax.enterprise.context.ContextNotActiveException_ must be thrown if a
 bean with this annotation is used when the transaction context is not
@@ -1354,18 +1354,18 @@ contextNotActiveException) \{
 
 == CHAPTER 4 - 
 
-JTA Support in the Application Server
+Jakarta Transactions Support in the Application Server
 
 This chapter provides a discussion on
 implementation and usage considerations for application servers to
-support the Java Transaction API. Our discussion assumes the
+support Jakarta Transactions. Our discussion assumes the
 application’s transactions and resource usage are managed by the
 application server. We further assume that access to the underlying
 transactional resource manager is through some Java API implemented by
 the resource adapter representing the resource manager. For example, a
 JDBC driver may be used to access a relational database, a Java EE
 Connector architecture resource adapter may be used to access an Enterprise Resource Planning (ERP) system, and
-so on. This section focuses on the usage of JTA and assumes a generic
+so on. This section focuses on the usage of Jakarta Transactions and assumes a generic
 connection based transactional resource is in use without being specific
 about a particular type of resource manager.
 
@@ -1458,7 +1458,7 @@ Connection con =
 
 This session provides a brief walkthrough of
 how an application server may handle a connection request from the
-application. The figure that follows illustrates the usage of JTA. The
+application. The figure that follows illustrates the usage of Jakarta Transactions. The
 steps shown are for illustrative purposes, they are not prescriptive:
 
 . Assuming a client invokes a CDI managed
@@ -1516,7 +1516,7 @@ image:transactions-5.png[image]
 
 
 The behaviors described in the Javadoc
-specification of the JTA interfaces are required functionality and must
+specification of the Jakarta Transactions interfaces are required functionality and must
 be implemented by compliant providers.
 
 === APPENDIX 
