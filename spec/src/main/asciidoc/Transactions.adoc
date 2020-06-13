@@ -48,7 +48,7 @@ context propagation.
 * An application server (or TP monitor)
 provides the infrastructure required to support the application run-time
 environment which includes transaction state management. An example of
-such an application server is an EJB server.
+such an application server is an Jakarta Enterprise Beans 4.0 server.
 * A resource manager (through a resource
 adapter) provides the application access to resources. The resource
 manager participates in distributed transactions by implementing a
@@ -61,7 +61,7 @@ that is developed to operate in a modern application server environment
 relies on the application server to provide transaction management
 support through declarative transaction attribute settings. An example
 of this type of applications is an application developed using the
-industry standard Enterprise JavaBeans (EJB) component architecture. In
+industry standard Jakarta Enterprise Beans 4.0 component architecture. In
 addition, some other stand-alone Java client programs may wish to
 control their transaction boundaries using a high-level interface
 provided by the application server or the transaction manager.
@@ -96,7 +96,7 @@ of:
 
 * Transaction managers, such as JTS
 * Resource adapters, such as JDBC drivers and
-JMS providers
+Jakarta Messaging 3.0 providers
 * Transactional resource managers, such as
 RDBMS
 * Application servers, such as Jakarta EE Servers
@@ -109,7 +109,7 @@ Relationship to Other Java APIs
 
 This chapter explores the relationship
 between Jakarta Transactions and other Java APIs, including
-Enterprise JavaBeans, JDBC API, Java Message
+Jakarta Enterprise Beans 4.0, JDBC API, Jakarta Messaging 3.0
 Service, and Java Transaction Service.
 
 == Java SE
@@ -123,10 +123,10 @@ specifies this API consisting of the following types:
 * javax.transaction.xa.XAResource
 * javax.transaction.xa.Xid
 
-=== Enterprise JavaBeans
+=== Jakarta Enterprise Beans 4.0
 
-The Enterprise JavaBeans architecture
-requires that an EJB Container support application-level transaction
+The Jakarta Enterprise Beans 4.0 architecture
+requires that an Jakarta Enterprise Beans 4.0 Container support application-level transaction
 demarcation by implementing the _javax.transaction.UserTransaction_
 interface. The _UserTransaction_ interface is intended to be used by
 both the enterprise bean implementer (for beans with bean-managed
@@ -141,16 +141,16 @@ transactions implements the _javax.transaction.xa.XAResource_ interface,
 the _javax.sql.XAConnection_ interface, and the _javax.sql.XADataSource_
 interface. Refer to the _JDBC 4.3 Specification_ for further details.
 
-=== Java Message Service
+=== Jakarta Messaging 3.0
 
 Jakarta Transactions may be used by a
-Java Message Service provider to support distributed transactions. A JMS
+Jakarta Messaging 3.0 Service provider to support distributed transactions. A JMS
 provider that supports the _XAResource_ interface is able to participate
 as a resource manager in a distributed transaction processing system
-that uses a two-phase commit transaction protocol. In particular, a JMS
+that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging 3.0
 provider implements the _javax.transaction.xa.XAResource_ interface, the
 _javax.jms.XAConnection_ interface, and the _javax.jms.XASession_
-interface. Refer to the JMS 2.0 Specification for further details.
+interface. Refer to the Jakarta Messaging 3.0 Specification for further details.
 
 === Java Transaction Service
 
@@ -266,7 +266,7 @@ application programs.
 The _javax.transaction.TransactionManager_ __
 interface allows the application server to control transaction
 boundaries on behalf of the application being managed. For example, the
-EJB container manages the transaction states for transactional EJB
+Jakarta Enterprise Beans 4.0 container manages the transaction states for transactional Jakarta Enterprise Beans 4.0
 components; the container uses the _TransactionManager_ __ interface
 mainly to demarcate transaction boundaries where operations affect the
 calling thread’s transaction context. The transaction manager maintains
@@ -1074,12 +1074,12 @@ _putResource_ methods to the _TransactionSynchronizationRegistry_ .
 
 The _javax.transaction.Transactional_
 annotation provides the application the ability to declaratively control
-transaction boundaries on CDI managed beans, as well as classes defined
-as managed beans by the Java EE specification, at both the class and
+transaction boundaries on Jakarta Context Dependency Injection 3.0 managed beans, as well as classes defined
+as managed beans by the Jakarta EE specification, at both the class and
 method level where method level annotations override those at the class
-level. See the EJB specification for restrictions on the use of
-_@Transactional_ with EJBs. This support is provided via an
-implementation of CDI interceptors that conduct the necessary
+level. See the Jakarta Enterprise Beans 4.0 specification for restrictions on the use of
+_@Transactional_ with Jakarta Enterprise Beans 4.0 resources. This support is provided via an
+implementation of Jakarta Context Dependency Injection 3.0 interceptors that conduct the necessary
 suspending, resuming, etc. The _Transactional_ interceptor interposes on
 business method invocations only and not on lifecycle events. __
 Lifecycle methods are invoked in an unspecified transaction context. If
@@ -1203,11 +1203,11 @@ begun by the first bean will be marked for rollback.
 === TransactionScoped Annotation
 
 The _javax.transaction.TransactionScoped_
-annotation provides the ability to specify a standard CDI scope to
+annotation provides the ability to specify a standard Jakarta Context Dependency Injection 3.0 scope to
 define bean instances whose lifecycle is scoped to the currently active
 Jakarta Transactions transaction. This annotation has no effect on classes which have
 non-contextual references such those defined as managed beans by the
-Java EE specification . The transaction scope is active when the return
+Jakarta EE specification . The transaction scope is active when the return
 from a call to _UserTransaction.getStatus_ or
 _TransactionManager.getStatus_ is one of the following states:
 
@@ -1237,7 +1237,7 @@ _Synchronization.afterCompletion_ methods will be invoked in an
 undefined context. The way in which the Jakarta Transactions transaction is begun and
 completed (for example via _UserTransaction_ , _Transactional_
 interceptor, etc.) is of no consequence. The contextual references used
-across different Jakarta Transactions transactions are distinct. Refer to the CDI
+across different Jakarta Transactions transactions are distinct. Refer to the Jakarta Context Dependency Injection 3.0
 specification for more details on contextual references. A
 _javax.enterprise.context.ContextNotActiveException_ must be thrown if a
 bean with this annotation is used when the transaction context is not
@@ -1248,7 +1248,7 @@ the expected behavior.
 
 
 
- _TransactionScoped_ annotated CDI managed
+ _TransactionScoped_ annotated Jakarta Context Dependency Injection 3.0 managed
 bean:
 
 === @TransactionScoped
@@ -1461,7 +1461,7 @@ how an application server may handle a connection request from the
 application. The figure that follows illustrates the usage of Jakarta Transactions. The
 steps shown are for illustrative purposes, they are not prescriptive:
 
-. Assuming a client invokes a CDI managed
+. Assuming a client invokes a Jakarta Context Dependency Injection 3.0 managed
 bean annotated with @ _Transactional(TxType.REQUIRED)_ and the client is
 not associated with a global transaction, the _Transactional_
 interceptor starts a global transaction by invoking the
@@ -1535,17 +1535,16 @@ _http://www.oracle.com/technetwork/java/javaee/jts-spec095- 1508547.pdf_
 . OMG Object Transaction Service (OTS 1.1)
 . ORB Portability
 Submission, OMG document orbos/97-04-14
-.  _Enterprise JavaBeansTM (EJB) 3.2
-Specification_ , available at _http://jcp.org/en/jsr/detail?id=345_
+.  _Jakarta Enterprise Beans 4.0
+Specification_, available at _https://jakarta.ee/specifications/enterprise-beans/4.0/_
 .  _JDBCTM 4.1 Specification_ , available at
 _http://jcp.org/en/ jsr/detail?id=221_
-.  _JMS 2.0 Specification_ , available at
-_http://jcp.org/en/jsr/detail?id=343_
-.  _Contexts and Dependency Injection for the
-Java EE Platform (CDI) 1.1 Specification_ , available at
-_http://jcp.org/en/jsr/detail?id=346_
-.  _Interceptor Specification_ , available at
-_http://jcp.org/en/jsr/detail?id=318_
+.  _Jakarta Messaging 3.0 Specification_ , available at
+_https://jakarta.ee/specifications/messaging/3.0/_
+.  _Jakarta Context Dependency Injection 3.0
+Specification_ , available at _https://jakarta.ee/specifications/cdi/3.0/_
+.  _Jakarta Interceptors 2.0 Specification_ , available at
+_https://jakarta.ee/specifications/interceptors/2.0/_
 
 === 
 
