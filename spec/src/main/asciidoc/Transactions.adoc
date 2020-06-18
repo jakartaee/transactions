@@ -366,7 +366,7 @@ link:jta.html#a103[See Resource Enlistment].” and
 link:jta.html#a167[See Transaction Association],” for more
 details on resource enlistment and transaction association.
 
-=== [[a96]]Transaction Interface
+=== Transaction Interface
 
 The _Transaction_ interface allows operations
 to be performed on the transaction associated with the target object.
@@ -384,7 +384,7 @@ callbacks.
 These functions are described in the sections
 below.
 
-=== [[a103]]Resource Enlistment
+=== Resource Enlistment
 
 An application server provides the
 application run-time infrastructure that includes transactional resource
@@ -543,7 +543,7 @@ _Transaction_ __ objects are equal, they have the same hash code.
 However, the converse is not necessarily true. Two _Transaction_ __
 objects with the same hash code are not necessarily equal.
 
-=== [[a139]]XAResource Interface
+=== XAResource Interface
 
 The _javax.transaction.xa.XAResource_
 interface is a Java mapping of the industry standard XA interface based
@@ -687,7 +687,7 @@ Thus the _XAResource_ interface specified in
 this document requires that the resource managers be able to support the
 two-phase commit protocol from any thread context.
 
-=== [[a167]]Transaction Association
+=== Transaction Association
 
 Global transactions are associated with a
 transactional resource via the _XAResource.start_ __ method, and
@@ -938,7 +938,7 @@ manager to return any transactions that are currently in a prepared or
 heuristically completed state. It is the responsibility of the
 transaction manager to ignore transactions that do not belong to it.
 
-=== [[a245]]Identifying Resource Manager Instance
+=== Identifying Resource Manager Instance
 
 The _isSameRM_ __ method is invoked by the
 transaction manager to determine if the target _XAResource_ __ object
