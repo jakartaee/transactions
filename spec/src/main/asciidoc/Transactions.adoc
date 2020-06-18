@@ -108,7 +108,7 @@ between Jakarta Transactions and other Java APIs, including
 Jakarta Enterprise Beans 4.0, JDBC API, Jakarta Messaging 3.0
 Service, and Java Transaction Service.
 
-== Java SE
+=== Java SE
 
 Java SE provides the API that defines the contract between the transaction manager
 and the resource manager, which allows the transaction manager to enlist and delist
