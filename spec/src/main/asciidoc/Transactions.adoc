@@ -708,7 +708,7 @@ transaction.
 
 === Transaction Association
 
-=== 
+|===
 
 XAResource
 
@@ -780,7 +780,7 @@ T _0_
 
 T _0_
 
-
+|===
 
 === Externally Controlled connections
 
