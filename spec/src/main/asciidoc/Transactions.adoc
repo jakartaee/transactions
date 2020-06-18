@@ -1531,13 +1531,13 @@ Transaction Processing: The XA Specification, X/Open Document No.
 XO/CAE/91/300 or ISBN 1 872630 24 3
 . Java Transaction Service (JTS) Specification,
 available at 
-_http://www.oracle.com/technetwork/java/javaee/jts-spec095- 1508547.pdf_
+_http://www.oracle.com/technetwork/java/javaee/jts-spec095-1508547.pdf_
 . OMG Object Transaction Service (OTS 1.1)
 . ORB Portability
 Submission, OMG document orbos/97-04-14
 .  _Jakarta Enterprise Beans 4.0
 Specification_, available at _https://jakarta.ee/specifications/enterprise-beans/4.0/_
-.  _JDBCTM 4.1 Specification_ , available at
+.  _JDBC^TM^ 4.3 Specification_ , available at
 _http://jcp.org/en/ jsr/detail?id=221_
 .  _Jakarta Messaging 3.0 Specification_ , available at
 _https://jakarta.ee/specifications/messaging/3.0/_
