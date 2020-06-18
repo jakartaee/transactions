@@ -6,9 +6,7 @@ Copyright (c) 2020 Eclipse Foundation.
 Oracle and Java are registered trademarks of Oracle and/or its 
 affiliates. Other names may be trademarks of their respective owners. 
 
-== CHAPTER 1 - 
-
-Introduction
+== Introduction
 
 This document describes Jakarta
 Transactions. Jakarta Transactions specifies local Java interfaces between a
@@ -103,9 +101,7 @@ RDBMS
 * Advanced transactional applications written
 in the Java _TM_ programming language
 
-== CHAPTER 2 - 
-
-Relationship to Other Java APIs
+== Relationship to Other Java APIs
 
 This chapter explores the relationship
 between Jakarta Transactions and other Java APIs, including
@@ -163,9 +159,7 @@ protocol for transaction propagation between servers. JTS is intended
 for vendors that provide the transaction system infrastructure for
 enterprise middleware.
 
-== CHAPTER 3 - 
-
-Jakarta Transactions API
+== Jakarta Transactions API
 
 The Jakarta Transactions API consists of
 three elements: a high-level application transaction demarcation
@@ -1352,9 +1346,7 @@ contextNotActiveException) \{
 
 === 
 
-== CHAPTER 4 - 
-
-Jakarta Transactions Support in the Application Server
+== Jakarta Transactions Support in the Application Server
 
 This chapter provides a discussion on
 implementation and usage considerations for application servers to
