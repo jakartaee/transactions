@@ -28,8 +28,6 @@ consists of interfaces that are used to implement the transaction manager. For
 example, the Java mapping of the OTS are low-level interfaces used internally by
 a transaction manager.
 
-.
-
 === Background
 
 Distributed transaction services in
