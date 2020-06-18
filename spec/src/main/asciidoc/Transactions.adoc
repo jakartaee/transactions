@@ -181,7 +181,9 @@ The following example illustrates how an
 application component acquires and uses a _UserTransaction_ object via
 injection.
 
-=== @Resource UserTransaction userTransaction;
+[source,java]
+----
+@Resource UserTransaction userTransaction;
 
 public void updateData() \{
 
@@ -197,7 +199,8 @@ public void updateData() \{
 
  userTransaction.commit();
 
-=== }
+}
+----
 
 
 
@@ -205,7 +208,9 @@ The following example illustrates how an
 application component acquires and uses a UserTransaction object using a
 JNDI lookup.
 
-=== public void updateData() \{
+[source,java]
+----
+public void updateData() \{
 
  // Obtain the default initial JNDI context.
 
@@ -230,7 +235,8 @@ JNDI lookup.
 
  userTransaction.commit();
 
-=== }
+}
+----
 
 The _UserTransaction.begin_ __ method starts
 a global transaction and associates the transaction with the calling
@@ -518,7 +524,9 @@ to compare two _Transaction_ objects when trying to reuse a resource
 that is already enlisted with a transaction. This can be done using the
 _equals_ method.
 
-=== Transaction txObj = TransactionManager.getTransaction();
+[source,java]
+----
+Transaction txObj = TransactionManager.getTransaction();
 
 Transaction someOtherTxObj = ...
 
@@ -526,7 +534,8 @@ Transaction someOtherTxObj = ...
 
 // ..
 
-=== boolean isSame = txObj.equals(someOtherTxObj);
+boolean isSame = txObj.equals(someOtherTxObj);
+----
 
 In addition, the transaction manager must
 implement the _Transaction_ object’s _hashCode_ method so that if two
@@ -827,7 +836,9 @@ transaction.
 The sample code below illustrates the above
 scenario:
 
-=== // Suppose we have some transactional connection-based
+[source,java]
+----
+// Suppose we have some transactional connection-based
 
 // resource r1 that is connected to an
 enterprise
@@ -870,6 +881,7 @@ status = xares.prepare(xid1);
 ..
 
 xares.commit(xid1, false);
+----
 
 === Local and Global Transactions
 
@@ -936,7 +948,9 @@ returns _true_ if the specified target object is connected to the same
 resource manager instance; otherwise, the method returns _false_ . The
 semi-pseudo code below illustrates the intended usage.
 
-=== public boolean enlistResource(XAResource xares)
+[source,java]
+----
+public boolean enlistResource(XAResource xares)
 
 \{ ..
 
@@ -987,7 +1001,8 @@ instance,
 
  ..
 
-=== }
+}
+----
 
 === Dynamic Registration
 
@@ -1158,24 +1173,31 @@ The following example will override behavior
 for application exceptions, causing the transaction to be marked for
 rollback for all application exceptions.
 
-=== @Transactional(rollbackOn=\{Exception.class})
+[source,java]
+----
+@Transactional(rollbackOn={Exception.class})
+----
 
 The following example will prevent
 transactions from being marked for rollback by the interceptor when an
 _IllegalStateException_ or any of its subclasses reaches the
 interceptor.
 
-=== @Transactional(
-
-===  dontRollbackOn=\{IllegalStateException.class})
+[source,java]
+----
+@Transactional(dontRollbackOn={IllegalStateException.class})
+----
 
 The following will cause the transaction to
 be marked for rollback for all runtime exceptions and all _SQLException_
 types except for _SQLWarning_ .
 
-=== @Transactional(rollbackOn=\{SQLException.class},
-
-===  dontRollbackOn=\{SQLWarning.class})
+[source,java]
+----
+@Transactional(
+        rollbackOn={SQLException.class},
+        dontRollbackOn={SQLWarning.class})
+----
 
 The _TransactionalException_ thrown from the
 _Transactional_ interceptors implementation is a _RuntimeException_ and
@@ -1199,19 +1221,16 @@ Jakarta EE specification . The transaction scope is active when the return
 from a call to _UserTransaction.getStatus_ or
 _TransactionManager.getStatus_ is one of the following states:
 
-=== Status.STATUS_ACTIVE
-
+[source,java]
+----
+Status.STATUS_ACTIVE
 Status.STATUS_MARKED_ROLLBACK
-
 Status.STATUS_PREPARED
-
 Status.STATUS_UNKNOWN
-
 Status.STATUS_PREPARING
-
 Status.STATUS_COMMITTING
-
-=== Status.STATUS_ROLLING_BACK
+Status.STATUS_ROLLING_BACK
+----
 
 It is not intended that the term “active” as
 defined here in relation to the _TransactionScoped_ annotation should
@@ -1239,7 +1258,9 @@ the expected behavior.
  _TransactionScoped_ annotated Jakarta Context Dependency Injection 3.0 managed
 bean:
 
-=== @TransactionScoped
+[source,java]
+----
+@TransactionScoped
 
  public class TestCDITransactionScopeBean \{
 
@@ -1251,30 +1272,13 @@ bean:
 
  }
 
-===  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+----
 
 Test Class: +
 
+[source,java]
+----
 @Inject
 
 UserTransaction userTransaction;
@@ -1337,8 +1341,7 @@ contextNotActiveException) \{
  // do nothing intentionally
 
  }
-
-=== 
+----
 
 == Jakarta Transactions Support in the Application Server
 
@@ -1401,11 +1404,11 @@ The code sample below illustrates how the
 application server obtains the _XAResource_ object reference and enlists
 it with the transaction manager.
 
-=== // Acquire some connection-based transactional resource to
+[source,java]
+----
+// Acquire some connection-based transactional resource to
 
 // access the resource manager
-
-=== 
 
 Context ctx = InitialContext();
 
@@ -1438,7 +1441,8 @@ Connection con =
 
 
 
-=== // return the connection to the application
+// return the connection to the application
+----
 
 === Transaction Association and Connection Request Flow
 
