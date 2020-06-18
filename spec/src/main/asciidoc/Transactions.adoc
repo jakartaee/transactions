@@ -331,15 +331,11 @@ If the transaction specified is a valid transaction, the transaction
 context is associated with the calling thread; otherwise, the thread is
 associated with no transaction.
 
-=== Transaction tobj = TransactionManager.suspend();
-
-=== 
-
-..
-
-=== TransactionManager.resume(tobj);
-
-=== 
+[source,java]
+----
+Transaction tobj = TransactionManager.suspend();
+TransactionManager.resume(tobj);
+----
 
 If _TransactionManager.resume_ __ is invoked
 when the calling thread is already associated with another transaction,
