@@ -1540,7 +1540,7 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 
 === 
 
-===  aPPENDIX
+===  APPENDIX
 
 === Revision History
 
