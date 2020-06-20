@@ -108,6 +108,7 @@
                         </goals>
                         <configuration>
                             <backend>xhtml</backend>
+                            <imagesDir>./</imagesDir>
                             <attributes>
                                 <doctype>book</doctype>
                                 <status>${status}</status>
@@ -130,6 +131,7 @@
                         </goals>
                         <configuration>
                             <backend>pdf</backend>
+                            <imagesDir>./</imagesDir>
                             <attributes>
                                 <pdf-stylesdir>${project.basedir}/src/theme</pdf-stylesdir>
                                 <pdf-style>jakartaee</pdf-style>

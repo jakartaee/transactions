@@ -83,7 +83,9 @@ describes each portion of the specification in details.
 
 
 
-image:transactions-2.png[image]
+image::images/transactions-2.png[]
+
+
 
 === Target Audience
 
@@ -564,7 +566,7 @@ Transaction Service (JTS), to coordinate transactions.
 
 
 
-image:transactions-3.png[image]
+image::images/transactions-3.png[]
 
 
 
@@ -1392,7 +1394,7 @@ transaction manager.
 
 
 
-image:transactions-4.png[image]
+image::images/transactions-4.png[]
 
 In this usage scenario, the _XAResource_
 interface is transparent to the application program, and the
@@ -1497,7 +1499,7 @@ interfaces as part of the application connection request handling.
 
 
 
-image:transactions-5.png[image]
+image::images/transactions-5.png[]
 
 === 
 
