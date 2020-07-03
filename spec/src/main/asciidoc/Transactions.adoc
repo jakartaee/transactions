@@ -301,8 +301,8 @@ context currently associated with the calling thread. This _Transaction_
 object can be used to perform various operations on the target
 transaction. Examples of _Transaction_ __ object operations are resource
 enlistment and synchronization registration. The _Transaction_ __
-interface is described in link:jta.html#a96[See Transaction
-Interface].”
+interface is described in <<a96,See Transaction
+Interface>>.”
 
 === Completing a Transaction
 
@@ -364,10 +364,11 @@ application is again enlisted with the transaction. Enlisting a resource
 as a result of resuming a transaction triggers the transaction manager
 to inform the resource manager to re-associate the resource object with
 the resumed transaction ( _XAResource.start(TMRESUME)_ ). Refer to
-link:jta.html#a103[See Resource Enlistment].” and
-link:jta.html#a167[See Transaction Association],” for more
+<<a103,See Resource Enlistment>>.” and
+<<a167,See Transaction Association>>,” for more
 details on resource enlistment and transaction association.
 
+[[a96]]
 === Transaction Interface
 
 The _Transaction_ interface allows operations
@@ -386,6 +387,7 @@ callbacks.
 These functions are described in the sections
 below.
 
+[[a103]]
 === Resource Enlistment
 
 An application server provides the
@@ -423,7 +425,7 @@ corresponding resource—by invoking the _XAResource.start_ __ method. The
 transaction manager is responsible for passing the appropriate flag in
 its _XAResource.start_ __ method call to the resource manager. The
 _XAResource_ __ interface is described in
-link:jta.html#a139[See XAResource Interface].”
+<<a139,See XAResource Interface>>.”
 
 If the target transaction already has another
 _XAResource_ __ object participating in the transaction, the transaction
@@ -447,7 +449,7 @@ informed about the transaction completion with proper prepare-commit
 calls.
 
 The _isSameRM_ __ method is discussed in
-link:jta.html#a245[See Identifying Resource Manager Instance].”
+<<a245,See Identifying Resource Manager Instance>>.”
 
 The _Transaction.delistResource_ __ method is
 used to disassociate the specified resource from the transaction context
@@ -545,6 +547,7 @@ _Transaction_ __ objects are equal, they have the same hash code.
 However, the converse is not necessarily true. Two _Transaction_ __
 objects with the same hash code are not necessarily equal.
 
+[[a139]]
 === XAResource Interface
 
 The _javax.transaction.xa.XAResource_
@@ -689,6 +692,7 @@ Thus the _XAResource_ interface specified in
 this document requires that the resource managers be able to support the
 two-phase commit protocol from any thread context.
 
+[[a167]]
 === Transaction Association
 
 Global transactions are associated with a
@@ -940,6 +944,7 @@ manager to return any transactions that are currently in a prepared or
 heuristically completed state. It is the responsibility of the
 transaction manager to ignore transactions that do not belong to it.
 
+[[a245]]
 === Identifying Resource Manager Instance
 
 The _isSameRM_ __ method is invoked by the
@@ -1553,7 +1558,7 @@ _javax.transaction.TransactionalException_
 * New annotation
 _javax.transaction.TransactionScoped_
 * Added the following description to the end of
-link:jta.html#a103[See Resource Enlistment]”: "A container only
+<<a103,See Resource Enlistment>>”: "A container only
 needs to call _delistResource_ to explicitly dissociate a resource from
 a transaction and it is not a mandatory container requirement to do so
 as a precondition to transaction completion. A transaction manager is,
@@ -1566,8 +1571,8 @@ updates, etc.
 
 === Changes for Version 1.1
 
-* link:jta.html#a139[See XAResource
-Interface]”: The line "The transaction manager obtains an _XAResource_
+* <<a139,See XAResource
+Interface>>”: The line "The transaction manager obtains an _XAResource_
 for each resource manager participating in a global transaction." has
 been changed to "The transaction manager obtains an _XAResource_ for
 each transaction resource participating in a global transaction.".
