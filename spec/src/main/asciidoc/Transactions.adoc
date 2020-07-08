@@ -1354,8 +1354,8 @@ application’s transactions and resource usage are managed by the
 application server. We further assume that access to the underlying
 transactional resource manager is through some Java API implemented by
 the resource adapter representing the resource manager. For example, a
-JDBC driver may be used to access a relational database, a Java EE
-Connector architecture resource adapter may be used to access an Enterprise Resource Planning (ERP) system, and
+JDBC driver may be used to access a relational database, a Jakarta
+Connectors resource adapter may be used to access an Enterprise Resource Planning (ERP) system, and
 so on. This section focuses on the usage of Jakarta Transactions and assumes a generic
 connection based transactional resource is in use without being specific
 about a particular type of resource manager.
