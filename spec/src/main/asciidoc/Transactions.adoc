@@ -140,7 +140,7 @@ interface. Refer to the _JDBC 4.3 Specification_ for further details.
 === Jakarta Messaging 3.0
 
 Jakarta Transactions may be used by a
-Jakarta Messaging 3.0 Service provider to support distributed transactions. A JMS
+Jakarta Messaging 3.0 Service provider to support distributed transactions. A Jakarta Messaging 3.0
 provider that supports the _XAResource_ interface is able to participate
 as a resource manager in a distributed transaction processing system
 that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging 3.0
