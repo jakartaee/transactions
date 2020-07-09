@@ -123,7 +123,7 @@ specifies this API consisting of the following types:
 
 The Jakarta Enterprise Beans 4.0 architecture
 requires that an Jakarta Enterprise Beans 4.0 Container support application-level transaction
-demarcation by implementing the _javax.transaction.UserTransaction_
+demarcation by implementing the _jakarta.transaction.UserTransaction_
 interface. The _UserTransaction_ interface is intended to be used by
 both the enterprise bean implementer (for beans with bean-managed
 transactions) and by the client programmer that wants to explicitly
@@ -145,7 +145,7 @@ provider that supports the _XAResource_ interface is able to participate
 as a resource manager in a distributed transaction processing system
 that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging 3.0
 provider implements the _javax.transaction.xa.XAResource_ interface, the
-_javax.jms.XAConnection_ interface, and the _javax.jms.XASession_
+_jakarta.jms.XAConnection_ interface, and the _jakarta.jms.XASession_
 interface. Refer to the Jakarta Messaging 3.0 Specification for further details.
 
 === Java Transaction Service
@@ -170,7 +170,7 @@ specifies each of these elements in detail.
 
 === User Transaction Interface
 
-The _javax.transaction.UserTransaction_ __
+The _jakarta.transaction.UserTransaction_ __
 interface provides the application the ability to control transaction
 boundaries programmatically.
 
@@ -263,7 +263,7 @@ application programs.
 
 === TransactionManager Interface
 
-The _javax.transaction.TransactionManager_ __
+The _jakarta.transaction.TransactionManager_ __
 interface allows the application server to control transaction
 boundaries on behalf of the application being managed. For example, the
 Jakarta Enterprise Beans 4.0 container manages the transaction states for transactional Jakarta Enterprise Beans 4.0
@@ -492,7 +492,7 @@ Transaction synchronization allows the
 application server to get notification from the transaction manager
 before and after the transaction completes. For each transaction
 started, the application server may optionally register a
-_javax.transaction.Synchronization_ __ callback object to be invoked by
+_jakarta.transaction.Synchronization_ __ callback object to be invoked by
 the transaction manager:
 
 * The _Synchronization.beforeCompletion_ __
@@ -1036,7 +1036,7 @@ programs nor the application server.
 === TransactionSynchronizationRegistry Interface
 
 The
-_javax.transaction.TransactionSynchronizationRegistry_ interface is
+_jakarta.transaction.TransactionSynchronizationRegistry_ interface is
 intended for use by system level application server components such as
 persistence managers. This provides the ability to register
 synchronization objects with special ordering semantics, associate
@@ -1077,7 +1077,7 @@ _putResource_ methods to the _TransactionSynchronizationRegistry_ .
 
 === Transactional Annotation
 
-The _javax.transaction.Transactional_
+The _jakarta.transaction.Transactional_
 annotation provides the application the ability to declaratively control
 transaction boundaries on Jakarta Context Dependency Injection 3.0 managed beans, as well as classes defined
 as managed beans by the Jakarta EE specification, at both the class and
@@ -1214,7 +1214,7 @@ begun by the first bean will be marked for rollback.
 
 === TransactionScoped Annotation
 
-The _javax.transaction.TransactionScoped_
+The _jakarta.transaction.TransactionScoped_
 annotation provides the ability to specify a standard Jakarta Context Dependency Injection 3.0 scope to
 define bean instances whose lifecycle is scoped to the currently active
 Jakarta Transactions transaction. This annotation has no effect on classes which have
