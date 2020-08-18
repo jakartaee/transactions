@@ -301,8 +301,8 @@ context currently associated with the calling thread. This _Transaction_
 object can be used to perform various operations on the target
 transaction. Examples of _Transaction_ __ object operations are resource
 enlistment and synchronization registration. The _Transaction_ __
-interface is described in <<a96,See Transaction
-Interface>>.”
+interface is described in "`<<a96,See Transaction
+Interface>>.`"
 
 === Completing a Transaction
 
@@ -364,8 +364,8 @@ application is again enlisted with the transaction. Enlisting a resource
 as a result of resuming a transaction triggers the transaction manager
 to inform the resource manager to re-associate the resource object with
 the resumed transaction ( _XAResource.start(TMRESUME)_ ). Refer to
-<<a103,See Resource Enlistment>>.” and
-<<a167,See Transaction Association>>,” for more
+"`<<a103,See Resource Enlistment>>.`" and
+"`<<a167,See Transaction Association>>,`" for more
 details on resource enlistment and transaction association.
 
 [[a96]]
@@ -425,7 +425,7 @@ corresponding resource—by invoking the _XAResource.start_ __ method. The
 transaction manager is responsible for passing the appropriate flag in
 its _XAResource.start_ __ method call to the resource manager. The
 _XAResource_ __ interface is described in
-<<a139,See XAResource Interface>>.”
+"`<<a139,See XAResource Interface>>.`"
 
 If the target transaction already has another
 _XAResource_ __ object participating in the transaction, the transaction
@@ -449,7 +449,7 @@ informed about the transaction completion with proper prepare-commit
 calls.
 
 The _isSameRM_ __ method is discussed in
-<<a245,See Identifying Resource Manager Instance>>.”
+"`<<a245,See Identifying Resource Manager Instance>>.`"
 
 The _Transaction.delistResource_ __ method is
 used to disassociate the specified resource from the transaction context
@@ -613,7 +613,7 @@ support asynchronous operations.
 * Error return values that are caused by the
 transaction manager’s improper handling of the _XAResource_ object are
 mapped to Java exceptions via the _XAException_ class.
-* The DTP concept of “Thread of Control” maps
+* The DTP concept of “Thread of Control`" maps
 to all Java threads that are given access to the _XAResource_ and
 _Connection_ objects. For example, it is legal (although in practice
 rarely used) for two different Java threads to perform the _start_ __
@@ -1020,7 +1020,7 @@ _XAResource_ because of the following reasons:
 server environment, connections to the resource manager are acquired
 dynamically when the application explicitly requests for a connection.
 These resources are enlisted with the transaction manager on an
-“as-needed” basis (unlike the static _xa_switch_ table that exists in
+"`as-needed`" basis (unlike the static _xa_switch_ table that exists in
 the C-XA procedural model).
 * If a resource manager requires a way to
 dynamically register its work to the global transaction, then the
@@ -1239,7 +1239,7 @@ Status.STATUS_COMMITTING
 Status.STATUS_ROLLING_BACK
 ----
 
-It is not intended that the term “active” as
+It is not intended that the term "`active`" as
 defined here in relation to the _TransactionScoped_ annotation should
 also apply to its use in relation to transaction context, lifecycle,
 etc. mentioned elsewhere in this specification. The object with this
@@ -1340,7 +1340,7 @@ original tx1 +
  testTxAssociationChangeBean.test();
 
  fail( +
-“should have thrown ContextNotActiveException”);
+"should have thrown ContextNotActiveException");
 
  } catch (ContextNotActiveException +
 contextNotActiveException) \{
@@ -1420,7 +1420,7 @@ it with the transaction manager.
 Context ctx = InitialContext();
 
 ResourceFactory rf
-=(ResourceFactory)ctx.lookup(“MyEISResource”);
+=(ResourceFactory)ctx.lookup("MyEISResource");
 
 TransactionalResource res =
 rf.getTransactionalResource();
@@ -1558,7 +1558,7 @@ _javax.transaction.TransactionalException_
 * New annotation
 _javax.transaction.TransactionScoped_
 * Added the following description to the end of
-<<a103,See Resource Enlistment>>”: "A container only
+"`<<a103,See Resource Enlistment>>`": "A container only
 needs to call _delistResource_ to explicitly dissociate a resource from
 a transaction and it is not a mandatory container requirement to do so
 as a precondition to transaction completion. A transaction manager is,
@@ -1571,8 +1571,8 @@ updates, etc.
 
 === Changes for Version 1.1
 
-* <<a139,See XAResource
-Interface>>”: The line "The transaction manager obtains an _XAResource_
+* "`<<a139,See XAResource
+Interface>>`": The line "The transaction manager obtains an _XAResource_
 for each resource manager participating in a global transaction." has
 been changed to "The transaction manager obtains an _XAResource_ for
 each transaction resource participating in a global transaction.".
@@ -1648,9 +1648,9 @@ description with "Modify the timeout value that is associated with
 transactions started by subsequent invocations of the _begin_ method.".
 * Interface _javax.transaction.UserTransaction_
 , method _setTransactionTimeout_ , replace the description of method
-parameter _seconds_ with “The value of the timeout in seconds. If the
+parameter _seconds_ with "`The value of the timeout in seconds. If the
 value is zero, the transaction service restores the default value. If
-the value is negative a _SystemException_ is thrown.”
+the value is negative a _SystemException_ is thrown.`"
 * Interface _javax.transaction.xa.XAResource_ ,
 method _commit_ , insert return type _void_ to method signature
 description.
@@ -1697,7 +1697,7 @@ _javax.transaction.xa.XAException_ .
 '''''
 
 [.footnoteNumber]# 1.# [[a471]]Transaction Branch is
-defined in the X/Open XA spec [1] as follows: “A global transaction has
+defined in the X/Open XA spec [1] as follows: "`A global transaction has
 one or more transaction branches. A branch is a part of the work in
 support of a global transaction for which the transaction manager and
 the resource manager engage in a separate but coordinated transaction
@@ -1711,6 +1711,6 @@ branches are related in that they must be completed atomically. Each
 transaction branch identifier (or XID) that the transaction manager
 gives the resource manager identifies both a global transaction and a
 specific branch. The resource manager may use this information to
-optimize its use of shared resources and locks.”
+optimize its use of shared resources and locks.`"
 
 
