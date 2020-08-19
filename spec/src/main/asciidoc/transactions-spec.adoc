@@ -10,9 +10,10 @@
 :license: Eclipse Foundation Specification License v1.0
 :source-highlighter: coderay
 :toc: left
-:toclevels: 4
+:toclevels: 3
 :sectnumlevels: 4
 :sectanchors:
+:imagesdir: images
 ifdef::backend-pdf[]
 :pagenums:
 :numbered:
@@ -24,5 +25,7 @@ endif::[]
 include::license-efsl.adoc[]
 
 // == Scope
-:sectnums:
+:sectnums!:
 include::scope.adoc[]
+
+include::Transactions.adoc[]
