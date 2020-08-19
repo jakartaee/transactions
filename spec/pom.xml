@@ -126,7 +126,7 @@
                             <sourceDocumentName>transactions-spec.adoc</sourceDocumentName>
                             <outputFile>${project.build.directory}/generated-docs/jakarta-transaction-spec-${project.version}.pdf</outputFile>
                             <attributes>
-                                <pdf-stylesdir>${project.basedir}/src/theme</pdf-stylesdir>
+                                <pdf-stylesdir>${project.basedir}/src/main/theme</pdf-stylesdir>
                                 <pdf-style>jakartaee</pdf-style>
                                 <pagenums />
                                 <toc />
