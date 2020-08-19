@@ -624,7 +624,7 @@ support asynchronous operations.
 * Error return values that are caused by the
 transaction manager’s improper handling of the _XAResource_ object are
 mapped to Java exceptions via the _XAException_ class.
-* The DTP concept of “Thread of Control`" maps
+* The DTP concept of "`Thread of Control`" maps
 to all Java threads that are given access to the _XAResource_ and
 _Connection_ objects. For example, it is legal (although in practice
 rarely used) for two different Java threads to perform the _start_ __
