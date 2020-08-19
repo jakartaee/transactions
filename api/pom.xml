@@ -177,7 +177,7 @@
                       <manifestEntries>
                           <!-- for JDK 9 -->
                           <Automatic-Module-Name>
-                            java.transaction
+                            jakarta.transaction
                           </Automatic-Module-Name>
                       </manifestEntries>
                     </archive>
