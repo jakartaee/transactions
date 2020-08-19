@@ -82,9 +82,7 @@ half-circle represents the Jakarta Transactions specification. Chapter 3 of the 
 describes each portion of the specification in details.
 
 
-
-image::images/transactions-2.png[]
-
+image::transactions-2.png[align="center"]
 
 
 === Target Audience
@@ -187,7 +185,7 @@ injection.
 ----
 @Resource UserTransaction userTransaction;
 
-public void updateData() \{
+public void updateData() {
 
  // Start a transaction.
 
@@ -212,7 +210,7 @@ JNDI lookup.
 
 [source,java]
 ----
-public void updateData() \{
+public void updateData() {
 
  // Obtain the default initial JNDI context.
 
@@ -444,7 +442,22 @@ completing the target global transaction.
 If the _XAResource_ __ object represents a
 resource manager that has not previously seen the global transaction,
 the transaction manager establishes a different transaction branch
-IDlink:#a471[1] and ensures that this new resource manager is
+.footnote:[Transaction Branch is defined in the X/Open XA spec as follows:
+"`A global transaction has
+one or more transaction branches. A branch is a part of the work in
+support of a global transaction for which the transaction manager and
+the resource manager engage in a separate but coordinated transaction
+commitment protocol. Each of the resource manager’s internal units of
+work in support of a global transaction is part of exactly one branch.
+After the transaction manager begins the transaction commitment
+protocol, the resource manager receives no additional work to do on that
+transaction branch. The resource manager may receive additional work on
+behalf of the same transaction, from different branches. The different
+branches are related in that they must be completed atomically. Each
+transaction branch identifier (or XID) that the transaction manager
+gives the resource manager identifies both a global transaction and a
+specific branch. The resource manager may use this information to
+optimize its use of shared resources and locks.`"] and ensures that this new resource manager is
 informed about the transaction completion with proper prepare-commit
 calls.
 
@@ -568,9 +581,7 @@ system relies on an external transaction manager, such as Java
 Transaction Service (JTS), to coordinate transactions.
 
 
-
-image::images/transactions-3.png[]
-
+image::transactions-3.png[align="center"]
 
 
 The _XAResource_ interface can be supported
@@ -718,82 +729,50 @@ invoked on a connection that is currently associated with a different
 transaction.
 
 
+.Transaction Association
+[cols=4,width="100%"]
+|====================
+.2+h| XAResource Methods
+3+h| XAResource Transaction States
 
-=== Transaction Association
-
-|===
-
-XAResource
-
-Methods
-
-XAResource Transaction States
-
-Not Associated
-
-T _0_
-
-Associated
+// | X
+h| Not Associated \(T~0~)
+h| Associated (T~1~)
+h| Associaton Suspended (T~2~)
 
 
+| _start()_
+| T ~1~
+|
+|
 
-T _1_
+| _start(TMRESUME)_
+|
+|
+| T~1~
 
-Association
+| _start(TMJOIN)_
+| T ~1~
+|
+|
 
-Suspended
+| _end(TMSUSPEND)_
+|
+| T ~2~
+|
 
-T _2_
+| _end(TMFAIL)_
+|
+| T ~0~
+| T ~0~
 
- _start()_
+| _end(TMSUCCESS)_
+|
+| T ~0~
+| T ~0~
 
-T _1_
+|====================
 
-
-
-
-
- _start(TMRESUME)_
-
-
-
-
-
-T _1_
-
- _start(TMJOIN)_
-
-T _1_
-
-
-
- __ 
-
- _end(TMSUSPEND)_
-
-
-
-T _2_
-
-
-
- _end(TMFAIL)_
-
-
-
-T _0_
-
-T _0_
-
- _end(TMSUCCESS)_
-
-
-
-T _0_
-
-T _0_
-
-|===
 
 === Externally Controlled connections
 
@@ -845,13 +824,8 @@ scenario:
 [source,java]
 ----
 // Suppose we have some transactional connection-based
-
-// resource r1 that is connected to an
-enterprise
-
+// resource r1 that is connected to an enterprise
 // information service system.
-
-//
 
 XAResource xares = r1.getXAResource();
 
@@ -860,31 +834,26 @@ XAResource xares = r1.getXAResource();
 xares.start(xid1); // associate xid1 to the
 connection
 
-..
+...
 
 xares.end(xid1); // dissociate xid1 frm the
 connection
 
-..
+...
+
+
+xares.start(xid2); // associate xid2 to the connection
+
+...
 
 
 
-xares.start(xid2); // associate xid2 to the
-connection
-
-..
-
-
-
-// While the connection is associated with
-xid2,
-
-// the transaction manager starts the commit
-process +
-// for xid1 +
+// While the connection is associated with xid2,
+// the transaction manager starts the commit process
+// for xid1
 status = xares.prepare(xid1);
 
-..
+...
 
 xares.commit(xid1, false);
 ----
@@ -957,56 +926,32 @@ semi-pseudo code below illustrates the intended usage.
 
 [source,java]
 ----
-public boolean enlistResource(XAResource xares)
-
-\{ ..
-
+public boolean enlistResource(XAResource xares) {
+...
 
 
- // Assuming xid1 is the target transaction
-and
-
- // xid1 already has another resource object
-xaRes1
-
+ // Assuming xid1 is the target transaction and
+ // xid1 already has another resource object xaRes1
  // participating in the transaction
-
-
 
  boolean sameRM = xares.isSameRM(xaRes1);
 
- if (sameRM) \{
-
+ if (sameRM) {
  //
-
- // Same underlying resource manager
-instance,
-
- // group together with xaRes1 and join the
-transaction
-
+ // Same underlying resource manager instance,
+ // group together with xaRes1 and join the transaction
  //
-
  xares.start(xid1, TMJOIN);
 
-} else \{
-
+ } else {
  //
-
- // This is a different resource manager
-instance,
-
+ // This is a different resource manager instance,
  // make a new transaction branch for xid1
-
  //
-
  Xid xid1NewBranch = makeNewBranch(xid1);
-
  xares.start(xid1NewBranch, TMNOFLAGS);
-
  }
-
- ..
+ ...
 
 }
 ----
@@ -1269,14 +1214,10 @@ bean:
 ----
 @TransactionScoped
 
- public class TestCDITransactionScopeBean \{
+ public class TestCDITransactionScopeBean {
 
- public void test()
-
- \{
-
+ public void test() {
  //...
-
  }
 
 }
@@ -1286,69 +1227,54 @@ Test Class: +
 
 [source,java]
 ----
-@Inject
-
-UserTransaction userTransaction;
-
+ @Inject
+ UserTransaction userTransaction;
  TransactionManager transactionManager;
 
  @Inject
-
- TestCDITransactionScopeBean
-testTxAssociationChangeBean;
+ TestCDITransactionScopeBean testTxAssociationChangeBean;
 
 
-
- public void testTxAssociationChange() throws
-Exception \{
-
+ public void testTxAssociationChange() throws Exception {
  userTransaction.begin(); //tx1 begun
-
  testTxAssociationChangeBean.test();
 
- // assert testTxAssociationChangeBean
-instance has tx1 +
-// association +
-Transaction transaction = +
-transactionManager.suspend(); +
-// tx1 suspended
+ // assert testTxAssociationChangeBean instance has tx1
+ // association
+ Transaction transaction = transactionManager.suspend();
 
+ // tx1 suspended
  userTransaction.begin(); //tx2 begun
 
  testTxAssociationChangeBean.test();
 
- // assert new testTxAssociationChangeBean
-instance has +
-// tx2 association
+ // assert new testTxAssociationChangeBean  instance has
+ // tx2 association
 
- userTransaction.commit(); +
+ userTransaction.commit();
 // tx2 committed, assert no transaction scope is active
 
- transactionManager.resume(transaction); +
-// tx1 resumed +
-testTxAssociationChangeBean.test();
-
- // assert testTxAssociationChangeBean is
-original tx1 +
-// instance and not still referencing committed/tx2 tx
-
- userTransaction.commit(); +
-// tx1 commit, assert no transaction scope is active
-
- try \{
-
+ transactionManager.resume(transaction);
+ // tx1 resumed
  testTxAssociationChangeBean.test();
 
- fail( +
-"should have thrown ContextNotActiveException");
+ // assert testTxAssociationChangeBean is original tx1
+ // instance and not still referencing committed/tx2 tx
 
- } catch (ContextNotActiveException +
-contextNotActiveException) \{
+ userTransaction.commit();
+ // tx1 commit, assert no transaction scope is active
 
+ try {
+  testTxAssociationChangeBean.test();
+  fail("should have thrown ContextNotActiveException");
+ } catch (ContextNotActiveException contextNotActiveException) {
  // do nothing intentionally
 
- }
+}
 ----
+
+// generates a line between text and footnotes for pdf and html generation.
+'''
 
 == Jakarta Transactions Support in the Application Server
 
@@ -1397,9 +1323,7 @@ supported by the resource manager. The diagram below illustrates a
 general flow of acquiring resource and enlisting the resource to the
 transaction manager.
 
-
-
-image::images/transactions-4.png[]
+image::transactions-4.png[align="center"]
 
 In this usage scenario, the _XAResource_
 interface is transparent to the application program, and the
@@ -1414,39 +1338,24 @@ it with the transaction manager.
 [source,java]
 ----
 // Acquire some connection-based transactional resource to
-
 // access the resource manager
 
 Context ctx = InitialContext();
 
-ResourceFactory rf
-=(ResourceFactory)ctx.lookup("MyEISResource");
+ResourceFactory rf =(ResourceFactory)ctx.lookup("MyEISResource");
 
 TransactionalResource res =
 rf.getTransactionalResource();
 
-
-
-// Obtain the XAResource part of the
-connection and
-
+// Obtain the XAResource part of the connection and
 // enlist it with the transaction manager
 
-
-
 XAResource xaRes = res.getXAResource();
-
 (TransactionManager.getTransaction()).enlistResource(xaRes);
 
 
-
-// get the connection part of the transaction
-resource
-
-Connection con =
-(Connection)res.getConnection();
-
-
+// get the connection part of the transaction resource
+Connection con = (Connection)res.getConnection();
 
 // return the connection to the application
 ----
@@ -1503,10 +1412,8 @@ server’s usage of the _TransactionManager_ and _XAResource_ __
 interfaces as part of the application connection request handling.
 
 
+image::transactions-5.png[align="center"]
 
-image::images/transactions-5.png[]
-
-=== 
 
 === Other Requirements
 
@@ -1694,23 +1601,8 @@ _javax.transaction.xa.XAException_ .
 
 
 
-'''''
+// generates a line between text and footnotes for pdf and html generation.
+'''
 
-[.footnoteNumber]# 1.# [[a471]]Transaction Branch is
-defined in the X/Open XA spec [1] as follows: "`A global transaction has
-one or more transaction branches. A branch is a part of the work in
-support of a global transaction for which the transaction manager and
-the resource manager engage in a separate but coordinated transaction
-commitment protocol. Each of the resource manager’s internal units of
-work in support of a global transaction is part of exactly one branch.
-After the transaction manager begins the transaction commitment
-protocol, the resource manager receives no additional work to do on that
-transaction branch. The resource manager may receive additional work on
-behalf of the same transaction, from different branches. The different
-branches are related in that they must be completed atomically. Each
-transaction branch identifier (or XID) that the transaction manager
-gives the resource manager identifies both a global transaction and a
-specific branch. The resource manager may use this information to
-optimize its use of shared resources and locks.`"
 
 
