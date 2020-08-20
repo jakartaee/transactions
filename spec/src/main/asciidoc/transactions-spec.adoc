@@ -24,8 +24,6 @@ endif::[]
 :sectnums!:
 include::license-efsl.adoc[]
 
-// == Scope
 :sectnums!:
-include::scope.adoc[]
 
 include::Transactions.adoc[]
