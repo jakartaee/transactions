@@ -1198,7 +1198,7 @@ completed (for example via _UserTransaction_ , _Transactional_
 interceptor, etc.) is of no consequence. The contextual references used
 across different Jakarta Transactions transactions are distinct. Refer to the Jakarta Context Dependency Injection 3.0
 specification for more details on contextual references. A
-_javax.enterprise.context.ContextNotActiveException_ must be thrown if a
+_jakarta.enterprise.context.ContextNotActiveException_ must be thrown if a
 bean with this annotation is used when the transaction context is not
 active.
 
