@@ -23,6 +23,8 @@ package jakarta.transaction;
  * method, the application server registers a Synchronization object
  * for the transaction currently associated with the target Transaction
  * object.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public interface Synchronization {
 

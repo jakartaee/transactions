@@ -20,6 +20,8 @@ package jakarta.transaction;
  * This exception is thrown by the rollback operation on a resource to
  * report that a heuristic decision was made and that all relevant updates
  * have been committed.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class HeuristicCommitException extends java.lang.Exception  
 {

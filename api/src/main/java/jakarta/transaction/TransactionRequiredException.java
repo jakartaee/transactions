@@ -19,6 +19,8 @@ package jakarta.transaction;
 /**
  * This exception indicates that a request carried a null transaction context,
  * but the target object requires an active transaction.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class TransactionRequiredException extends java.rmi.RemoteException 
 {

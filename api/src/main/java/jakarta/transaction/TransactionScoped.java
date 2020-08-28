@@ -57,6 +57,7 @@ import jakarta.enterprise.context.NormalScope;
  * will be thrown if an object with this annotation is used when the
  * transaction context is not active.</p>
  *
+ *  @version Jakarta Transactions 2.0
  *  @since JTA 1.2
  */
 @Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
