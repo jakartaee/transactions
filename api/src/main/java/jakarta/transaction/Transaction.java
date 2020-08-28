@@ -27,6 +27,8 @@ import java.lang.SecurityException;
  * The Transaction object can be used for resource enlistment,
  * synchronization registration, transaction completion, and status
  * query operations.
+ *
+ * @version Jakarta Transactions 2.0
  */
 
 public interface Transaction {

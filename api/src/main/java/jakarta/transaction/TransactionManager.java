@@ -22,6 +22,8 @@ import java.lang.SecurityException;
 /**
  * The TransactionManager interface defines the methods that allow an
  * application server to manage transaction boundaries.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public interface TransactionManager {
 

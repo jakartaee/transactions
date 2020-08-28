@@ -30,6 +30,7 @@ package jakarta.transaction;
  *  Transactional(TxType.NEVER), the transaction begun by the first bean
  *  will be marked for rollback.
  *
+ * @version Jakarta Transactions 2.0
  * @since JTA 1.2
  */
 public class TransactionalException extends RuntimeException {

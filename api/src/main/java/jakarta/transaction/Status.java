@@ -19,6 +19,8 @@ package jakarta.transaction;
 /**
  * The Status interface defines static variables used for transaction 
  * status codes.
+ *
+ * @version Jakarta Transactions 2.0
  */
 
 public interface Status {

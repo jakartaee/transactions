@@ -20,6 +20,8 @@ package jakarta.transaction;
  * This exception is thrown to report that a heuristic decision was made and
  * that some relevant updates have been committed and others have been
  * rolled back.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class HeuristicMixedException extends java.lang.Exception  
 {

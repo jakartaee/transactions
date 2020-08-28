@@ -25,6 +25,8 @@ package jakarta.transaction;
  * transaction. (A nested transaction occurs when a thread is already
  * associated with one transaction and attempts to start a second 
  * transaction.)
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class NotSupportedException extends java.lang.Exception 
 {
