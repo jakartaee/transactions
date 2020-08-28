@@ -22,6 +22,8 @@ package jakarta.transaction;
  * Thus the requested operation either could not be performed or was not 
  * performed because further computation on behalf of the transaction would be
  * fruitless.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class TransactionRolledbackException extends java.rmi.RemoteException 
 {

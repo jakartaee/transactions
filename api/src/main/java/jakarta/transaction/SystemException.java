@@ -20,6 +20,8 @@ package jakarta.transaction;
  * The SystemException is thrown by the transaction manager to 
  * indicate that it has encountered an unexpected error condition
  * that prevents future transaction services from proceeding.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class SystemException extends java.lang.Exception {
 

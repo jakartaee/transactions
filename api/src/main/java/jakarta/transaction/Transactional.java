@@ -52,6 +52,7 @@ import java.lang.annotation.*;
  * <p>When a class is specified for either of these elements, the designated behavior applies to subclasses
  * of that class as well. If both elements are specified, dontRollbackOn takes precedence.</p>
  *
+ * @version Jakarta Transactions 2.0
  * @since JTA 1.2
  */
 @Inherited
@@ -70,6 +71,8 @@ public @interface Transactional {
      * The TxType element of the annotation indicates whether a bean method is to be
      * executed within a transaction context where the values provide the following
      * corresponding behavior.
+     *
+     * @version Jakarta Transactions 2.0
      */
     public enum TxType {
         /**

@@ -33,6 +33,7 @@ package jakarta.transaction;
  * implementing this interface can be looked up by a standard name via JNDI.
  * The standard name is java:comp/TransactionSynchronizationRegistry.
  *
+ * @version Jakarta Transactions 2.0
  * @since JTA 1.1
  */
 public interface TransactionSynchronizationRegistry {

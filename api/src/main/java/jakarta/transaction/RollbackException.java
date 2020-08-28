@@ -22,6 +22,8 @@ package jakarta.transaction;
  * instead of committed. This is a local exception thrown by methods 
  * in the <code>UserTransaction</code>, <code>Transaction</code>, and 
  * <code>TransactionManager</code> interfaces.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class RollbackException extends java.lang.Exception 
 {
