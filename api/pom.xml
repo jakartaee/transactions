@@ -31,7 +31,7 @@
     
     <properties>
         <non.final>false</non.final>
-        <extension.name>javax.transaction</extension.name>
+        <extension.name>jakarta.transaction</extension.name>
         <spec.version>2.0</spec.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
