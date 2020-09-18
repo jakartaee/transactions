@@ -39,20 +39,9 @@
         <jruby.version>9.2.6.0</jruby.version>
         <!-- status: DRAFT, BETA, etc., or blank for final -->
         <status>DRAFT</status>
+        <maven.build.timestamp.format>MMMM dd, yyyy</maven.build.timestamp.format>
+        <revisiondate>${maven.build.timestamp}</revisiondate>
     </properties>
-
-    <scm>
-        <connection>scm:git:git@github.com:eclipse-ee4j/jakarta-transactions.git</connection>
-        <developerConnection>scm:git:git@github.com:eclipse-ee4j/jakarta-transactions.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jakarta-transactions</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <distributionManagement>
-        <site>
-            <url>scm:git:git@github.com:eclipse-ee4j/jakarta-transactions.git</url>
-        </site>
-    </distributionManagement>
 
     <build>
         <defaultGoal>package</defaultGoal>
