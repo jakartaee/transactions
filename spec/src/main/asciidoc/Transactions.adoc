@@ -1460,10 +1460,10 @@ Java SE.
 === Changes for Version 1.2
 
 * New annotation
-_javax.transaction.Transactional_ and exception
-_javax.transaction.TransactionalException_
+_jakarta.transaction.Transactional_ and exception
+_jakarta.transaction.TransactionalException_
 * New annotation
-_javax.transaction.TransactionScoped_
+_jakarta.transaction.TransactionScoped_
 * Added the following description to the end of
 "`<<a103,See Resource Enlistment>>`": "A container only
 needs to call _delistResource_ to explicitly dissociate a resource from
@@ -1483,19 +1483,19 @@ Interface>>`": The line "The transaction manager obtains an _XAResource_
 for each resource manager participating in a global transaction." has
 been changed to "The transaction manager obtains an _XAResource_ for
 each transaction resource participating in a global transaction.".
-* Interface _javax.transaction.UserTransaction_
+* Interface _jakarta.transaction.UserTransaction_
 , method _setTransactionTimeout_ , replace the first paragraph of the
 description with "Modify the timeout value that is associated with
 transactions started by subsequent invocations of the begin method by
 the current thread.".
 * Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
+_jakarta.transaction.TransactionManager_ , method _setTransactionTimeout_
 , replace the first paragraph of the description with "Modify the
 timeout value that is associated with transactions started by subsequent
 invocations of the begin method by the current thread.".
 * New interface
-_javax.transaction.TransactionSynchronizationRegistry_
-* Interface _javax.transaction.Synchronization_
+_jakarta.transaction.TransactionSynchronizationRegistry_
+* Interface _jakarta.transaction.Synchronization_
 , method _beforeCompletion_ , add the following description: "An
 unchecked exception thrown by a registered _Synchronization_ object
 causes the transaction to be aborted. That is, upon encountering an
@@ -1509,51 +1509,51 @@ all interface methods, since interface methods are implicitly abstract.
 * Table 1, row 1 ( _TMJOIN_ ) : move
 transaction association ( _T1_ ) from column 3 (association suspended)
 to column 1 (not associated).
-* Interface _javax.transaction.Synchronization_
+* Interface _jakarta.transaction.Synchronization_
 , method _beforeCompletion_ , change the following phrase in the
 description "start of the transaction completion process" to "start of
 the two-phase transaction commit process".
-* Interface _javax.transaction.Transaction_ ,
+* Interface _jakarta.transaction.Transaction_ ,
 method _commit_ , added _IllegalStateException_ to throws clause.
-* Interface _javax.transaction.Transaction_ ,
+* Interface _jakarta.transaction.Transaction_ ,
 method _commit_ , replace the description of
 _HeuristicRollbackException_ with "Thrown to indicate that a heuristic
 decision was made and that all relevant updates have been rolled back.".
-* Interface _javax.transaction.Transaction_ ,
+* Interface _jakarta.transaction.Transaction_ ,
 change spelling of _Transactioin_ to _Transaction_ in interface
 description.
-* Interface _javax.transaction.Transaction_ ,
+* Interface _jakarta.transaction.Transaction_ ,
 method _registerSynchronization_ , first paragraph, line 2, change the
 phrase "transaction completion process" to "two-phase transaction commit
 process".
-* Interface _javax.transaction.Transaction_ ,
+* Interface _jakarta.transaction.Transaction_ ,
 method _rollback_ , spelling correction to method signature description,
 change _SyetemException_ to _SystemException_ .
 * Interface
-_javax.transaction.TransactionManager_ , method _commit_ , replace the
+_jakarta.transaction.TransactionManager_ , method _commit_ , replace the
 description of _HeuristicRollbackException_ with "Thrown to indicate
 that a heuristic decision was made and that all relevant updates have
 been rolled back.".
 * Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
+_jakarta.transaction.TransactionManager_ , method _setTransactionTimeout_
 , replace the first paragraph of the description with "Modify the
 timeout value that is associated with transactions started by subsequent
 invocations of the begin method.".
 * Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
+_jakarta.transaction.TransactionManager_ , method _setTransactionTimeout_
 , replace the description of method parameter _seconds_ with "The value
 of the timeout in seconds. If the value is zero, the transaction service
 restores the default value. If the value is negative a _SystemException_
 is thrown.".
-* Interface _javax.transaction.UserTransaction_
+* Interface _jakarta.transaction.UserTransaction_
 , method _commit_ , replace the description of
 _HeuristicRollbackException_ with "Thrown to indicate that a heuristic
 decision was made and that all relevant updates have been rolled back.".
-* Interface _javax.transaction.UserTransaction_
+* Interface _jakarta.transaction.UserTransaction_
 , method _setTransactionTimeout_ , replace the first paragraph of the
 description with "Modify the timeout value that is associated with
 transactions started by subsequent invocations of the _begin_ method.".
-* Interface _javax.transaction.UserTransaction_
+* Interface _jakarta.transaction.UserTransaction_
 , method _setTransactionTimeout_ , replace the description of method
 parameter _seconds_ with "`The value of the timeout in seconds. If the
 value is zero, the transaction service restores the default value. If
