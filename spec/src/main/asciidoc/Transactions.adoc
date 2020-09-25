@@ -282,7 +282,7 @@ are specific to the target transaction, regardless of the calling
 thread’s transaction context. The following sections provide more
 detail.
 
-=== Starting a Transaction
+==== Starting a Transaction
 
 The _TransactionManager.begin_ __ method
 starts a global transaction and associates the transaction context with
@@ -302,7 +302,7 @@ enlistment and synchronization registration. The _Transaction_ __
 interface is described in "`<<a96,See Transaction
 Interface>>.`"
 
-=== Completing a Transaction
+==== Completing a Transaction
 
 The _TransactionManager.commit_ __ method
 completes the transaction currently associated with the calling thread.
@@ -319,7 +319,7 @@ rolls back the transaction associated with the current thread. After the
 _rollback_ method completes, the thread is associated with no
 transaction.
 
-=== Suspending and Resuming a Transaction
+==== Suspending and Resuming a Transaction
 
 A call to the _TransactionManager.suspend_ __
 method temporarily suspends the transaction that is currently associated
@@ -386,7 +386,7 @@ These functions are described in the sections
 below.
 
 [[a103]]
-=== Resource Enlistment
+==== Resource Enlistment
 
 An application server provides the
 application run-time infrastructure that includes transactional resource
@@ -501,7 +501,7 @@ XAResource is ended, via the appropriate _XAResource.end_ call,
 immediately prior to completion; that is before prepare (or
 commit/rollback in the one-phase optimized case).
 
-=== Transaction Synchronization
+==== Transaction Synchronization
 
 Transaction synchronization allows the
 application server to get notification from the transaction manager
@@ -518,7 +518,7 @@ transaction that is being committed.
 method is called after the transaction has completed. The status of the
 transaction is supplied in the parameter.
 
-=== Transaction Completion
+==== Transaction Completion
 
 The _Transaction.commit_ __ and
 _Transaction.rollback_ __ methods allow the target object to be comitted
@@ -528,7 +528,7 @@ transaction associated with the thread.
 If the calling thread is not allowed to
 commit the transaction, the transaction manager throws an exception.
 
-=== Transaction Equality and Hash Code
+==== Transaction Equality and Hash Code
 
 The transaction manager must implement the
 _Transaction_ __ object’s _equals_ method to allow comparison between
@@ -634,7 +634,7 @@ registration (optional X/Open XA features) are not supported. We’ve
 omitted these features for a simpler _XAResource_ interface and simpler
 resource adapter implementation.
 
-=== Opening a Resource Manager
+==== Opening a Resource Manager
 
 The X/Open XA interface specifies that the
 transaction manager must initialize a resource manager ( _xa_open_ )
@@ -650,7 +650,7 @@ The resource adapter is responsible for
 opening (initializing) the resource manager when the connection to the
 resource manager is established.
 
-=== Closing a Resource Manager
+==== Closing a Resource Manager
 
 A resource manager is closed by the resource
 adapter as a result of destroying the transactional resource. A
@@ -677,7 +677,7 @@ application server to perform any necessary cleanup work and to mark the
 physical XA connection as free for reuse, if connection pooling is in
 place.
 
-=== Thread of Control
+==== Thread of Control
 
 The X/Open XA interface specifies that the
 transaction association related _xa_ calls must be invoked from the same
@@ -704,7 +704,7 @@ this document requires that the resource managers be able to support the
 two-phase commit protocol from any thread context.
 
 [[a167]]
-=== Transaction Association
+==== Transaction Association
 
 Global transactions are associated with a
 transactional resource via the _XAResource.start_ __ method, and
@@ -774,7 +774,7 @@ h| Associaton Suspended (T~2~)
 |====================
 
 
-=== Externally Controlled connections
+==== Externally Controlled connections
 
 Resources for transactional applications,
 whose transaction states are managed by an application server, must also
@@ -795,7 +795,7 @@ application’s current transaction context. This implies that the
 application server manages the connection resource usage status across
 multiple method invocations.
 
-=== Resource Sharing
+==== Resource Sharing
 
 When the same transactional resource is used
 to interleave multiple transactions, it is the responsibility of the
@@ -858,7 +858,7 @@ status = xares.prepare(xid1);
 xares.commit(xid1, false);
 ----
 
-=== Local and Global Transactions
+==== Local and Global Transactions
 
 The resource adapter is encouraged to support
 the usage of both local and global transactions within the same
@@ -882,7 +882,7 @@ _java.sql.SQLException_ __ is thrown to the application if the resource
 manager for the underlying RDBMS does not support mixing local and
 global transactions within the same JDBC connection.
 
-=== Failure Recovery
+==== Failure Recovery
 
 During recovery, the transaction manager must
 be able to communicate to all resource managers that are in use by the
@@ -914,7 +914,7 @@ heuristically completed state. It is the responsibility of the
 transaction manager to ignore transactions that do not belong to it.
 
 [[a245]]
-=== Identifying Resource Manager Instance
+==== Identifying Resource Manager Instance
 
 The _isSameRM_ __ method is invoked by the
 transaction manager to determine if the target _XAResource_ __ object
@@ -956,7 +956,7 @@ public boolean enlistResource(XAResource xares) {
 }
 ----
 
-=== Dynamic Registration
+==== Dynamic Registration
 
 Dynamic registration is not supported in
 _XAResource_ because of the following reasons:
@@ -1269,12 +1269,9 @@ Test Class: +
   fail("should have thrown ContextNotActiveException");
  } catch (ContextNotActiveException contextNotActiveException) {
  // do nothing intentionally
-
+ }
 }
 ----
-
-// generates a line between text and footnotes for pdf and html generation.
-'''
 
 == Jakarta Transactions Support in the Application Server
 
@@ -1605,11 +1602,3 @@ _getBranchQualifier_ .
 spelling correction to description of interface definition, replace
 phrase _javax.transaction.xa.XAException_ with
 _javax.transaction.xa.XAException_ .
-
-
-
-// generates a line between text and footnotes for pdf and html generation.
-'''
-
-
-
