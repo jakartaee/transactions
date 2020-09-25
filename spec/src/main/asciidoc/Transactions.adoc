@@ -82,7 +82,7 @@ half-circle represents the Jakarta Transactions specification. Chapter 3 of the 
 describes each portion of the specification in details.
 
 
-image::transactions-2.png[align="center"]
+image::transactions-2.svg[align="center"]
 
 
 === Target Audience
@@ -581,7 +581,7 @@ system relies on an external transaction manager, such as Java
 Transaction Service (JTS), to coordinate transactions.
 
 
-image::transactions-3.png[align="center"]
+image::transactions-3.svg[align="center"]
 
 
 The _XAResource_ interface can be supported
@@ -1323,7 +1323,7 @@ supported by the resource manager. The diagram below illustrates a
 general flow of acquiring resource and enlisting the resource to the
 transaction manager.
 
-image::transactions-4.png[align="center"]
+image::transactions-4.svg[align="center"]
 
 In this usage scenario, the _XAResource_
 interface is transparent to the application program, and the
@@ -1412,7 +1412,7 @@ server’s usage of the _TransactionManager_ and _XAResource_ __
 interfaces as part of the application connection request handling.
 
 
-image::transactions-5.png[align="center"]
+image::transactions-5.svg[align="center"]
 
 
 === Other Requirements
