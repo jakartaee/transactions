@@ -77,7 +77,7 @@ In the diagram shown below, the small half-circle represents the Jakarta
 Transactions specification. Chapter 3 of the document describes each portion of
 the specification in details.
 
-image::transactions-2.png[align="center"]
+image::transactions-2.svg[align="center"]
 
 === Target Audience
 
@@ -268,7 +268,8 @@ that represents the transaction context currently associated with the calling
 thread. This `Transaction` object can be used to perform various operations on
 the target transaction. Examples of `Transaction` object operations are
 resource enlistment and synchronization registration. The `Transaction`
-interface is described in "`<<a96,See Transaction Interface>>.`"
+interface is described in "`<<transaction-interface,See Transaction
+Interface>>.`"
 
 ==== Completing a Transaction
 
@@ -287,10 +288,11 @@ associated with no transaction.
 
 ==== Suspending and Resuming a Transaction
 
-A call to the `TransactionManager.suspend` method temporarily suspends the transaction that is currently associated with the calling thread. If the thread is not associated with any
-transaction, a `null` object reference is returned; otherwise, a valid
-`Transaction` object is returned. The `Transaction` object can later
-be passed to the `resume` method to reinstate the transaction context
+A call to the `TransactionManager.suspend` method temporarily suspends the
+transaction that is currently associated with the calling thread. If the thread
+is not associated with any transaction, a `null` object reference is returned;
+otherwise, a valid `Transaction` object is returned. The `Transaction` object
+can later be passed to the `resume` method to reinstate the transaction context
 association with the calling thread.
 
 The `TransactionManager.resume` method re-associates the specified transaction
@@ -323,11 +325,11 @@ ensures that the resource in use by the application is again enlisted with the
 transaction. Enlisting a resource as a result of resuming a transaction
 triggers the transaction manager to inform the resource manager to re-associate
 the resource object with the resumed transaction
-(`XAResource.start(TMRESUME)`). Refer to "`<<a103,See Resource Enlistment>>.`"
-and "`<<a167,See Transaction Association>>,`" for more details on resource
+(`XAResource.start(TMRESUME)`). Refer to "`<<resource-enlistment,See Resource Enlistment>>.`"
+and "`<<transaction-association,See Transaction Association>>,`" for more details on resource
 enlistment and transaction association.
 
-[[a96]]
+[[transaction-interface]]
 === Transaction Interface
 
 The `Transaction` interface allows operations to be performed on the
@@ -345,7 +347,7 @@ associated with one `Transaction` object when the transaction is created. The
 
 These functions are described in the sections below.
 
-[[a103]]
+[[resource-enlistment]]
 ==== Resource Enlistment
 
 An application server provides the application run-time infrastructure that
@@ -377,7 +379,7 @@ resource manager to start associating the transaction with the work performed
 through the corresponding resource—by invoking the `XAResource.start` method.
 The transaction manager is responsible for passing the appropriate flag in its
 `XAResource.start` method call to the resource manager. The `XAResource`
-interface is described in "`<<a139,See XAResource Interface>>.`"
+interface is described in "`<<xaresource-interface,See XAResource Interface>>.`"
 
 If the target transaction already has another `XAResource` object participating
 in the transaction, the transaction manager invokes the `XAResource.isSameRM`
@@ -410,7 +412,7 @@ manager may use this information to optimize its use of shared resources and
 locks.`"] and ensures that this new resource manager is informed about the
 transaction completion with proper prepare-commit calls.
 
-The `isSameRM` method is discussed in "`<<a245,See Identifying Resource Manager
+The `isSameRM` method is discussed in "`<<identifying-resource-manager-instance,See Identifying Resource Manager
 Instance>>.`"
 
 The `Transaction.delistResource` method is used to disassociate the specified
@@ -497,7 +499,7 @@ In addition, the transaction manager must implement the `Transaction` object’s
 the same hash code. However, the converse is not necessarily true. Two
 `Transaction` objects with the same hash code are not necessarily equal.
 
-[[a139]]
+[[xaresource-interface]]
 === XAResource Interface
 
 The `javax.transaction.xa.XAResource` interface is a Java mapping of the
@@ -515,7 +517,7 @@ resource managers in a DTP system. Such a system relies on an external
 transaction manager, such as Java Transaction Service (JTS), to coordinate
 transactions.
 
-image::transactions-3.png[align="center"]
+image::transactions-3.svg[align="center"]
 
 The `XAResource` interface can be supported by any transactional resource
 adapter that is intended to be used by application programs in an environment
@@ -627,7 +629,7 @@ Thus the `XAResource` interface specified in this document requires that the
 resource managers be able to support the two-phase commit protocol from any
 thread context.
 
-[[a167]]
+[[transaction-association]]
 ==== Transaction Association
 
 Global transactions are associated with a transactional resource via the
@@ -821,7 +823,7 @@ any transactions that are currently in a prepared or heuristically completed
 state. It is the responsibility of the transaction manager to ignore
 transactions that do not belong to it.
 
-[[a245]]
+[[identifying-resource-manager-instance]]
 ==== Identifying Resource Manager Instance
 
 The `isSameRM` method is invoked by the transaction manager to determine if the
@@ -1190,7 +1192,7 @@ specific to the underlying resource supported by the resource manager. The
 diagram below illustrates a general flow of acquiring resource and enlisting
 the resource to the transaction manager.
 
-image::transactions-4.png[align="center"]
+image::transactions-4.svg[align="center"]
 
 In this usage scenario, the `XAResource` interface is transparent to the
 application program, and the `Connection` interface is transparent to the
@@ -1280,7 +1282,7 @@ This example illustrates the application server’s usage of the
 `TransactionManager` and `XAResource` interfaces as part of the application
 connection request handling.
 
-image::transactions-5.png[align="center"]
+image::transactions-5.svg[align="center"]
 
 === Other Requirements
 
@@ -1340,7 +1342,7 @@ SE.
 
 * New annotation `javax.transaction.TransactionScoped`
 
-* Added the following description to the end of "`<<a103,See Resource
+* Added the following description to the end of "`<<resource-enlistment,See Resource
 Enlistment>>`": "A container only needs to call `delistResource` to explicitly
 dissociate a resource from a transaction and it is not a mandatory container
 requirement to do so as a precondition to transaction completion. A transaction
@@ -1353,7 +1355,7 @@ the one-phase optimized case)."
 
 === Changes for Version 1.1
 
-* "`<<a139,See XAResource Interface>>`": The line "The transaction manager
+* "`<<xaresource-interface,See XAResource Interface>>`": The line "The transaction manager
 obtains an `XAResource` for each resource manager participating in a global
 transaction." has been changed to "The transaction manager obtains an
 `XAResource` for each transaction resource participating in a global
