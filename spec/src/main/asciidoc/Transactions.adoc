@@ -17,11 +17,13 @@ allows a transactional application to demarcate transaction boundaries
 that allows an application server to control transaction boundary
 demarcation for an application being managed by the application server
 
+****
 Note – The Jakarta Transactions interfaces are presented as high-level from the transaction
 manager’s perspective. In contrast, a low-level API for the transaction manager
 consists of interfaces that are used to implement the transaction manager. For
 example, the Java mapping of the OTS are low-level interfaces used internally by
 a transaction manager.
+****
 
 === Background
 
@@ -92,7 +94,7 @@ Jakarta Messaging providers
 RDBMS
 * Application servers, such as Jakarta EE Servers
 * Advanced transactional applications written
-in the Java _TM_ programming language
+in the Java(TM) programming language
 
 == Relationship to Other Java APIs
 
