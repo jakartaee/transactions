@@ -1262,21 +1262,21 @@ _TransactionalResource_ object. The resource adapter internally
 associates the _TransactionalResource_ with two other entities: an
 object that implements the specific resource adapter’s connection
 interface and an object that implements the
-_javax.transaction.xa.XAResource_ interface.
+`javax.transaction.xa.XAResource` interface.
 
 The application server obtains a
 _TransactionalResource_ object and uses it in the following way. The
-application server obtains the _XAResource_ object via a _getXAResource_
-method. The application server enlists the _XAResource_ to the
-transaction manager using the _Transaction.enlistResource_ __ method.
+application server obtains the `XAResource` object via a `getXAResource`
+method. The application server enlists the `XAResource` to the
+transaction manager using the `Transaction.enlistResource` method.
 The transaction manager informs the resource manager to associate the
 work performed (through that connection) with the transaction currently
 associated with the application. The transaction manager does it by
-invoking the _XAResource.start_ method.
+invoking the `XAResource.start` method.
 
 The application server then invokes some
-_getConnection_ __ method to obtain a _Connection_ object and returns it
-to the application. Note that the _Connection_ interface is implemented
+`getConnection` method to obtain a `Connection` object and returns it
+to the application. Note that the `Connection` interface is implemented
 by the resource adapter and it is specific to the underlying resource
 supported by the resource manager. The diagram below illustrates a
 general flow of acquiring resource and enlisting the resource to the
@@ -1284,14 +1284,14 @@ transaction manager.
 
 image::transactions-4.svg[align="center"]
 
-In this usage scenario, the _XAResource_
+In this usage scenario, the `XAResource`
 interface is transparent to the application program, and the
-_Connection_ interface is transparent to the transaction manager. The
+`Connection` interface is transparent to the transaction manager. The
 application server is the only party that holds a reference to some
 _TransactionalResource_ object.
 
 The code sample below illustrates how the
-application server obtains the _XAResource_ object reference and enlists
+application server obtains the `XAResource` object reference and enlists
 it with the transaction manager.
 
 [source,java]
@@ -1303,15 +1303,13 @@ Context ctx = InitialContext();
 
 ResourceFactory rf =(ResourceFactory)ctx.lookup("MyEISResource");
 
-TransactionalResource res =
-rf.getTransactionalResource();
+TransactionalResource res = rf.getTransactionalResource();
 
 // Obtain the XAResource part of the connection and
 // enlist it with the transaction manager
 
 XAResource xaRes = res.getXAResource();
 (TransactionManager.getTransaction()).enlistResource(xaRes);
-
 
 // get the connection part of the transaction resource
 Connection con = (Connection)res.getConnection();
@@ -1327,47 +1325,47 @@ application. The figure that follows illustrates the usage of Jakarta Transactio
 steps shown are for illustrative purposes, they are not prescriptive:
 
 . Assuming a client invokes a Jakarta Context Dependency Injection managed
-bean annotated with @ _Transactional(TxType.REQUIRED)_ and the client is
-not associated with a global transaction, the _Transactional_
+bean annotated with `@Transactional(TxType.REQUIRED)` and the client is
+not associated with a global transaction, the `Transactional`
 interceptor starts a global transaction by invoking the
-_TransactionManager.begin_ method.
+`TransactionManager.begin` method.
 . After the transaction starts, the container
 invokes the bean method. As part of the business logic, the bean
 requests for a connection-based resource using the API provided by the
 resource adapter of interest.
 . The application server obtains a resource
 from the resource adapter via some
-ResourceFactory.getTransactionalResource method.
+`ResourceFactory.getTransactionalResource` method.
 . The resource adapter creates the
-_TransactionalResource_ __ object and the associated XAResource and
-Connection objects.
+_TransactionalResource_ object and the associated `XAResource` and
+`Connection` objects.
 . The application server invokes the
-_getXAResource_ method.
+`getXAResource` method.
 . The application server enlists the resource
 to the transaction manager.
 . The transaction manager invokes
-_XAResource.start_ to associate the current transaction to the resource.
+`XAResource.start` to associate the current transaction to the resource.
 . The application server invokes the
-_getConnection_ method.
+`getConnection` method.
 . The application server returns the
-_Connection_ object reference to the application.
+`Connection` object reference to the application.
 . The application performs one or more
 operations on the connection.
 . The application closes the connection.
 . The application server delists the resource
 when notified by the resource adapter about the connection close.
 . The transaction manager invokes
-_XAResource.end_ to disassociate the transaction from the _XAResource_ .
+`XAResource.end` to disassociate the transaction from the `XAResource`.
 . The application server asks the transaction
 manager to commit the transaction.
 . The transaction manager invokes
-_XAResource.prepare_ to inform the resource manager to prepare the
+`XAResource.prepare` to inform the resource manager to prepare the
 transaction work for commit.
 . The transaction manager invokes
-_XAResource.commit_ to commit the transaction.
+`XAResource.commit` to commit the transaction.
 
 This example illustrates the application
-server’s usage of the _TransactionManager_ and _XAResource_ __
+server’s usage of the `TransactionManager` and `XAResource`
 interfaces as part of the application connection request handling.
 
 
@@ -1375,8 +1373,6 @@ image::transactions-5.svg[align="center"]
 
 
 === Other Requirements
-
-
 
 The behaviors described in the Javadoc
 specification of the Jakarta Transactions interfaces are required functionality and must
