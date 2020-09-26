@@ -39,7 +39,7 @@ context propagation.
 * An application server (or TP monitor)
 provides the infrastructure required to support the application run-time
 environment which includes transaction state management. An example of
-such an application server is an Jakarta Enterprise Beans 4.0 server.
+such an application server is an Jakarta Enterprise Beans server.
 * A resource manager (through a resource
 adapter) provides the application access to resources. The resource
 manager participates in distributed transactions by implementing a
@@ -52,15 +52,15 @@ that is developed to operate in a modern application server environment
 relies on the application server to provide transaction management
 support through declarative transaction attribute settings. An example
 of this type of applications is an application developed using the
-industry standard Jakarta Enterprise Beans 4.0 component architecture. In
+industry standard Jakarta Enterprise Beans component architecture. In
 addition, some other stand-alone Java client programs may wish to
 control their transaction boundaries using a high-level interface
 provided by the application server or the transaction manager.
 * A communication resource manager (CRM)
 supports transaction context propagation and access to the transaction
 service for incoming and outgoing requests. The Jakarta Transactions document does not
-specify requirements pertained to communication. Refer to the JTS
-Specification [2] for more details on interoperability between
+specify requirements pertained to communication. Refer to the "`__JTS
+Specification__`" [2] for more details on interoperability between
 transaction managers.
 
 From the transaction manager’s perspective,
@@ -87,7 +87,7 @@ of:
 
 * Transaction managers, such as JTS
 * Resource adapters, such as JDBC drivers and
-Jakarta Messaging 3.0 providers
+Jakarta Messaging providers
 * Transactional resource managers, such as
 RDBMS
 * Application servers, such as Jakarta EE Servers
@@ -98,7 +98,7 @@ in the Java _TM_ programming language
 
 This chapter explores the relationship
 between Jakarta Transactions and other Java APIs, including
-Jakarta Enterprise Beans 4.0, JDBC API, Jakarta Messaging 3.0
+Jakarta Enterprise Beans, JDBC API, Jakarta Messaging
 Service, and Java Transaction Service.
 
 === Java SE
@@ -112,10 +112,10 @@ specifies this API consisting of the following types:
 * javax.transaction.xa.XAResource
 * javax.transaction.xa.Xid
 
-=== Jakarta Enterprise Beans 4.0
+=== Jakarta Enterprise Beans
 
-The Jakarta Enterprise Beans 4.0 architecture
-requires that an Jakarta Enterprise Beans 4.0 Container support application-level transaction
+The Jakarta Enterprise Beans architecture
+requires that an Jakarta Enterprise Beans Container support application-level transaction
 demarcation by implementing the _jakarta.transaction.UserTransaction_
 interface. The _UserTransaction_ interface is intended to be used by
 both the enterprise bean implementer (for beans with bean-managed
@@ -128,18 +128,18 @@ Java programming language.
 A JDBC driver that supports distributed
 transactions implements the _javax.transaction.xa.XAResource_ interface,
 the _javax.sql.XAConnection_ interface, and the _javax.sql.XADataSource_
-interface. Refer to the _JDBC 4.3 Specification_ for further details.
+interface. Refer to the "`__JDBC 4.3 Specification__`" for further details.
 
-=== Jakarta Messaging 3.0
+=== Jakarta Messaging
 
 Jakarta Transactions may be used by a
-Jakarta Messaging 3.0 Service provider to support distributed transactions. A Jakarta Messaging 3.0
+Jakarta Messaging provider to support distributed transactions. A Jakarta Messaging
 provider that supports the _XAResource_ interface is able to participate
 as a resource manager in a distributed transaction processing system
-that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging 3.0
+that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging
 provider implements the _javax.transaction.xa.XAResource_ interface, the
 _jakarta.jms.XAConnection_ interface, and the _jakarta.jms.XASession_
-interface. Refer to the Jakarta Messaging 3.0 Specification for further details.
+interface. Refer to the "`__Jakarta Messaging 3.0 Specification__`" for further details.
 
 === Java Transaction Service
 
@@ -259,7 +259,7 @@ application programs.
 The _jakarta.transaction.TransactionManager_ __
 interface allows the application server to control transaction
 boundaries on behalf of the application being managed. For example, the
-Jakarta Enterprise Beans 4.0 container manages the transaction states for transactional Jakarta Enterprise Beans 4.0
+Jakarta Enterprise Beans container manages the transaction states for transactional Jakarta Enterprise Beans
 components; the container uses the _TransactionManager_ __ interface
 mainly to demarcate transaction boundaries where operations affect the
 calling thread’s transaction context. The transaction manager maintains
@@ -1024,12 +1024,12 @@ _putResource_ methods to the _TransactionSynchronizationRegistry_ .
 
 The _jakarta.transaction.Transactional_
 annotation provides the application the ability to declaratively control
-transaction boundaries on Jakarta Context Dependency Injection 3.0 managed beans, as well as classes defined
+transaction boundaries on Jakarta Context Dependency Injection managed beans, as well as classes defined
 as managed beans by the Jakarta EE specification, at both the class and
 method level where method level annotations override those at the class
-level. See the Jakarta Enterprise Beans 4.0 specification for restrictions on the use of
-_@Transactional_ with Jakarta Enterprise Beans 4.0 resources. This support is provided via an
-implementation of Jakarta Context Dependency Injection 3.0 interceptors that conduct the necessary
+level. See the "`__Jakarta Enterprise Beans 4.0 specification__`" for restrictions on the use of
+_@Transactional_ with Jakarta Enterprise Beans resources. This support is provided via an
+implementation of Jakarta Context Dependency Injection interceptors that conduct the necessary
 suspending, resuming, etc. The _Transactional_ interceptor interposes on
 business method invocations only and not on lifecycle events. __
 Lifecycle methods are invoked in an unspecified transaction context. If
@@ -1041,7 +1041,7 @@ _UserTransaction_ is allowed within life cycle events. The use of the
 _TransactionSynchronizationRegistry_ is allowed regardless of any
 _@Transactional_ annotation.The _Transactional_ interceptors must have a
 priority of _Interceptor.Priority.PLATFORM_BEFORE+200_ . Refer to the
-Interceptors specification for more details.
+"`__Interceptors specification__`" for more details.
 
 The _TxType_ element of the annotation
 indicates whether a bean method is to be executed within a transaction
@@ -1160,7 +1160,7 @@ begun by the first bean will be marked for rollback.
 === TransactionScoped Annotation
 
 The _jakarta.transaction.TransactionScoped_
-annotation provides the ability to specify a standard Jakarta Context Dependency Injection 3.0 scope to
+annotation provides the ability to specify a standard Jakarta Context Dependency Injection scope to
 define bean instances whose lifecycle is scoped to the currently active
 Jakarta Transactions transaction. This annotation has no effect on classes which have
 non-contextual references such those defined as managed beans by the
@@ -1191,8 +1191,8 @@ _Synchronization.afterCompletion_ methods will be invoked in an
 undefined context. The way in which the Jakarta Transactions transaction is begun and
 completed (for example via _UserTransaction_ , _Transactional_
 interceptor, etc.) is of no consequence. The contextual references used
-across different Jakarta Transactions transactions are distinct. Refer to the Jakarta Context Dependency Injection 3.0
-specification for more details on contextual references. A
+across different Jakarta Transactions transactions are distinct. Refer to the "`__Jakarta Context Dependency Injection 3.0
+specification__`" for more details on contextual references. A
 _jakarta.enterprise.context.ContextNotActiveException_ must be thrown if a
 bean with this annotation is used when the transaction context is not
 active.
@@ -1202,7 +1202,7 @@ the expected behavior.
 
 
 
- _TransactionScoped_ annotated Jakarta Context Dependency Injection 3.0 managed
+ _TransactionScoped_ annotated Jakarta Context Dependency Injection managed
 bean:
 
 [source,java]
@@ -1359,7 +1359,7 @@ how an application server may handle a connection request from the
 application. The figure that follows illustrates the usage of Jakarta Transactions. The
 steps shown are for illustrative purposes, they are not prescriptive:
 
-. Assuming a client invokes a Jakarta Context Dependency Injection 3.0 managed
+. Assuming a client invokes a Jakarta Context Dependency Injection managed
 bean annotated with @ _Transactional(TxType.REQUIRED)_ and the client is
 not associated with a global transaction, the _Transactional_
 interceptor starts a global transaction by invoking the
