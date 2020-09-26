@@ -107,19 +107,19 @@ Service, and Java Transaction Service.
 
 Java SE provides the API that defines the contract between the transaction manager
 and the resource manager, which allows the transaction manager to enlist and delist
-resource objects in Jakarta Transactions transactions. The javax.transaction.xa package
+resource objects in Jakarta Transactions transactions. The `javax.transaction.xa` package
 specifies this API consisting of the following types:
 
-* javax.transaction.xa.XAException
-* javax.transaction.xa.XAResource
-* javax.transaction.xa.Xid
+* `javax.transaction.xa.XAException`
+* `javax.transaction.xa.XAResource`
+* `javax.transaction.xa.Xid`
 
 === Jakarta Enterprise Beans
 
 The Jakarta Enterprise Beans architecture
 requires that an Jakarta Enterprise Beans Container support application-level transaction
-demarcation by implementing the _jakarta.transaction.UserTransaction_
-interface. The _UserTransaction_ interface is intended to be used by
+demarcation by implementing the `jakarta.transaction.UserTransaction`
+interface. The `UserTransaction` interface is intended to be used by
 both the enterprise bean implementer (for beans with bean-managed
 transactions) and by the client programmer that wants to explicitly
 demarcate transaction boundaries within programs that are written in the
@@ -128,19 +128,19 @@ Java programming language.
 === JDBC
 
 A JDBC driver that supports distributed
-transactions implements the _javax.transaction.xa.XAResource_ interface,
-the _javax.sql.XAConnection_ interface, and the _javax.sql.XADataSource_
+transactions implements the `javax.transaction.xa.XAResource` interface,
+the `javax.sql.XAConnection` interface, and the `javax.sql.XADataSource`
 interface. Refer to the "`__JDBC 4.3 Specification__`" for further details.
 
 === Jakarta Messaging
 
 Jakarta Transactions may be used by a
 Jakarta Messaging provider to support distributed transactions. A Jakarta Messaging
-provider that supports the _XAResource_ interface is able to participate
+provider that supports the `XAResource` interface is able to participate
 as a resource manager in a distributed transaction processing system
 that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging
-provider implements the _javax.transaction.xa.XAResource_ interface, the
-_jakarta.jms.XAConnection_ interface, and the _jakarta.jms.XASession_
+provider implements the `javax.transaction.xa.XAResource` interface, the
+`jakarta.jms.XAConnection` interface, and the `jakarta.jms.XASession`
 interface. Refer to the "`__Jakarta Messaging 3.0 Specification__`" for further details.
 
 === Java Transaction Service
