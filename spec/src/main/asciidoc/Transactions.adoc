@@ -355,10 +355,10 @@ details on resource enlistment and transaction association.
 [[a96]]
 === Transaction Interface
 
-The _Transaction_ interface allows operations
+The `Transaction` interface allows operations
 to be performed on the transaction associated with the target object.
-Every global transaction is associated with one _Transaction_ object
-when the transaction is created. The _Transaction_ object can be used
+Every global transaction is associated with one `Transaction` object
+when the transaction is created. The `Transaction` object can be used
 to:
 
 * Enlist the transactional resources in use
@@ -398,92 +398,88 @@ transaction protocol between the transaction manager and the resource
 managers, as defined by the X/Open XA specification.
 
 For each resource in use by the application,
-the application server invokes the _enlistResource_ __ method and
-specifies the _XAResource_ __ object that identifies the resource in
+the application server invokes the `enlistResource` method and
+specifies the `XAResource` object that identifies the resource in
 use.
 
-The _enlistResource_ __ request results in
+The `enlistResource` request results in
 the transaction manager informing the resource manager to start
 associating the transaction with the work performed through the
-corresponding resource—by invoking the _XAResource.start_ __ method. The
+corresponding resource—by invoking the `XAResource.start` method. The
 transaction manager is responsible for passing the appropriate flag in
-its _XAResource.start_ __ method call to the resource manager. The
-_XAResource_ __ interface is described in
+its `XAResource.start` method call to the resource manager. The
+`XAResource` interface is described in
 "`<<a139,See XAResource Interface>>.`"
 
 If the target transaction already has another
-_XAResource_ __ object participating in the transaction, the transaction
-manager invokes the _XAResource.isSameRM_ __ method to determine if the
-specified _XAResource_ __ represents the same resource manager instance.
+`XAResource` object participating in the transaction, the transaction
+manager invokes the `XAResource.isSameRM` method to determine if the
+specified `XAResource` represents the same resource manager instance.
 This information allows the transaction manager to group the resource
 managers that are performing work on behalf of the transaction.
 
-If the _XAResource_ __ object represents a
+If the `XAResource` object represents a
 resource manager instance that has seen the global transaction before,
 the transaction manager groups the newly registered resource together
-with the previous _XAResource_ __ object and ensures that the same
+with the previous `XAResource` object and ensures that the same
 resource manager only receives one set of prepare-commit calls for
 completing the target global transaction.
 
-If the _XAResource_ __ object represents a
-resource manager that has not previously seen the global transaction,
-the transaction manager establishes a different transaction branch
-.footnote:[Transaction Branch is defined in the X/Open XA spec as follows:
-"`A global transaction has
-one or more transaction branches. A branch is a part of the work in
-support of a global transaction for which the transaction manager and
-the resource manager engage in a separate but coordinated transaction
-commitment protocol. Each of the resource manager’s internal units of
-work in support of a global transaction is part of exactly one branch.
-After the transaction manager begins the transaction commitment
-protocol, the resource manager receives no additional work to do on that
-transaction branch. The resource manager may receive additional work on
-behalf of the same transaction, from different branches. The different
-branches are related in that they must be completed atomically. Each
-transaction branch identifier (or XID) that the transaction manager
-gives the resource manager identifies both a global transaction and a
-specific branch. The resource manager may use this information to
-optimize its use of shared resources and locks.`"] and ensures that this new resource manager is
-informed about the transaction completion with proper prepare-commit
-calls.
+If the `XAResource` object represents a resource manager that has not
+previously seen the global transaction, the transaction manager
+establishes a different transaction branch .footnote:[Transaction
+Branch is defined in the X/Open XA spec as follows: "`A global
+transaction has one or more transaction branches. A branch is a part of
+the work in support of a global transaction for which the transaction
+manager and the resource manager engage in a separate but coordinated
+transaction commitment protocol. Each of the resource manager’s
+internal units of work in support of a global transaction is part of
+exactly one branch. After the transaction manager begins the
+transaction commitment protocol, the resource manager receives no
+additional work to do on that transaction branch. The resource manager
+may receive additional work on behalf of the same transaction, from
+different branches. The different branches are related in that they
+must be completed atomically. Each transaction branch identifier (or
+XID) that the transaction manager gives the resource manager identifies
+both a global transaction and a specific branch. The resource manager
+may use this information to optimize its use of shared resources and
+locks.`"] and ensures that this new resource manager is informed about
+the transaction completion with proper prepare-commit calls.
 
-The _isSameRM_ __ method is discussed in
+The `isSameRM` method is discussed in
 "`<<a245,See Identifying Resource Manager Instance>>.`"
 
-The _Transaction.delistResource_ __ method is
+The `Transaction.delistResource` method is
 used to disassociate the specified resource from the transaction context
 in the target object. The application server invokes the
-_delistResource_ method with the following two parameters:
+`delistResource` method with the following two parameters:
 
-* The _XAResource_ object that represents the
+* The `XAResource` object that represents the
 resource.
-* A _flag_ to indicate whether the delistment
+* A `flag` to indicate whether the delistment
 was due to:
-* The transaction being suspended (
-_TMSUSPEND_ )
-* A portion of the work has failed ( _TMFAIL_
-)
-* A normal resource release by the
-application ( _TMSUCCESS_ )
+** The transaction being suspended (`TMSUSPEND`)
+** A portion of the work has failed (`TMFAIL`)
+** A normal resource release by the application (`TMSUCCESS`)
 
-An example of _TMFAIL_ __ could be the
+An example of `TMFAIL` could be the
 situation where an application receives an exception on its connection
 operation.
 
 The delist request results in the transaction
 manager informing the resource manager to end the association of the
-transaction with the target _XAResource_ . The flag value allows the
+transaction with the target `XAResource`. The flag value allows the
 application server to indicate whether it intends to come back to the
 same resource. The transaction manager passes the appropriate flag value
-in its _XAResource.end_ __ method call to the underlying resource
+in its `XAResource.end` method call to the underlying resource
 manager.
 
 A container only needs to call
-_delistResource_ to explicitly disassociate a resource from a
+`delistResource` to explicitly disassociate a resource from a
 transaction and it is not a mandatory container requirement to do so as
 a precondition to transaction completion. A transaction manager is,
 however, required to implicitly ensure the association of any associated
-XAResource is ended, via the appropriate _XAResource.end_ call,
+XAResource is ended, via the appropriate `XAResource.end` call,
 immediately prior to completion; that is before prepare (or
 commit/rollback in the one-phase optimized case).
 
@@ -493,21 +489,21 @@ Transaction synchronization allows the
 application server to get notification from the transaction manager
 before and after the transaction completes. For each transaction
 started, the application server may optionally register a
-_jakarta.transaction.Synchronization_ __ callback object to be invoked by
+`jakarta.transaction.Synchronization` callback object to be invoked by
 the transaction manager:
 
-* The _Synchronization.beforeCompletion_ __
+* The `Synchronization.beforeCompletion`
 method is called prior to the start of the two-phase transaction commit
 process. This call is executed with the transaction context of the
 transaction that is being committed.
-* The _Synchronization.afterCompletion_ __
+* The `Synchronization.afterCompletion`
 method is called after the transaction has completed. The status of the
 transaction is supplied in the parameter.
 
 ==== Transaction Completion
 
-The _Transaction.commit_ __ and
-_Transaction.rollback_ __ methods allow the target object to be comitted
+The `Transaction.commit` and
+`Transaction.rollback` methods allow the target object to be comitted
 or rolled back. The calling thread is not required to have the same
 transaction associated with the thread.
 
@@ -517,15 +513,15 @@ commit the transaction, the transaction manager throws an exception.
 ==== Transaction Equality and Hash Code
 
 The transaction manager must implement the
-_Transaction_ __ object’s _equals_ method to allow comparison between
-the target object and another _Transaction_ __ object. The _equals_
-method should return _true_ if the target object and the parameter
+`Transaction` object’s `equals` method to allow comparison between
+the target object and another `Transaction` object. The `equals`
+method should return `true` if the target object and the parameter
 object both refer to the same global transaction.
 
 For example, the application server may need
-to compare two _Transaction_ objects when trying to reuse a resource
+to compare two `Transaction` objects when trying to reuse a resource
 that is already enlisted with a transaction. This can be done using the
-_equals_ method.
+`equals` method.
 
 [source,java]
 ----
@@ -533,17 +529,15 @@ Transaction txObj = TransactionManager.getTransaction();
 
 Transaction someOtherTxObj = ...
 
-
-
 // ..
 
 boolean isSame = txObj.equals(someOtherTxObj);
 ----
 
 In addition, the transaction manager must
-implement the _Transaction_ object’s _hashCode_ method so that if two
-_Transaction_ __ objects are equal, they have the same hash code.
-However, the converse is not necessarily true. Two _Transaction_ __
+implement the `Transaction` object’s `hashCode` method so that if two
+`Transaction` objects are equal, they have the same hash code.
+However, the converse is not necessarily true. Two `Transaction`
 objects with the same hash code are not necessarily equal.
 
 [[a139]]
