@@ -1384,24 +1384,29 @@ be implemented by compliant providers.
 This specification refers to the following
 documents.
 
-. X/Open CAE Specification – Distributed
-Transaction Processing: The XA Specification, X/Open Document No.
-XO/CAE/91/300 or ISBN 1 872630 24 3
-. Java Transaction Service (JTS) Specification,
-available at 
-_https://www.oracle.com/technetwork/java/javaee/jts-spec095-1508547.pdf_
+. X/Open CAE Specification – Distributed Transaction Processing: The XA
+Specification, X/Open Document No. XO/CAE/91/300 or ISBN 1 872630 24 3
+
+. _Java Transaction Service (JTS) Specification_, available at
+https://www.oracle.com/technetwork/java/javaee/jts-spec095-1508547.pdf[]
+
 . OMG Object Transaction Service (OTS 1.1)
-. ORB Portability
-Submission, OMG document orbos/97-04-14
-.  _Jakarta Enterprise Beans 4.0
-Specification_, available at _https://jakarta.ee/specifications/enterprise-beans/4.0/_
-.  _JDBC^TM^ 4.3 Specification_ , available at
-_https://jcp.org/en/jsr/detail?id=221_
-.  _Jakarta Messaging 3.0 Specification_ , available at
-_https://jakarta.ee/specifications/messaging/3.0/_
-.  _Jakarta Context Dependency Injection 3.0
-Specification_ , available at _https://jakarta.ee/specifications/cdi/3.0/_
-.  _Jakarta Interceptors 2.0 Specification_ , available at
+
+. ORB Portability Submission, OMG document orbos/97-04-14
+
+. _Jakarta Enterprise Beans 4.0 Specification_, available at
+https://jakarta.ee/specifications/enterprise-beans/4.0/[]
+
+. _JDBC(TM) 4.3 Specification_, available at
+https://jcp.org/en/jsr/detail?id=221[]
+
+. _Jakarta Messaging 3.0 Specification_, available at
+https://jakarta.ee/specifications/messaging/3.0/[]
+
+. _Jakarta Context Dependency Injection 3.0 Specification_, available at 
+https://jakarta.ee/specifications/cdi/3.0/[]
+
+. _Jakarta Interceptors 2.0 Specification_, available at
 _https://jakarta.ee/specifications/interceptors/2.0/_
 
 [appendix]
@@ -1411,28 +1416,28 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 
 * Changed some former references to Jakarta Transactions where appropriate.
 * Updated references to Jakarta specifications where appropriate.
-* Updated package references to _jakarta.*_ where appropriate
+* Updated package references to `jakarta.*` where appropriate
 * Small text update where two piece of text appeared to be incorrectly joined
 
 === Changes for Version 1.3
 
-* Remove the javax.transaction.xa types as they have been subsumed by
+* Remove the `javax.transaction.xa` types as they have been subsumed by
 Java SE.
 
 === Changes for Version 1.2
 
 * New annotation
-_javax.transaction.Transactional_ and exception
-_javax.transaction.TransactionalException_
+`javax.transaction.Transactional` and exception
+`javax.transaction.TransactionalException`
 * New annotation
-_javax.transaction.TransactionScoped_
+`javax.transaction.TransactionScoped`
 * Added the following description to the end of
 "`<<a103,See Resource Enlistment>>`": "A container only
-needs to call _delistResource_ to explicitly dissociate a resource from
+needs to call `delistResource` to explicitly dissociate a resource from
 a transaction and it is not a mandatory container requirement to do so
 as a precondition to transaction completion. A transaction manager is,
 however, required to implicitly insure the association of any associated
-_XAResource_ is ended, via the appropriate _XAResource.end_ call,
+`XAResource` is ended, via the appropriate `XAResource.end` call,
 immediately prior to completion; that is before prepare (or
 commit/rollback in the one-phase optimized case)."
 * Various update of stale material, version
@@ -1441,122 +1446,110 @@ updates, etc.
 === Changes for Version 1.1
 
 * "`<<a139,See XAResource
-Interface>>`": The line "The transaction manager obtains an _XAResource_
+Interface>>`": The line "The transaction manager obtains an `XAResource`
 for each resource manager participating in a global transaction." has
-been changed to "The transaction manager obtains an _XAResource_ for
+been changed to "The transaction manager obtains an `XAResource` for
 each transaction resource participating in a global transaction.".
-* Interface _javax.transaction.UserTransaction_
-, method _setTransactionTimeout_ , replace the first paragraph of the
-description with "Modify the timeout value that is associated with
-transactions started by subsequent invocations of the begin method by
-the current thread.".
-* Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
-, replace the first paragraph of the description with "Modify the
-timeout value that is associated with transactions started by subsequent
-invocations of the begin method by the current thread.".
+* Interface `javax.transaction.UserTransaction`, method
+`setTransactionTimeout`, replace the first paragraph of the description
+with "Modify the timeout value that is associated with transactions
+started by subsequent invocations of the begin method by the current
+thread.".
+* Interface `javax.transaction.TransactionManager`, method
+`setTransactionTimeout`, replace the first paragraph of the description
+with "Modify the timeout value that is associated with transactions
+started by subsequent invocations of the begin method by the current
+thread.".
 * New interface
-_javax.transaction.TransactionSynchronizationRegistry_
-* Interface _javax.transaction.Synchronization_
-, method _beforeCompletion_ , add the following description: "An
-unchecked exception thrown by a registered _Synchronization_ object
-causes the transaction to be aborted. That is, upon encountering an
-unchecked exception thrown by a registered synchronization object, the
+`javax.transaction.TransactionSynchronizationRegistry`
+* Interface `javax.transaction.Synchronization`, method
+`beforeCompletion`, add the following description: "An unchecked
+exception thrown by a registered `Synchronization` object causes the
+transaction to be aborted. That is, upon encountering an unchecked
+exception thrown by a registered synchronization object, the
 transaction manager must mark the transaction for rollback.".
 
 === Changes for Version 1.0.1B
 
-* Removed the method modifier _abstract_ from
+* Removed the method modifier `abstract` from
 all interface methods, since interface methods are implicitly abstract.
-* Table 1, row 1 ( _TMJOIN_ ) : move
-transaction association ( _T1_ ) from column 3 (association suspended)
+* Table 1, row 1 (`TMJOIN`) : move
+transaction association (`T1`) from column 3 (association suspended)
 to column 1 (not associated).
-* Interface _javax.transaction.Synchronization_
-, method _beforeCompletion_ , change the following phrase in the
-description "start of the transaction completion process" to "start of
-the two-phase transaction commit process".
-* Interface _javax.transaction.Transaction_ ,
-method _commit_ , added _IllegalStateException_ to throws clause.
-* Interface _javax.transaction.Transaction_ ,
-method _commit_ , replace the description of
-_HeuristicRollbackException_ with "Thrown to indicate that a heuristic
-decision was made and that all relevant updates have been rolled back.".
-* Interface _javax.transaction.Transaction_ ,
-change spelling of _Transactioin_ to _Transaction_ in interface
-description.
-* Interface _javax.transaction.Transaction_ ,
-method _registerSynchronization_ , first paragraph, line 2, change the
-phrase "transaction completion process" to "two-phase transaction commit
+* Interface `javax.transaction.Synchronization` , method
+`beforeCompletion`, change the following phrase in the description
+"start of the transaction completion process" to "start of the
+two-phase transaction commit process".
+* Interface `javax.transaction.Transaction`, method `commit`, added
+`IllegalStateException` to throws clause.
+* Interface `javax.transaction.Transaction`, method `commit`, replace
+the description of `HeuristicRollbackException` with "Thrown to
+indicate that a heuristic decision was made and that all relevant
+updates have been rolled back.".
+* Interface `javax.transaction.Transaction`, change spelling of
+`Transactioin` to `Transaction` in interface description.
+* Interface `javax.transaction.Transaction`, method
+`registerSynchronization`, first paragraph, line 2, change the phrase
+"transaction completion process" to "two-phase transaction commit
 process".
-* Interface _javax.transaction.Transaction_ ,
-method _rollback_ , spelling correction to method signature description,
-change _SyetemException_ to _SystemException_ .
-* Interface
-_javax.transaction.TransactionManager_ , method _commit_ , replace the
-description of _HeuristicRollbackException_ with "Thrown to indicate
-that a heuristic decision was made and that all relevant updates have
-been rolled back.".
-* Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
-, replace the first paragraph of the description with "Modify the
-timeout value that is associated with transactions started by subsequent
-invocations of the begin method.".
-* Interface
-_javax.transaction.TransactionManager_ , method _setTransactionTimeout_
-, replace the description of method parameter _seconds_ with "The value
-of the timeout in seconds. If the value is zero, the transaction service
-restores the default value. If the value is negative a _SystemException_
-is thrown.".
-* Interface _javax.transaction.UserTransaction_
-, method _commit_ , replace the description of
-_HeuristicRollbackException_ with "Thrown to indicate that a heuristic
-decision was made and that all relevant updates have been rolled back.".
-* Interface _javax.transaction.UserTransaction_
-, method _setTransactionTimeout_ , replace the first paragraph of the
+* Interface `javax.transaction.Transaction, method `rollback`, spelling
+correction to method signature description, change `SyetemException` to
+`SystemException`.
+* Interface `javax.transaction.TransactionManager`, method `commit`,
+replace the description of `HeuristicRollbackException` with "Thrown to
+indicate that a heuristic decision was made and that all relevant
+updates have been rolled back.".
+* Interface `javax.transaction.TransactionManager`, method
+`setTransactionTimeout`, replace the first paragraph of the
 description with "Modify the timeout value that is associated with
-transactions started by subsequent invocations of the _begin_ method.".
-* Interface _javax.transaction.UserTransaction_
-, method _setTransactionTimeout_ , replace the description of method
-parameter _seconds_ with "`The value of the timeout in seconds. If the
-value is zero, the transaction service restores the default value. If
-the value is negative a _SystemException_ is thrown.`"
-* Interface _javax.transaction.xa.XAResource_ ,
-method _commit_ , insert return type _void_ to method signature
-description.
-* Interface _javax.transaction.xa.XAResource_ ,
-method _commit_ , spelling correction to description, change
-_paramether_ to _parameter_ .
-* Interface _javax.transaction.xa.XAResource_ ,
-method _end_ , replace return type _int_ with _void_ in method signature
-description.
-* Interface _javax.transaction.xa.XAResource_ ,
-method _end_ , corrected spelling of _XAException_ errorCode
-_XAER_RMFAILED_ to _XAER_RMFAIL_ .
-* Interface _javax.transaction.xa.XAResource_ ,
-method _recover_ , spelling correction to method signature description,
-replace return type _xid[]_ with _Xid[]_ .
-* Interface _javax.transaction.xa.XAResource_ ,
-method _rollback_ , add the following to the description of
-_XAException_ , "Possible _XAExceptions_ are _XA_HEURHAZ_ , _XA_HEURCOM_
-, _XA_HEURRB_ , _XA_HEURMIX_ , _XAER_RMERR_ , _XAER_RMFAIL_ ,
-_XAER_NOTA_ , _XAER_INVAL_ , or _XAER_PROTO_ . Upon return, the resource
-manager has rolled back the branch’s work and has released all held
-resources.".
-* Interface _javax.transaction.xa.XAResource_ ,
-spelling correction to description, replace _TMNOFLAG_ with _TMNOFLAGS_
-.
-* Interface _javax.transaction.xa.XAResource_ ,
-added constants _XA_OK_ and _XA_RDONLY_ to be consistent with the actual
-interface definition.
-* Interface _javax.transaction.xa.Xid_ , method
-_getGlobalTransactionId_ , spelling correction to method signature
-description, corrected method name from _getGrid_ to
-_getGlobalTransactionId_ .
-* Interface _javax.transaction.xa.Xid_ , method
-_getBranchQualifier_ , spelling correction to method signature
-description, corrected method name from _getEqual_ to
-_getBranchQualifier_ .
-* Class _javax.transaction.xa.XAException_ ,
-spelling correction to description of interface definition, replace
-phrase _javax.transaction.xa.XAException_ with
-_javax.transaction.xa.XAException_ .
+transactions started by subsequent invocations of the begin method.".
+* Interface `javax.transaction.TransactionManager`, method
+`setTransactionTimeout`, replace the description of method parameter
+_seconds_ with "The value of the timeout in seconds. If the value is
+zero, the transaction service restores the default value. If the value
+is negative a `SystemException` is thrown.".
+* Interface `javax.transaction.UserTransaction`, method `commit`,
+replace the description of `HeuristicRollbackException` with "Thrown to
+indicate that a heuristic decision was made and that all relevant
+updates have been rolled back.".
+* Interface `javax.transaction.UserTransaction`, method
+`setTransactionTimeout`, replace the first paragraph of the description
+with "Modify the timeout value that is associated with transactions
+started by subsequent invocations of the `begin` method.".
+* Interface `javax.transaction.UserTransaction`, method
+`setTransactionTimeout`, replace the description of method parameter
+_seconds_ with "`The value of the timeout in seconds. If the value is
+zero, the transaction service restores the default value. If the value
+is negative a `SystemException` is thrown.`"
+* Interface `javax.transaction.xa.XAResource`, method `commit`,
+insert return type `void` to method signature description.
+* Interface `javax.transaction.xa.XAResource`, method `commit`,
+spelling correction to description, change `paramether` to `parameter`.
+* Interface `javax.transaction.xa.XAResource`, method `end`, replace
+return type `int` with `void` in method signature description.
+* Interface `javax.transaction.xa.XAResource`, method `end`, corrected
+spelling of `XAException` errorCode `XAER_RMFAILED` to `XAER_RMFAIL`.
+* Interface `javax.transaction.xa.XAResource`, method `recover`,
+spelling correction to method signature description, replace return
+type `xid[]` with `Xid[]`.
+* Interface `javax.transaction.xa.XAResource`, method `rollback`, add
+the following to the description of `XAException`, "Possible
+`XAExceptions` are `XA_HEURHAZ`, `XA_HEURCOM`, `XA_HEURRB`,
+`XA_HEURMIX`, `XAER_RMERR`, `XAER_RMFAIL`, `XAER_NOTA`, `XAER_INVAL`,
+or `XAER_PROTO`. Upon return, the resource manager has rolled back the
+branch’s work and has released all held resources.".
+* Interface `javax.transaction.xa.XAResource`, spelling correction to
+description, replace `TMNOFLAG` with `TMNOFLAGS`.
+* Interface `javax.transaction.xa.XAResource`, added constants `XA_OK`
+and `XA_RDONLY` to be consistent with the actual interface definition.
+* Interface `javax.transaction.xa.Xid`, method
+`getGlobalTransactionId`, spelling correction to method signature
+description, corrected method name from `getGrid` to
+`getGlobalTransactionId`.
+* Interface `javax.transaction.xa.Xid`, method `getBranchQualifier`,
+spelling correction to method signature description, corrected method
+name from `getEqual` to `getBranchQualifier`.
+* Class `javax.transaction.xa.XAException`, spelling correction to
+description of interface definition, replace phrase
+`javax.transaction.xa.XAException` with
+`javax.transaction.xa.XAException`.
