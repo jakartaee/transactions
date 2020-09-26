@@ -165,17 +165,17 @@ specifies each of these elements in detail.
 
 === User Transaction Interface
 
-The _jakarta.transaction.UserTransaction_ __
+The `jakarta.transaction.UserTransaction`
 interface provides the application the ability to control transaction
 boundaries programmatically.
 
-The implementation of the _UserTransaction_
-__ object must be both _javax.naming.Referenceable_ __ and
-_java.io.Serializable_ , so that the object can be stored in all JNDI
+The implementation of the `UserTransaction`
+object must be both `javax.naming.Referenceable` and
+`java.io.Serializable`, so that the object can be stored in all JNDI
 naming contexts.
 
 The following example illustrates how an
-application component acquires and uses a _UserTransaction_ object via
+application component acquires and uses a `UserTransaction` object via
 injection.
 
 [source,java]
@@ -185,24 +185,19 @@ injection.
 public void updateData() {
 
  // Start a transaction.
-
  userTransaction.begin();
 
  // ...
 
  // Perform transactional operations on data
-
  // Commit the transaction.
-
  userTransaction.commit();
 
 }
 ----
 
-
-
 The following example illustrates how an
-application component acquires and uses a UserTransaction object using a
+application component acquires and uses a `UserTransaction` object using a
 JNDI lookup.
 
 [source,java]
@@ -210,39 +205,32 @@ JNDI lookup.
 public void updateData() {
 
  // Obtain the default initial JNDI context.
-
  Context context = new InitialContext();
 
  // Look up the UserTransaction object.
-
- UserTransaction userTransaction =
-(UserTransaction)
-
- context.lookup("java:comp/UserTransaction");
+ UserTransaction userTransaction = (UserTransaction)
+  context.lookup("java:comp/UserTransaction");
 
  // Start a transaction.
-
  userTransaction.begin();
 
  // ...
 
  // Perform transactional operations on data
-
  // Commit the transaction.
-
  userTransaction.commit();
 
 }
 ----
 
-The _UserTransaction.begin_ __ method starts
+The `UserTransaction.begin` method starts
 a global transaction and associates the transaction with the calling
 thread. The transaction-to-thread association is managed transparently
 by the transaction manager.
 
 Support for nested transactions is not
-required. The _UserTransaction.begin_ __ method throws the
-_NotSupportedException_ __ when the calling thread is already associated
+required. The `UserTransaction.begin` method throws the
+`NotSupportedException` when the calling thread is already associated
 with a transaction and the transaction manager implementation does not
 support nested transactions.
 
@@ -258,15 +246,15 @@ application programs.
 
 === TransactionManager Interface
 
-The _jakarta.transaction.TransactionManager_ __
+The `jakarta.transaction.TransactionManager`
 interface allows the application server to control transaction
 boundaries on behalf of the application being managed. For example, the
 Jakarta Enterprise Beans container manages the transaction states for transactional Jakarta Enterprise Beans
-components; the container uses the _TransactionManager_ __ interface
+components; the container uses the `TransactionManager` interface
 mainly to demarcate transaction boundaries where operations affect the
 calling thread’s transaction context. The transaction manager maintains
 the transaction context association with threads as part of its internal
-data structure. A thread’s transaction context is either _null_ or it
+data structure. A thread’s transaction context is either `null` or it
 refers to a specific global transaction. Multiple threads may
 concurrently be associated with the same global transaction.
 
@@ -274,59 +262,58 @@ Support for nested tranactions is not
 required.
 
 Each transaction context is encapsulated by a
-_Transaction_ __ object, which can be used to perform operations which
+`Transaction` object, which can be used to perform operations which
 are specific to the target transaction, regardless of the calling
 thread’s transaction context. The following sections provide more
 detail.
 
 ==== Starting a Transaction
 
-The _TransactionManager.begin_ __ method
+The `TransactionManager.begin` method
 starts a global transaction and associates the transaction context with
 the calling thread.
 
-If the _TransactionManager_ implementation
-does not support nested transactions, the _TransactionManager.begin_ __
-method throws the _NotSupportedException_ __ when the calling thread is
+If the `TransactionManager` implementation
+does not support nested transactions, the `TransactionManager.begin`
+method throws the `NotSupportedException` when the calling thread is
 already associated with a transaction.
 
-The _TransactionManager.getTransaction_ __
-method returns the _Transaction_ object that represents the transaction
-context currently associated with the calling thread. This _Transaction_
+The `TransactionManager.getTransaction`
+method returns the `Transaction` object that represents the transaction
+context currently associated with the calling thread. This `Transaction`
 object can be used to perform various operations on the target
-transaction. Examples of _Transaction_ __ object operations are resource
-enlistment and synchronization registration. The _Transaction_ __
-interface is described in "`<<a96,See Transaction
-Interface>>.`"
+transaction. Examples of `Transaction` object operations are resource
+enlistment and synchronization registration. The `Transaction`
+interface is described in "`<<a96,See Transaction Interface>>.`"
 
 ==== Completing a Transaction
 
-The _TransactionManager.commit_ __ method
+The `TransactionManager.commit` method
 completes the transaction currently associated with the calling thread.
-After the _commit_ method returns, the calling thread is not associated
-with a transaction. If the _commit_ method is called when the thread is
-not associated with any transaction context, the _TransactionManager_
+After the `commit` method returns, the calling thread is not associated
+with a transaction. If the `commit` method is called when the thread is
+not associated with any transaction context, the `TransactionManager`
 throws an exception. In some implementations, the commit operation is
 restricted to the transaction originator only. If the calling thread is
-not allowed to commit the transaction, the _TransactionManager_ throws
+not allowed to commit the transaction, the `TransactionManager` throws
 an exception.
 
-The _TransactionManager.rollback_ __ method
+The `TransactionManager.rollback` method
 rolls back the transaction associated with the current thread. After the
-_rollback_ method completes, the thread is associated with no
+`rollback` method completes, the thread is associated with no
 transaction.
 
 ==== Suspending and Resuming a Transaction
 
-A call to the _TransactionManager.suspend_ __
+A call to the `TransactionManager.suspend`
 method temporarily suspends the transaction that is currently associated
 with the calling thread. If the thread is not associated with any
-transaction, a _null_ object reference is returned; otherwise, a valid
-_Transaction_ object is returned. The _Transaction_ __ object can later
-be passed to the _resume_ method to reinstate the transaction context
+transaction, a `null` object reference is returned; otherwise, a valid
+`Transaction` object is returned. The `Transaction` object can later
+be passed to the `resume` method to reinstate the transaction context
 association with the calling thread.
 
-The _TransactionManager.resume_ __ method
+The `TransactionManager.resume` method
 re-associates the specified transaction context with the calling thread.
 If the transaction specified is a valid transaction, the transaction
 context is associated with the calling thread; otherwise, the thread is
@@ -338,27 +325,29 @@ Transaction tobj = TransactionManager.suspend();
 TransactionManager.resume(tobj);
 ----
 
-If _TransactionManager.resume_ __ is invoked
+If `TransactionManager.resume` is invoked
 when the calling thread is already associated with another transaction,
-the transaction manager throws the _IllegalStateException_ __ exception.
+the transaction manager throws the `IllegalStateException` exception.
 
+****
 Note that some transaction manager
 implementations allow a suspended transaction to be resumed by a
 different thread. This feature is not required by Jakarta Transactions.
+****
 
 The application server is responsible for
 ensuring that the resources in use by the application are properly
 delisted from the suspended transaction. A resource delist operation
 triggers the transaction manager to inform the resource manager to
-disassociate the transaction from the specified resource object (
-_XAResource.end(TMSUSPEND)_ ).
+disassociate the transaction from the specified resource object
+(`XAResource.end(TMSUSPEND)`).
 
 When the application’s transaction context is
 resumed, the application server ensures that the resource in use by the
 application is again enlisted with the transaction. Enlisting a resource
 as a result of resuming a transaction triggers the transaction manager
 to inform the resource manager to re-associate the resource object with
-the resumed transaction ( _XAResource.start(TMRESUME)_ ). Refer to
+the resumed transaction (`XAResource.start(TMRESUME)`). Refer to
 "`<<a103,See Resource Enlistment>>.`" and
 "`<<a167,See Transaction Association>>,`" for more
 details on resource enlistment and transaction association.
