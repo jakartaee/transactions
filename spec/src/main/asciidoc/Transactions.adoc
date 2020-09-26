@@ -543,15 +543,15 @@ objects with the same hash code are not necessarily equal.
 [[a139]]
 === XAResource Interface
 
-The _javax.transaction.xa.XAResource_
+The `javax.transaction.xa.XAResource`
 interface is a Java mapping of the industry standard XA interface based
 on the X/Open CAE Specification (Distributed Transaction Processing: The
 XA Specification).
 
-The _XAResource_ __ interface defines the
+The `XAResource` interface defines the
 contract between a resource manager and a transaction manager in a
 distributed transaction processing (DTP) environment. A resource adapter
-for a resource manager implements the _XAResource_ __ interface to
+for a resource manager implements the `XAResource` interface to
 support association of a global transaction to a transaction resource,
 such as a connection to a relational database.
 
@@ -564,61 +564,61 @@ Transaction Service (JTS), to coordinate transactions.
 image::transactions-3.svg[align="center"]
 
 
-The _XAResource_ interface can be supported
+The `XAResource` interface can be supported
 by any transactional resource adapter that is intended to be used by
 application programs in an environment where transactions are controlled
 by an external transaction manager. An example of such a resource is a
 database management system. An application may access data through
 multiple database connections. Each database connection is associated
-with an _XAResource_ object that serves as a proxy object to the
+with an `XAResource` object that serves as a proxy object to the
 underlying resource manager instance. The transaction manager obtains an
-_XAResource_ for each transaction resource participating in a global
-transaction. It uses the _start_ method to associate the global
-transaction with the resource, and it uses the _end_ method to
+`XAResource` for each transaction resource participating in a global
+transaction. It uses the `start` method to associate the global
+transaction with the resource, and it uses the `end` method to
 disassociate the transaction from the resource. The resource manager is
 responsible for associating the global transaction with all work
-performed on its data between the _start_ and _end_ method invocations.
+performed on its data between the `start` and `end` method invocations.
 
 At transaction commit time, these
 transactional resource managers are informed by the transaction manager
 to prepare, commit, or rollback the transaction according to the
 two-phase commit protocol.
 
-The _XAResource_ interface, in order to be
+The `XAResource` interface, in order to be
 better integrated with the Java environment, differs from the standard
 X/Open XA interface in the following ways:
 
 * The resource manager initialization is done
 implicitly by the resource adapter when the resource (connection) is
-acquired. There is no _xa_open_ equivalent in the _XAResource_ __
+acquired. There is no `xa_open` equivalent in the `XAResource`
 interface. This obviates the need for a resource manager to provide a
 different syntax to open a resource for use within the distributed
 transaction environment from the syntax used in the environment without
 distributed transactions.
-*  _Rmid_ is not passed as an argument. We
-use an object-oriented approach where each _Rmid_ is represented by a
-separate _XAResource_ object.
+* `Rmid` is not passed as an argument. We
+use an object-oriented approach where each `Rmid` is represented by a
+separate `XAResource` object.
 * Asynchronous operations are not supported.
 Java supports multi-threaded processing and most databases do not
 support asynchronous operations.
 * Error return values that are caused by the
-transaction manager’s improper handling of the _XAResource_ object are
-mapped to Java exceptions via the _XAException_ class.
+transaction manager’s improper handling of the `XAResource` object are
+mapped to Java exceptions via the `XAException` class.
 * The DTP concept of "`Thread of Control`" maps
-to all Java threads that are given access to the _XAResource_ and
-_Connection_ objects. For example, it is legal (although in practice
-rarely used) for two different Java threads to perform the _start_ __
-and _end_ __ operations on the same _XAResource_ object.
+to all Java threads that are given access to the `XAResource` and
+`Connection` objects. For example, it is legal (although in practice
+rarely used) for two different Java threads to perform the `start`
+and `end` operations on the same `XAResource` object.
 * Association migration and dynamic
 registration (optional X/Open XA features) are not supported. We’ve
-omitted these features for a simpler _XAResource_ interface and simpler
+omitted these features for a simpler `XAResource` interface and simpler
 resource adapter implementation.
 
 ==== Opening a Resource Manager
 
 The X/Open XA interface specifies that the
-transaction manager must initialize a resource manager ( _xa_open_ )
-prior to any other _xa__ calls. We believe that the knowledge of
+transaction manager must initialize a resource manager (`xa_open`)
+prior to any other `xa_` calls. We believe that the knowledge of
 initializing a resource manager should be embedded within the resource
 adapter that represents the resource manager. The transaction manager
 does not need to know how to initialize a resource manager. The
@@ -637,7 +637,7 @@ adapter as a result of destroying the transactional resource. A
 transaction resource at the resource adapter level is comprised of two
 separate objects:
 
-* An _XAResource_ __ object that allows the
+* An `XAResource` object that allows the
 transaction manager to start and end the transaction association with
 the resource in use and to coordinate transaction completion process.
 * A connection object that allows the
@@ -646,13 +646,13 @@ example, JDBC operations on an RDBMS).
 
 The resource manager, once opened, is kept
 open until the resource is released (closed) explicitly. When the
-application invokes the connection’s _close_ __ method, the resource
+application invokes the connection’s `close` method, the resource
 adapter invalidates the connection object reference that was held by the
 application and notifies the application server about the close. The
-transaction manager should invoke the _XAResource.end_ __ method to
+transaction manager should invoke the `XAResource.end` method to
 disassociate the transaction from that connection.
 
-The _close_ __ notification allows the
+The `close` notification allows the
 application server to perform any necessary cleanup work and to mark the
 physical XA connection as free for reuse, if connection pooling is in
 place.
@@ -660,7 +660,7 @@ place.
 ==== Thread of Control
 
 The X/Open XA interface specifies that the
-transaction association related _xa_ calls must be invoked from the same
+transaction association related `xa_` calls must be invoked from the same
 thread context. This thread-of-control requirement is not applicable to
 the object-oriented component-based application run-time environment, in
 which application threads are dispatched dynamically at method
@@ -668,18 +668,18 @@ invocation time. Different Java threads may be using the same connection
 resource to access the resource manager if the connection spans multiple
 method invocations. Depending on the implementation of the application
 server, different Java threads may be involved with the same
-_XAResource_ object. The resource context and the transaction context
+`XAResource` object. The resource context and the transaction context
 may be operated independent of thread context. This means, for example,
 that it’s possible for different threads to be invoking the
-_XAResource.start_ and _XAResource.end_ methods.
+`XAResource.start` and `XAResource.end` methods.
 
 If the application server allows multiple
-threads to use a single _XAResource_ object and the associated
+threads to use a single `XAResource` object and the associated
 connection to the resource manager, it is the responsibility of the
 application server to ensure that there is only one transaction context
 associated with the resource at any point of time.
 
-Thus the _XAResource_ interface specified in
+Thus the `XAResource` interface specified in
 this document requires that the resource managers be able to support the
 two-phase commit protocol from any thread context.
 
@@ -687,71 +687,71 @@ two-phase commit protocol from any thread context.
 ==== Transaction Association
 
 Global transactions are associated with a
-transactional resource via the _XAResource.start_ __ method, and
-disassociated from the resource via the _XAResource.end_ __ method. The
+transactional resource via the `XAResource.start` method, and
+disassociated from the resource via the `XAResource.end` method. The
 resource adapter is responsible for internally maintaining an
-association between the resource connection object and the _XAResource_
+association between the resource connection object and the `XAResource`
 object. At any given time, a connection is associated with a single
 transaction or it is not associated with any transaction at all.
 
 Interleaving multiple transaction contexts
 using the same resource may be done by the transaction manager as long
-as _XAResource.start_ __ and _XAResource.end_ __ are invoked properly
+as `XAResource.start` and `XAResource.end` are invoked properly
 for each transaction context switch. Each time the resource is used with
-a different transaction, the method _XAResource.end_ __ must be invoked
+a different transaction, the method `XAResource.end` must be invoked
 for the previous transaction that was associated with the resource, and
-_XAResource.start_ __ must be invoked for the current transaction
+`XAResource.start` must be invoked for the current transaction
 context.
 
- _XAResource_ does not support nested
-transactions. It is an error for the _XAResource.start_ __ method to be
+`XAResource` does not support nested
+transactions. It is an error for the `XAResource.start` method to be
 invoked on a connection that is currently associated with a different
 transaction.
 
 
 .Transaction Association
 [cols=4,width="100%"]
-|====================
+|===
 .2+h| XAResource Methods
 3+h| XAResource Transaction States
 
 // | X
-h| Not Associated \(T~0~)
+h| Not Associated (T~0~)
 h| Associated (T~1~)
 h| Associaton Suspended (T~2~)
 
 
-| _start()_
-| T ~1~
+| `start()`
+| T~1~
 |
 |
 
-| _start(TMRESUME)_
+| `start(TMRESUME)`
 |
 |
 | T~1~
 
-| _start(TMJOIN)_
-| T ~1~
+| `start(TMJOIN)`
+| T~1~
 |
 |
 
-| _end(TMSUSPEND)_
+| `end(TMSUSPEND)`
 |
-| T ~2~
+| T~2~
 |
 
-| _end(TMFAIL)_
+| `end(TMFAIL)`
 |
-| T ~0~
-| T ~0~
+| T~0~
+| T~0~
 
-| _end(TMSUCCESS)_
+| `end(TMSUCCESS)`
 |
-| T ~0~
-| T ~0~
+| T~0~
+| T~0~
 
-|====================
+|===
 
 
 ==== Externally Controlled connections
