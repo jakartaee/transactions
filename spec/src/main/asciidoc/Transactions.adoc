@@ -928,13 +928,13 @@ public boolean enlistResource(XAResource xares) {
 ==== Dynamic Registration
 
 Dynamic registration is not supported in
-_XAResource_ because of the following reasons:
+`XAResource` because of the following reasons:
 
 * In the Java component-based application
 server environment, connections to the resource manager are acquired
 dynamically when the application explicitly requests for a connection.
 These resources are enlisted with the transaction manager on an
-"`as-needed`" basis (unlike the static _xa_switch_ table that exists in
+"`as-needed`" basis (unlike the static `xa_switch` table that exists in
 the C-XA procedural model).
 * If a resource manager requires a way to
 dynamically register its work to the global transaction, then the
@@ -944,18 +944,18 @@ manager.
 
 === Xid Interface
 
-The _javax.transaction.xa.Xid_ interface is a
+The `javax.transaction.xa.Xid` interface is a
 Java mapping of the X/Open transaction identifier XID structure. This
 interface specifies three accessor methods which are used to retrieve a
 global transaction’s format ID, a global transaction ID, and a branch
-qualifier. The _Xid_ interface is used by the transaction manager and
+qualifier. The `Xid` interface is used by the transaction manager and
 the resource managers. This interface is not visible to the application
 programs nor the application server.
 
 === TransactionSynchronizationRegistry Interface
 
 The
-_jakarta.transaction.TransactionSynchronizationRegistry_ interface is
+`jakarta.transaction.TransactionSynchronizationRegistry` interface is
 intended for use by system level application server components such as
 persistence managers. This provides the ability to register
 synchronization objects with special ordering semantics, associate
@@ -969,7 +969,7 @@ used by any number of components with complete thread safety. In
 standard application server environments, an instance implementing this
 interface can be looked up via JNDI using a standard name.
 
-The user of _getResource_ and _putResource_
+The user of `getResource` and `putResource`
 methods is a library component that manages transaction-specific data on
 behalf of a caller. The transaction-specific data provided by the caller
 is not immediately flushed to a transaction-enlisted resource, but
@@ -979,7 +979,7 @@ transactional context of the caller.
 
 An efficient way to manage such a
 transaction-related data structure is for the implementation of the
-_TransactionSynchronizationRegistry_ to manage a Map for each
+`TransactionSynchronizationRegistry` to manage a Map for each
 transaction as part of the transaction state.
 
 The keys of this Map are objects that are
@@ -991,104 +991,98 @@ transaction. When the transaction completes, the Map is cleared,
 releasing resources for garbage collection.
 
 The scalability of the library code is
-significantly enhanced by the addition of the _getResource_ and
-_putResource_ methods to the _TransactionSynchronizationRegistry_ .
+significantly enhanced by the addition of the `getResource` and
+`putResource` methods to the `TransactionSynchronizationRegistry`.
 
 === Transactional Annotation
 
-The _jakarta.transaction.Transactional_
+The `jakarta.transaction.Transactional`
 annotation provides the application the ability to declaratively control
 transaction boundaries on Jakarta Context Dependency Injection managed beans, as well as classes defined
 as managed beans by the Jakarta EE specification, at both the class and
 method level where method level annotations override those at the class
 level. See the "`__Jakarta Enterprise Beans 4.0 specification__`" for restrictions on the use of
-_@Transactional_ with Jakarta Enterprise Beans resources. This support is provided via an
+`@Transactional` with Jakarta Enterprise Beans resources. This support is provided via an
 implementation of Jakarta Context Dependency Injection interceptors that conduct the necessary
-suspending, resuming, etc. The _Transactional_ interceptor interposes on
-business method invocations only and not on lifecycle events. __
+suspending, resuming, etc. The `Transactional` interceptor interposes on
+business method invocations only and not on lifecycle events.
 Lifecycle methods are invoked in an unspecified transaction context. If
-an attempt is made to call any method of the _UserTransaction_ interface
+an attempt is made to call any method of the `UserTransaction` interface
 from within the scope of a bean or method annotated with
-_@Transactional_ and a _Transactional.TxType_ other than _NOT_SUPPORTED_
-or _NEVER_ , an _IllegalStateException_ must be thrown. The use of the
-_UserTransaction_ is allowed within life cycle events. The use of the
-_TransactionSynchronizationRegistry_ is allowed regardless of any
-_@Transactional_ annotation.The _Transactional_ interceptors must have a
-priority of _Interceptor.Priority.PLATFORM_BEFORE+200_ . Refer to the
+`@Transactional` and a `Transactional.TxType` other than `NOT_SUPPORTED`
+or `NEVER`, an `IllegalStateException` must be thrown. The use of the
+`UserTransaction` is allowed within life cycle events. The use of the
+`TransactionSynchronizationRegistry` is allowed regardless of any
+`@Transactional` annotation. The `Transactional` interceptors must have a
+priority of `Interceptor.Priority.PLATFORM_BEFORE+200`. Refer to the
 "`__Interceptors specification__`" for more details.
 
-The _TxType_ element of the annotation
+The `TxType` element of the annotation
 indicates whether a bean method is to be executed within a transaction
 context where the values provide the following corresponding behavior
-and _TxType.REQUIRED_ is the default:
+and `TxType.REQUIRED` is the default:
 
-*  _TxType.REQUIRED_ : If called outside a
+* `TxType.REQUIRED`: If called outside a
 transaction context, the interceptor must begin a new Jakarta Transactions transaction,
 the managed bean method execution must then continue inside this
 transaction context, and the transaction must be completed by the
-interceptor.
-
+interceptor. +
 If called inside a transaction context, the
 managed bean method execution must then continue inside this transaction
 context.
 
-*  _TxType.REQUIRES_NEW_ : If called outside
+* `TxType.REQUIRES_NEW`: If called outside
 a transaction context, the interceptor must begin a new Jakarta Transactions transaction,
 the managed bean method execution must then continue inside this
 transaction context, and the transaction must be completed by the
-interceptor.
-
+interceptor. +
 If called inside a transaction context, the
 current transaction context must be suspended, a new Jakarta Transactions transaction
 will begin, the managed bean method execution must then continue inside
 this transaction context, the transaction must be completed, and the
 previously suspended transaction must be resumed.
 
-*  _TxType.MANDATORY_ : If called outside a
-transaction context, a _TransactionalException_ with a nested
-_TransactionRequiredException_ must be thrown.
-
+* `TxType.MANDATORY`: If called outside a
+transaction context, a `TransactionalException` with a nested
+`TransactionRequiredException` must be thrown. +
 If called inside a transaction context,
 managed bean method execution will then continue under that context.
 
-*  _TxType.SUPPORTS_ : If called outside a
+* `TxType.SUPPORTS`: If called outside a
 transaction context, managed bean method execution must then continue
-outside a transaction context.
-
+outside a transaction context. +
 If called inside a transaction context, the
 managed bean method execution must then continue inside this transaction
 context.
 
-*  _TxType.NOT_SUPPORTED_ : If called outside
+* `TxType.NOT_SUPPORTED`: If called outside
 a transaction context, managed bean method execution must then continue
-outside a transaction context.
-
+outside a transaction context. +
 If called inside a transaction context, the
 current transaction context must be suspended, the managed bean method
 execution must then continue outside a transaction context, and the
 previously suspended transaction must be resumed by the interceptor that
 suspended it after the method execution has completed.
 
-*  _TxType.NEVER_ : If called outside a
+* `TxType.NEVER`: If called outside a
 transaction context, managed bean method execution must then continue
-outside a transaction context.
-
+outside a transaction context. +
 If called inside a transaction context, a
-_TransactionalException_ with a nested _InvalidTransactionException_
+`TransactionalException` with a nested `InvalidTransactionException`
 must be thrown
 
 By default checked exceptions do not result
 in the transactional interceptor marking the transaction for rollback
-and instances of _RuntimeException_ and its subclasses do. This default
+and instances of `RuntimeException` and its subclasses do. This default
 behavior can be modified by specifying exceptions that result in the
 interceptor marking the transaction for rollback and/or exceptions that
-do not result in rollback. The rollbackOn element can be set to indicate
+do not result in rollback. The `rollbackOn` element can be set to indicate
 exceptions that must cause the interceptor to mark the transaction for
-rollback. Conversely, the _dontRollbackOn_ element can be set to
+rollback. Conversely, the `dontRollbackOn` element can be set to
 indicate exceptions that must not cause the interceptor to mark the
 transaction for rollback. When a class is specified for either of these
 elements, the designated behavior applies to subclasses of that class as
-well. If both elements are specified, _dontRollbackOn_ takes precedence.
+well. If both elements are specified, `dontRollbackOn` takes precedence.
 
 The following example will override behavior
 for application exceptions, causing the transaction to be marked for
@@ -1101,7 +1095,7 @@ rollback for all application exceptions.
 
 The following example will prevent
 transactions from being marked for rollback by the interceptor when an
-_IllegalStateException_ or any of its subclasses reaches the
+`IllegalStateException` or any of its subclasses reaches the
 interceptor.
 
 [source,java]
@@ -1110,8 +1104,8 @@ interceptor.
 ----
 
 The following will cause the transaction to
-be marked for rollback for all runtime exceptions and all _SQLException_
-types except for _SQLWarning_ .
+be marked for rollback for all runtime exceptions and all `SQLException`
+types except for `SQLWarning`.
 
 [source,java]
 ----
@@ -1120,27 +1114,27 @@ types except for _SQLWarning_ .
         dontRollbackOn={SQLWarning.class})
 ----
 
-The _TransactionalException_ thrown from the
-_Transactional_ interceptors implementation is a _RuntimeException_ and
+The `TransactionalException` thrown from the
+`Transactional` interceptors implementation is a `RuntimeException` and
 therefore by default any transaction that was started as a result of a
-_Transactional_ annotation earlier in the call stream will be marked for
-rollback as a result of the _TransactionalException_ being thrown by the
-_Transactional_ interceptor of the second bean. For example if a
+`Transactional` annotation earlier in the call stream will be marked for
+rollback as a result of the `TransactionalException` being thrown by the
+`Transactional` interceptor of the second bean. For example if a
 transaction is begun as a result of a call to a bean annotated with
-_Transactional(TxType.REQUIRES)_ and this bean in turn calls a second
-bean annotated with _Transactional(TxType.NEVER)_ , the transaction
+`Transactional(TxType.REQUIRES)` and this bean in turn calls a second
+bean annotated with `Transactional(TxType.NEVER)`, the transaction
 begun by the first bean will be marked for rollback.
 
 === TransactionScoped Annotation
 
-The _jakarta.transaction.TransactionScoped_
+The `jakarta.transaction.TransactionScoped`
 annotation provides the ability to specify a standard Jakarta Context Dependency Injection scope to
 define bean instances whose lifecycle is scoped to the currently active
 Jakarta Transactions transaction. This annotation has no effect on classes which have
 non-contextual references such those defined as managed beans by the
 Jakarta EE specification . The transaction scope is active when the return
-from a call to _UserTransaction.getStatus_ or
-_TransactionManager.getStatus_ is one of the following states:
+from a call to `UserTransaction.getStatus` or
+`TransactionManager.getStatus` is one of the following states:
 
 [source,java]
 ----
@@ -1154,29 +1148,28 @@ Status.STATUS_ROLLING_BACK
 ----
 
 It is not intended that the term "`active`" as
-defined here in relation to the _TransactionScoped_ annotation should
+defined here in relation to the `TransactionScoped` annotation should
 also apply to its use in relation to transaction context, lifecycle,
 etc. mentioned elsewhere in this specification. The object with this
 annotation will be associated with the current active Jakarta Transactions transaction
 when the object is used. This association must be retained through any
 transaction suspend or resume calls as well as any
-_Synchronization.beforeCompletion_ callbacks. Any
-_Synchronization.afterCompletion_ methods will be invoked in an
+`Synchronization.beforeCompletion` callbacks. Any
+`Synchronization.afterCompletion` methods will be invoked in an
 undefined context. The way in which the Jakarta Transactions transaction is begun and
-completed (for example via _UserTransaction_ , _Transactional_
+completed (for example via `UserTransaction`, `Transactional`
 interceptor, etc.) is of no consequence. The contextual references used
-across different Jakarta Transactions transactions are distinct. Refer to the "`__Jakarta Context Dependency Injection 3.0
+across different Jakarta Transactions transactions are distinct. 
+Refer to the "`__Jakarta Context Dependency Injection 3.0
 specification__`" for more details on contextual references. A
-_jakarta.enterprise.context.ContextNotActiveException_ must be thrown if a
+`jakarta.enterprise.context.ContextNotActiveException` must be thrown if a
 bean with this annotation is used when the transaction context is not
 active.
 
 The following example test case illustrates
 the expected behavior.
 
-
-
- _TransactionScoped_ annotated Jakarta Context Dependency Injection managed
+`TransactionScoped` annotated Jakarta Context Dependency Injection managed
 bean:
 
 [source,java]
