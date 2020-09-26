@@ -763,9 +763,9 @@ performed properly. If an application is associated with a global
 transaction, it is an error for the application to perform transactional
 work through the connection without having the connection’s resource
 object already associated with the global transaction. The application
-server must ensure that the _XAResource_ __ object in use is associated
+server must ensure that the `XAResource` object in use is associated
 with the transaction. This is done by invoking the
-_Transaction.enlistResource_ __ method.
+`Transaction.enlistResource` method.
 
 If a server side transactional application
 retains its database connection across multiple client requests, the
@@ -787,12 +787,12 @@ object used for the two-phase commit protocol need not have been
 involved with the transaction being completed.
 
 The resource adapter must be able to handle
-multiple threads invoking the _XAResource_ methods concurrently for
+multiple threads invoking the `XAResource` methods concurrently for
 transaction commit processing. For example, suppose we have a
-transactional resource _r1_ . Global transaction _xid1_ was _started_
-and _ended_ with _r1_ . Then a different global transaction _xid2_ is
-associated with _r1_ . Meanwhile, the transaction manager may start the
-two phase commit process for _xid1_ __ using _r1_ or any other
+transactional resource `r1`. Global transaction `xid1` was _started_
+and _ended_ with `r1`. Then a different global transaction `xid2` is
+associated with `r1`. Meanwhile, the transaction manager may start the
+two phase commit process for `xid1` using `r1` or any other
 transactional resource connected to the same resource manager. The
 resource adapter needs to allow the commit process to be executed while
 the resource is currently associated with a different global
@@ -806,27 +806,19 @@ scenario:
 // Suppose we have some transactional connection-based
 // resource r1 that is connected to an enterprise
 // information service system.
-
 XAResource xares = r1.getXAResource();
 
-
-
-xares.start(xid1); // associate xid1 to the
-connection
+xares.start(xid1); // associate xid1 to the connection
 
 ...
 
-xares.end(xid1); // dissociate xid1 frm the
-connection
+xares.end(xid1); // dissociate xid1 frm the connection
 
 ...
-
 
 xares.start(xid2); // associate xid2 to the connection
 
 ...
-
-
 
 // While the connection is associated with xid2,
 // the transaction manager starts the commit process
@@ -844,7 +836,7 @@ The resource adapter is encouraged to support
 the usage of both local and global transactions within the same
 transactional connection. Local transactions are transactions that are
 started and coordinated by the resource manager internally. The
-_XAResource_ interface is not used for local transactions.
+`XAResource` interface is not used for local transactions.
 
 When using the same connection to perform
 both local and global transactions, the following rules apply:
@@ -858,7 +850,7 @@ started.
 If a resource adapter does not support mixing
 local and global transactions within the same connection, the resource
 adapter should throw the resource specific exception. For example,
-_java.sql.SQLException_ __ is thrown to the application if the resource
+`java.sql.SQLException` is thrown to the application if the resource
 manager for the underlying RDBMS does not support mixing local and
 global transactions within the same JDBC connection.
 
@@ -867,28 +859,28 @@ global transactions within the same JDBC connection.
 During recovery, the transaction manager must
 be able to communicate to all resource managers that are in use by the
 applications in the system. For each resource manager, the transaction
-manager uses the _XAResource.recover_ __ method to retrieve the list of
+manager uses the `XAResource.recover` method to retrieve the list of
 transactions that are currently in a prepared or heuristically completed
 state.
 
 Typically, the system administrator
 configures all transactional resource factories that are used by the
 applications deployed on the system. An example of such a resource
-factory is the JDBC _XADataSource_ __ object, which is a factory for the
-JDBC _XAConnection_ __ objects. The implementation of these
+factory is the JDBC `XADataSource` object, which is a factory for the
+JDBC `XAConnection` objects. The implementation of these
 transactional resource factory objects are both
-_javax.naming.Referenceable_ __ and _java.io.Serializable_ __ so that
+`javax.naming.Referenceable` and `java.io.Serializable` so that
 they can be stored in all JNDI naming contexts.
 
-Because _XAResource_ objects are not
+Because `XAResource` objects are not
 persistent across system failures, the transaction manager needs to have
-some way to acquire the _XAResource_ __ objects that represent the
+some way to acquire the `XAResource` objects that represent the
 resource managers which might have participated in the transactions
 prior to the system failure. For example, a transaction manager might,
 through the use of the JNDI lookup mechanism and cooperation from the
-application server, acquire an _XAResource_ object representing each of
+application server, acquire an `XAResource` object representing each of
 the resource managers configured in the system. The transaction manager
-then invokes the _XAResource.recover_ __ method to ask each resource
+then invokes the `XAResource.recover` method to ask each resource
 manager to return any transactions that are currently in a prepared or
 heuristically completed state. It is the responsibility of the
 transaction manager to ignore transactions that do not belong to it.
@@ -896,12 +888,12 @@ transaction manager to ignore transactions that do not belong to it.
 [[a245]]
 ==== Identifying Resource Manager Instance
 
-The _isSameRM_ __ method is invoked by the
-transaction manager to determine if the target _XAResource_ __ object
+The `isSameRM` method is invoked by the
+transaction manager to determine if the target `XAResource` object
 represents the same resource manager instance as that represented by the
-_XAResource_ __ object in the parameter. The _isSameRM_ __ method
+`XAResource` object in the parameter. The `isSameRM` method
 returns _true_ if the specified target object is connected to the same
-resource manager instance; otherwise, the method returns _false_ . The
+resource manager instance; otherwise, the method returns _false_. The
 semi-pseudo code below illustrates the intended usage.
 
 [source,java]
@@ -909,11 +901,9 @@ semi-pseudo code below illustrates the intended usage.
 public boolean enlistResource(XAResource xares) {
 ...
 
-
  // Assuming xid1 is the target transaction and
  // xid1 already has another resource object xaRes1
  // participating in the transaction
-
  boolean sameRM = xares.isSameRM(xaRes1);
 
  if (sameRM) {
@@ -922,7 +912,6 @@ public boolean enlistResource(XAResource xares) {
  // group together with xaRes1 and join the transaction
  //
  xares.start(xid1, TMJOIN);
-
  } else {
  //
  // This is a different resource manager instance,
