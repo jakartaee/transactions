@@ -1418,6 +1418,8 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 * Updated references to Jakarta specifications where appropriate.
 * Updated package references to `jakarta.*` where appropriate
 * Small text update where two piece of text appeared to be incorrectly joined
+* Removed version information from several places when referencing
+components of other Jakarta technologies
 
 === Changes for Version 1.3
 
