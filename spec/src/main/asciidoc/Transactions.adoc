@@ -1387,8 +1387,8 @@ documents.
 . X/Open CAE Specification – Distributed Transaction Processing: The XA
 Specification, X/Open Document No. XO/CAE/91/300 or ISBN 1 872630 24 3
 
-. _Java Transaction Service (JTS) Specification_, available at
-https://www.oracle.com/technetwork/java/javaee/jts-spec095-1508547.pdf[]
+. _Java Transaction Service (JTS) Specification, Version 1.0 (Draft)_, available at
+http://download.oracle.com/otn-pub/jcp/7309-jts-1.0-spec-oth-JSpec/jts1_0-spec.pdf[]
 
 . OMG Object Transaction Service (OTS 1.1)
 
