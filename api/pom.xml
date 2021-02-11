@@ -23,6 +23,7 @@
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>1.0.5</version>
+        <relativePath />
     </parent>
 
     <groupId>jakarta.transaction</groupId>
@@ -140,7 +141,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>1.4.3</version>
+                <version>5.1.1</version>
                 <configuration>
                     <supportedProjectTypes>
                         <supportedProjectType>jar</supportedProjectType>
@@ -157,8 +158,17 @@
                         <Specification-Vendor>Oracle Corporation</Specification-Vendor>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Vendor-Id>org.glassfish</Implementation-Vendor-Id>
-                        <Import-Package>javax.interceptor.*;version="[1.2,1.2.98)",*</Import-Package>
-                        <_include>-${basedir}/osgi.bundle</_include>
+                        <Import-Package>
+                            javax.enterprise.context;version=!,
+                            javax.enterprise.util;version=!,
+                            javax.interceptor.*;version="1.2",
+                            javax.transaction.xa,
+                            *
+                        </Import-Package>
+                        <Export-Package>
+                            javax.transaction;version="1.2";uses:="javax.interceptor,javax.transaction.xa,javax.enterprise.util,javax.enterprise.context",
+                            javax.transaction;version="1.3";uses:="javax.interceptor,javax.transaction.xa,javax.enterprise.util,javax.enterprise.context"
+                        </Export-Package>
                     </instructions>
                 </configuration>
                 <executions>
