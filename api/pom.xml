@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,15 +23,16 @@
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>1.0.6</version>
+        <relativePath />
     </parent>
 
     <groupId>jakarta.transaction</groupId>
     <artifactId>jakarta.transaction-api</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.1-SNAPSHOT</version>
     
     <properties>
         <non.final>false</non.final>
-        <extension.name>javax.transaction</extension.name>
+        <extension.name>jakarta.transaction</extension.name>
         <spec.version>2.0</spec.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -98,9 +99,6 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>META-INF/README</exclude>
-                </excludes>
             </resource>
         </resources>        
         <plugins>
@@ -137,7 +135,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>1.4.3</version>
+                <version>5.1.1</version>
                 <configuration>
                     <supportedProjectTypes>
                         <supportedProjectType>jar</supportedProjectType>
@@ -154,7 +152,17 @@
                         <Specification-Vendor>Oracle Corporation</Specification-Vendor>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Vendor-Id>org.glassfish</Implementation-Vendor-Id>
-                        <_include>-${basedir}/osgi.bundle</_include>
+                        <Import-Package>
+                            javax.enterprise.context;version=!,
+                            javax.enterprise.util;version=!,
+                            javax.interceptor.*;version="1.2",
+                            javax.transaction.xa,
+                            *
+                        </Import-Package>
+                        <Export-Package>
+                            javax.transaction;version="1.2";uses:="javax.interceptor,javax.transaction.xa,javax.enterprise.util,javax.enterprise.context",
+                            javax.transaction;version="1.3";uses:="javax.interceptor,javax.transaction.xa,javax.enterprise.util,javax.enterprise.context"
+                        </Export-Package>
                     </instructions>
                 </configuration>
                 <executions>
@@ -246,7 +254,7 @@
                     <splitindex>true</splitindex>
                     <use>true</use>
                     <bottom>
-        <![CDATA[Copyright &#169; 2019 Eclipse Foundation. All Rights Reserved.
+        <![CDATA[Copyright &#169; 2018, 2020 Eclipse Foundation. All Rights Reserved.
             <br/>Use is subject to
     <a href="{@docRoot}/doc-files/EFSL.html" target="_top">license terms</a>.
         ]]>

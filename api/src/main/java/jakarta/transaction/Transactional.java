@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -52,6 +52,7 @@ import java.lang.annotation.*;
  * <p>When a class is specified for either of these elements, the designated behavior applies to subclasses
  * of that class as well. If both elements are specified, dontRollbackOn takes precedence.</p>
  *
+ * @version Jakarta Transactions 2.0
  * @since JTA 1.2
  */
 @Inherited
@@ -70,6 +71,8 @@ public @interface Transactional {
      * The TxType element of the annotation indicates whether a bean method is to be
      * executed within a transaction context where the values provide the following
      * corresponding behavior.
+     *
+     * @version Jakarta Transactions 2.0
      */
     public enum TxType {
         /**

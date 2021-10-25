@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,6 +20,8 @@ package jakarta.transaction;
  * The SystemException is thrown by the transaction manager to 
  * indicate that it has encountered an unexpected error condition
  * that prevents future transaction services from proceeding.
+ *
+ * @version Jakarta Transactions 2.0
  */
 public class SystemException extends java.lang.Exception {
 
