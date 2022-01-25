@@ -60,7 +60,7 @@
                             <rules>
                                 <requireJavaVersion>
                                     <version>[11.0,17.0)</version>
-                                    <message>You need JDK11 or lower</message>
+                                    <message>You need JDK11 or higher</message>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
