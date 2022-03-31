@@ -28,7 +28,7 @@
 
     <groupId>jakarta.transaction</groupId>
     <artifactId>jakarta.transaction-api</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2-SNAPSHOT</version>
     
     <properties>
         <non.final>false</non.final>
