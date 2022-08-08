@@ -1073,7 +1073,7 @@ must be thrown
 
 By default checked exceptions do not result
 in the transactional interceptor marking the transaction for rollback
-and instances of `RuntimeException` and its subclasses do. This default
+and unchecked exception instances do. This default
 behavior can be modified by specifying exceptions that result in the
 interceptor marking the transaction for rollback and/or exceptions that
 do not result in rollback. The `rollbackOn` element can be set to indicate
@@ -1104,7 +1104,7 @@ interceptor.
 ----
 
 The following will cause the transaction to
-be marked for rollback for all runtime exceptions and all `SQLException`
+be marked for rollback for all unchecked exceptions and all `SQLException`
 types except for `SQLWarning`.
 
 [source,java]
