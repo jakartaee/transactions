@@ -70,7 +70,7 @@
     </licenses>
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/eclipse-ee4j/jta-api/issues</url>
+        <url>https://github.com/jakartaee/transactions/issues</url>
     </issueManagement>
     <mailingLists>
       <mailingList>
@@ -82,9 +82,9 @@
         </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:git:https://github.com/eclipse-ee4j/jta-api.git</connection>
-        <developerConnection>scm:git:git@github.com:eclipse-ee4j/jta-api.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jta-api</url>
+        <connection>scm:git:git@github.com:jakartaee/transactions.git</connection>
+        <developerConnection>scm:git:git@github.com:jakartaee/transactions.git</developerConnection>
+        <url>https://github.com/jakartaee/transactions</url>
       <tag>HEAD</tag>
   </scm>
 

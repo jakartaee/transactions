@@ -33,9 +33,9 @@
     <url>https://projects.eclipse.org/projects/ee4j.jta</url>
 
     <scm>
-        <connection>scm:git:git://github.com/eclipse-ee4j/jta-api.git</connection>
-        <developerConnection>scm:git:git@github.com:eclipse-ee4j/jta-api.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jta-api</url>
+        <connection>scm:git:git@github.com:jakartaee/transactions.git</connection>
+        <developerConnection>scm:git:git@github.com:jakartaee/transactions.git</developerConnection>
+        <url>https://github.com/jakartaee/transactions</url>
         <tag>HEAD</tag>
     </scm>
 
