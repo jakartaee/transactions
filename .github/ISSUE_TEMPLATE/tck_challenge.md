@@ -12,7 +12,7 @@ List the challenged tests with the fully qualified classnames and then the test 
 ee.jakarta.tck.wombat.MyTest#testSomething
 
 **TCK Version**
-Specify the version of the TCK, e.g. Jakarta Transactions 2.x
+Specify the version of the TCK, e.g. Jakarta Wombat x.x
 
 **Description**
 A clear and concise description of why you think the tests are wrong.
