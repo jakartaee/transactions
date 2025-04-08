@@ -5,4 +5,5 @@ module jakarta.transaction {
     requires jakarta.interceptor;
 
     exports jakarta.transaction;
+    exports jakarta.transaction.xa;
 }

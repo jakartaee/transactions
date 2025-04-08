@@ -128,7 +128,8 @@ Java programming language.
 === JDBC
 
 A JDBC driver that supports distributed
-transactions implements the `javax.transaction.xa.XAResource` interface,
+transactions implements the `javax.transaction.xa.XAResource` or
+`jakarta.transaction.xa.ExtendedXAResource` interface,
 the `javax.sql.XAConnection` interface, and the `javax.sql.XADataSource`
 interface. Refer to the "`__JDBC 4.3 Specification__`" for further details.
 
@@ -139,7 +140,8 @@ Jakarta Messaging provider to support distributed transactions. A Jakarta Messag
 provider that supports the `XAResource` interface is able to participate
 as a resource manager in a distributed transaction processing system
 that uses a two-phase commit transaction protocol. In particular, a Jakarta Messaging
-provider implements the `javax.transaction.xa.XAResource` interface, the
+provider implements the `javax.transaction.xa.XAResource` or
+`jakarta.transaction.xa.ExtendedXAResource` interface, the
 `jakarta.jms.XAConnection` interface, and the `jakarta.jms.XASession`
 interface. Refer to the "`__Jakarta Messaging 3.0 Specification__`" for further details.
 
@@ -167,7 +169,7 @@ specifies each of these elements in detail.
 
 The `jakarta.transaction.UserTransaction`
 interface provides the application the ability to control transaction
-boundaries programmatically.
+boundaries programmatically and set a transaction into read-only mode.
 
 The implementation of the `UserTransaction`
 object must be both `javax.naming.Referenceable` and
@@ -367,6 +369,7 @@ by the application.
 callbacks.
 * Commit or rollback the transaction.
 * Obtain the status of the transaction.
+* Obtain the read-only mode of the transaction.
 
 These functions are described in the sections
 below.
@@ -410,6 +413,14 @@ transaction manager is responsible for passing the appropriate flag in
 its `XAResource.start` method call to the resource manager. The
 `XAResource` interface is described in
 "`<<xaresource-interface,See XAResource Interface>>.`"
+
+If the current transaction is in the read-only mode, the transaction
+manager tries to put the enlisted resource in the read-only mode by
+invoking the `ExtendedXAResource#setReadOnly` method if it implements
+the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
+be put into read-only mode or the `XAResource` does not implement the
+`ExtendedXAResource` interface, the transaction manager must roll back
+the `XAResource` at transaction commit.
 
 If the target transaction already has another
 `XAResource` object participating in the transaction, the transaction
@@ -613,6 +624,11 @@ and `end` operations on the same `XAResource` object.
 registration (optional X/Open XA features) are not supported. We’ve
 omitted these features for a simpler `XAResource` interface and simpler
 resource adapter implementation.
+
+The `jakarta.transaction.xa.ExtendedXAResource` interface is an optional
+extension that can be implemented to additionally report capabilities:
+
+* Read-only mode to allow only read interactions with a resource
 
 ==== Opening a Resource Manager
 
@@ -994,6 +1010,7 @@ The scalability of the library code is
 significantly enhanced by the addition of the `getResource` and
 `putResource` methods to the `TransactionSynchronizationRegistry`.
 
+[#transactional-annotation]
 === Transactional Annotation
 
 The `jakarta.transaction.Transactional`
@@ -1124,6 +1141,18 @@ transaction is begun as a result of a call to a bean annotated with
 `Transactional(TxType.REQUIRES)` and this bean in turn calls a second
 bean annotated with `Transactional(TxType.NEVER)`, the transaction
 begun by the first bean will be marked for rollback.
+
+The `readOnly` element of the annotation indicates that the transaction
+must be put into read-only mode. A read-only transaction may fail early
+if a non-read action is executed. A read-only transaction may only run in a
+read-only transaction context, and similarly, a non-read-only transaction
+may only run in a non-read-only transaction context. As defined by the
+semantics of the configured `TxType`, a newly started transaction must
+be read-only if the `readOnly` element is `true`, and be non-read-only if
+the `readOnly` element is `false`.
+If called inside a non-compatible transaction context, a
+`TransactionalException` with a nested `InvalidTransactionException` must
+be thrown.
 
 === TransactionScoped Annotation
 
@@ -1411,6 +1440,43 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 
 [appendix]
 == Revision History
+
+=== Changes for Version 2.1
+
+* New interface `ExtendedXAResource` to enable read-only mode
+* Interface `jakarta.transaction.UserTransaction`, add method
+`setReadOnly` to put subsequent started transactions into read-only mode.
+* Interface `jakarta.transaction.TransactionManager`, add method
+`setReadOnly` to put subsequent started transactions into read-only mode.
+* Annotation interface `jakarta.transaction.Transactional`, add method
+`readOnly` to allow putting a transaction into read-only mode.
+* Interface `jakarta.transaction.UserTransaction`, add method
+`isReadOnly` to obtain the read-only status of the current transaction.
+* Interface `jakarta.transaction.Transaction`, add method
+`isReadOnly` to obtain the read-only status of the current transaction.
+* Interface `jakarta.transaction.TransactionSynchronizationRegistry`,
+add method `isReadOnly` to obtain the read-only status of the current transaction.
+* Define behavior of `jakarta.transaction.Transaction#enlistResource`,
+when a transaction is in the read-only mode.
+* Added the following description to
+"`<<resource-enlistment,See Resource Enlistment>>`": "If the current
+transaction is in the read-only mode, the transaction
+manager tries to put the enlisted resource in the read-only mode by
+invoking the `ExtendedXAResource#setReadOnly` method if it implements
+the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
+be put into read-only mode or the `XAResource` does not implement the
+`ExtendedXAResource` interface, the transaction manager must roll back
+the `XAResource` at transaction commit."
+* Added the following description to
+"`<<transactional-annotation,See Transactional Annotation>>`": "
+The `readOnly` element of the annotation indicates that the transaction
+must be put into read-only mode. A read-only transaction may fail early
+if a non-read action is executed and also put participating resources
+into a read-only mode. If called outside a read-only transaction
+context, the interceptor must begin a new Jakarta Transactions transaction,
+the managed bean method execution must then continue inside this
+transaction context, and the transaction must be completed by the
+interceptor."
 
 === Changes for Version 2.0
 
