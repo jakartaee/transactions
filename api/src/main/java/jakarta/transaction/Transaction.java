@@ -85,6 +85,10 @@ public interface Transaction {
     /**
      * Enlist the resource specified with the transaction associated with the 
      * target Transaction object.
+     * When this transaction is in read-only mode, the enlist operation tries
+     * to put the XAResource into read-only mode as well. If the XAResource
+     * cannot be put into read-only mode, the transaction manager may
+     * roll back the XAResource at transaction commit.
      *
      * @param xaRes The XAResource object associated with the resource 
      *              (connection).
@@ -120,6 +124,19 @@ public interface Transaction {
      *
      */
     public int getStatus() throws SystemException;
+
+    /**
+     * Obtain the read-only value of the transaction associated with the
+     * target Transaction object.
+     *
+     * @return The transaction read-only value. If no transaction is associated with
+     *    the target object, this method returns {@code false}.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public boolean isReadOnly() throws SystemException;
 
     /**
      * Register a synchronization object for the transaction currently

@@ -128,4 +128,31 @@ public interface UserTransaction {
      *
      */
     void setTransactionTimeout(int seconds) throws SystemException;
+
+    /**
+     * Modify the read-only value that is associated with transactions started
+     * by the current thread with the begin method.
+     *
+     * <p> If an application has not called this method, the transaction
+     * service uses some default value for the transaction read-only flag.
+     *
+     * @param readOnly The value indicating the read-only state.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public void setReadOnly(boolean readOnly) throws SystemException;
+
+    /**
+     * Obtain the read-only value of the transaction associated with the current thread.
+     *
+     * @return The transaction read-only value. If no transaction is associated with
+     *    the current thread, this method returns {@code false}.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public boolean isReadOnly() throws SystemException;
 }

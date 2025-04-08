@@ -158,4 +158,14 @@ public @interface Transactional {
     @Nonbinding
     public Class[] dontRollbackOn() default {};
 
+    /**
+     * The readOnly element can be set to indicate that the transaction must be put into
+     *  read-only mode. A read-only transaction may fail early if a non-read action is executed
+     *  and also put participating resources into a read-only mode.
+     * @return The readOnly flag
+     * @since 2.1
+     */
+    @Nonbinding
+    public boolean readOnly() default false;
+
 }

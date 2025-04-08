@@ -167,6 +167,21 @@ public interface TransactionManager {
     public void setTransactionTimeout(int seconds) throws SystemException;
 
     /**
+     * Modify the read-only value that is associated with transactions started
+     * by the current thread with the begin method.
+     *
+     * <p> If an application has not called this method, the transaction
+     * service uses some default value for the transaction read-only flag.
+     *
+     * @param readOnly The value indicating the read-only state.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public void setReadOnly(boolean readOnly) throws SystemException;
+
+    /**
      * Suspend the transaction currently associated with the calling
      * thread and return a Transaction object that represents the
      * transaction context being suspended. If the calling thread is
