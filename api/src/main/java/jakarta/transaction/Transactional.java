@@ -135,27 +135,27 @@ public @interface Transactional {
     }
 
     /**
-     * The rollbackOn element can be set to indicate exceptions that must cause
-     *  the interceptor to mark the transaction for rollback. Conversely, the dontRollbackOn
+     * The {@code rollbackOn} element can be set to indicate exceptions that must cause the
+     *  interceptor to mark the transaction for rollback. Conversely, the {@link #dontRollbackOn}
      *  element can be set to indicate exceptions that must not cause the interceptor to mark
      *  the transaction for rollback. When a class is specified for either of these elements,
      *  the designated behavior applies to subclasses of that class as well. If both elements
-     *  are specified, dontRollbackOn takes precedence.
-     * @return Class[] of Exceptions
+     *  are specified, {@code rollbackOn} takes precedence.
+     * @return An array of exception types
      */
     @Nonbinding
-    public Class[] rollbackOn() default {};
+    Class<? extends Exception>[] rollbackOn() default {};
 
     /**
-     * The dontRollbackOn element can be set to indicate exceptions that must not cause
-     *  the interceptor to mark the transaction for rollback. Conversely, the rollbackOn element
-     *  can be set to indicate exceptions that must cause the interceptor to mark the transaction
-     *  for rollback. When a class is specified for either of these elements,
+     * The {@code dontRollbackOn} element can be set to indicate exceptions that must not cause
+     *  the interceptor to mark the transaction for rollback. Conversely, the {@link #rollbackOn}
+     *  element can be set to indicate exceptions that must cause the interceptor to mark the
+     *  transaction for rollback. When a class is specified for either of these elements,
      *  the designated behavior applies to subclasses of that class as well. If both elements
-     *  are specified, dontRollbackOn takes precedence.
-     * @return Class[] of Exceptions
+     *  are specified, {@code dontRollbackOn} takes precedence.
+     * @return An array of exception types
      */
     @Nonbinding
-    public Class[] dontRollbackOn() default {};
+    Class<? extends Exception>[] dontRollbackOn() default {};
 
 }
