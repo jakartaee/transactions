@@ -20,9 +20,11 @@ package jakarta.transaction;
  * The Status interface defines static variables used for transaction 
  * status codes.
  *
+ * @deprecated Use {@link Transaction.Status}.
+ *
  * @version Jakarta Transactions 2.0
  */
-
+@Deprecated(since = "2.1")
 public interface Status {
     /**
      * A transaction is associated with the target object and it is in the
