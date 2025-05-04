@@ -23,21 +23,22 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class HeuristicCommitException extends java.lang.Exception  
-{
+public class HeuristicCommitException extends java.lang.Exception {
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -3977609782149921760L;
     
-    public HeuristicCommitException()
-    {
-	super();
+    public HeuristicCommitException() {
+        super();
     }
 
-    public HeuristicCommitException(String msg)
-    {
-	super(msg);
+    public HeuristicCommitException(String message) {
+        super(message);
+    }
+
+    public HeuristicCommitException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
 

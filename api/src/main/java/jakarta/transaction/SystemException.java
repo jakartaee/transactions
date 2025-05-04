@@ -37,31 +37,37 @@ public class SystemException extends java.lang.Exception {
      */
     public int errorCode;
 
-    public SystemException()
-    {
+    public SystemException() {
     	super();
     }    
     
     /**
      * Create a SystemException with a given string.
      *
-     * @param s The string message for the exception
+     * @param message The string message for the exception
      */
-    public SystemException(String s)
-    {
-    	super(s);
+    public SystemException(String message) {
+    	super(message);
     }
     
     /**
      * Create a SystemException with a given error code.
      *
-     * @param errcode The error code for the exception
+     * @param errorCode The error code for the exception
      */
-    public SystemException(int errcode)
-    {
+    public SystemException(int errorCode) {
     	super();
-    	errorCode = errcode;
+    	this.errorCode = errorCode;
     }
 
-
+    /**
+     * Create a SystemException with a given error code, message, and cause.
+     *
+     * @param errorCode The error code for the exception
+     * @param message The string message for the exception
+     */
+    public SystemException(int errorCode, String message, Throwable cause) {
+        super(message, cause);
+        this.errorCode = errorCode;
+    }
 }

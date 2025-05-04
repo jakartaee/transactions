@@ -23,21 +23,22 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class HeuristicMixedException extends java.lang.Exception  
-{
+public class HeuristicMixedException extends java.lang.Exception {
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = 2345014349685956666L;
 
-    public HeuristicMixedException()
-    {
-	super();
+    public HeuristicMixedException() {
+        super();
     }
 
-    public HeuristicMixedException(String msg)
-    {
-	super(msg);
+    public HeuristicMixedException(String message) {
+        super(message);
+    }
+
+    public HeuristicMixedException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
 
