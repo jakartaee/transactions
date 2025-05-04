@@ -125,7 +125,7 @@ public interface UserTransaction {
      *
      * @deprecated Use {@link #getCurrentStatus()}
      */
-    @Deprecated(since = "2.1")
+    @Deprecated
     int getStatus() throws SystemException;
 
     /**

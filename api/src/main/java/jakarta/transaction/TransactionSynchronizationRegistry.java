@@ -176,7 +176,7 @@ public interface TransactionSynchronizationRegistry {
      *
      * @deprecated Use {@link #getCurrentStatus()}
      */
-    @Deprecated(since = "2.1")
+    @Deprecated
     int getTransactionStatus();
 
     /**

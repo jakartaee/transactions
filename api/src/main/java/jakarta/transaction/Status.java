@@ -24,7 +24,7 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-@Deprecated(since = "2.1")
+@Deprecated
 public interface Status {
     /**
      * A transaction is associated with the target object and it is in the

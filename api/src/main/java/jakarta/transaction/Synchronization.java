@@ -55,7 +55,7 @@ public interface Synchronization {
      *
      * @deprecated Use {@link #afterCompletion(Transaction.Status)}
      */
-    @Deprecated(since = "2.1")
+    @Deprecated
     default void afterCompletion(int status) {}
 
 }
