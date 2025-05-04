@@ -1071,18 +1071,32 @@ If called inside a transaction context, a
 `TransactionalException` with a nested `InvalidTransactionException`
 must be thrown
 
-By default checked exceptions do not result
-in the transactional interceptor marking the transaction for rollback
-and instances of `RuntimeException` and its subclasses do. This default
-behavior can be modified by specifying exceptions that result in the
-interceptor marking the transaction for rollback and/or exceptions that
-do not result in rollback. The `rollbackOn` element can be set to indicate
-exceptions that must cause the interceptor to mark the transaction for
-rollback. Conversely, the `dontRollbackOn` element can be set to
-indicate exceptions that must not cause the interceptor to mark the
-transaction for rollback. When a class is specified for either of these
-elements, the designated behavior applies to subclasses of that class as
-well. If both elements are specified, `dontRollbackOn` takes precedence.
+By default,
+
+- any unchecked exception -- that is, any instance of `RuntimeException`
+  or of `Error` -- which is not annotated `Recoverable` causes the
+  transactional interceptor to mark the current transaction for rollback,
+  but
+- a checked exception does not result in the transaction being marked
+  for rollback, and
+- similarly, an unchecked exception annotated `Recoverable` does not
+  result in the transaction being marked for rollback
+
+This default behavior can be modified by explicitly specifying exception
+types that result in the interceptor marking the transaction for rollback
+and/or exception types that do not result in rollback.
+
+- The `rollbackOn` element can be set to indicate exceptions that must
+  cause the interceptor to mark the current transaction for rollback.
+- Conversely, the `dontRollbackOn` element can be set to indicate exceptions
+  that must not cause the interceptor to mark the transaction for rollback.
+
+When a class is specified for either of these elements, the designated
+behavior also applies to subclasses of that class. If an exception type
+is a subtype of a type listed by `rollbackOn`, and also a subtype of a
+type listed by `dontRollbackOn`, then `dontRollbackOn` takes precedence,
+and the exception type will not result in the transaction being marked
+for rollback.
 
 The following example will override behavior
 for application exceptions, causing the transaction to be marked for
