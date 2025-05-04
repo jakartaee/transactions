@@ -1073,11 +1073,14 @@ must be thrown
 
 By default,
 
-- any unchecked exception--that is, any instance of `RuntimeException`
-  or of `Error`--causes the transactional interceptor to mark the
-  current transaction for rollback, but
+- any unchecked exception -- that is, any instance of `RuntimeException`
+  or of `Error` -- which is not annotated `Recoverable` causes the
+  transactional interceptor to mark the current transaction for rollback,
+  but
 - a checked exception does not result in the transaction being marked
-  for rollback.
+  for rollback, and
+- similarly, an unchecked exception annotated `Recoverable` does not
+  result in the transaction being marked for rollback
 
 This default behavior can be modified by explicitly specifying exception
 types that result in the interceptor marking the transaction for rollback
