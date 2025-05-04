@@ -16,6 +16,8 @@
 
 package jakarta.transaction;
 
+import java.util.function.Supplier;
+
 /**
  * Declares methods allowing an application program to explicitly manage
  * transaction boundaries.
@@ -136,4 +138,49 @@ public interface TransactionController {
      *
      */
     int getTimeout();
+
+    /**
+     * Run the given {@linkplain Runnable operation} in a transaction.
+     * If there is no active transaction associated with the current
+     * thread, {@linkplain #begin} a new transaction before running
+     * the operation. If the operation completes without throwing an
+     * exception, {@linkplain #commit} the transaction. If the
+     * operation does throw an exception, {@linkplain #rollback} the
+     * transaction and rethrow the exception. Otherwise, if there is
+     * already an active transaction associated with the current
+     * thread, simply call the operation.
+     *
+     * @param work Some work to be performed in a transaction
+     *
+     * @exception IllegalStateException Thrown if the current
+     * {@linkplain #getStatus status} is anything other than
+     * {@link Status#STATUS_ACTIVE STATUS_ACTIVE} or
+     * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
+     * or if committing the transaction fails.
+     */
+    void runInTransaction(Runnable work);
+
+    /**
+     * Call the given {@linkplain Supplier supplier} in a transaction.
+     * If there is no active transaction associated with the current
+     * thread, {@linkplain #begin} a new transaction before running
+     * the operation. If the operation completes without throwing an
+     * exception, {@linkplain #commit} the transaction and return the
+     * value produced by the supplier. If the operation does throw an
+     * exception, {@linkplain #rollback} the transaction and rethrow
+     * the exception. Otherwise, if there is already an active
+     * transaction associated with the current thread, simply call the
+     * supplier and return the value it produces.
+     *
+     * @param work A supplier to be called in a transaction
+     * @return The value returned by the given supplier
+     * @param <R> The type of the value returned by the supplier
+     *
+     * @exception IllegalStateException Thrown if the current
+     * {@linkplain #getStatus status} is anything other than
+     * {@link Status#STATUS_ACTIVE STATUS_ACTIVE} or
+     * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
+     * or if committing the transaction fails.
+     */
+    <R> R callInTransaction(Supplier<R> work);
 }
