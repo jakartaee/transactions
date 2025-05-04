@@ -144,7 +144,7 @@ public @interface Transactional {
      * @return An array of exception types
      */
     @Nonbinding
-    Class<? extends Exception>[] rollbackOn() default {};
+    Class<? extends Throwable>[] rollbackOn() default {};
 
     /**
      * The {@code dontRollbackOn} element can be set to indicate exceptions that must not cause
@@ -156,6 +156,6 @@ public @interface Transactional {
      * @return An array of exception types
      */
     @Nonbinding
-    Class<? extends Exception>[] dontRollbackOn() default {};
+    Class<? extends Throwable>[] dontRollbackOn() default {};
 
 }
