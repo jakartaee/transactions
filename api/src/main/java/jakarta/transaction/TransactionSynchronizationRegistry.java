@@ -149,6 +149,20 @@ public interface TransactionSynchronizationRegistry {
     void registerInterposedSynchronization(Synchronization sync);
 
     /**
+     * Return the status of the transaction bound to the current thread
+     * at the time this method is called. This is the result of executing
+     * {@link TransactionManager#getStatus()} in the context of the
+     * transaction bound to the current thread at the time this method is
+     * called.
+     *
+     * @return the status of the transaction bound to the current thread
+     * at the time this method is called.
+     *
+     * @since JTA 2.1
+     */
+    Transaction.Status getCurrentStatus();
+
+    /**
      * Return the status of the transaction bound to the
      * current thread at the time this method is called.
      * This is the result of executing TransactionManager.getStatus() in
@@ -159,7 +173,10 @@ public interface TransactionSynchronizationRegistry {
      * at the time this method is called.
      *
      * @since JTA 1.1
+     *
+     * @deprecated Use {@link #getCurrentStatus()}
      */
+    @Deprecated
     int getTransactionStatus();
 
     /**

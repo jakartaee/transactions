@@ -34,13 +34,28 @@ public interface Synchronization {
      * executed with the transaction context of the transaction that is being
      * committed.
      */
-    public void beforeCompletion();
+    default void beforeCompletion() {}
 
     /**
-     * This method is called by the transaction
-     * manager after the transaction is committed or rolled back.
+     * This method is called by the transaction manager after the
+     * transaction is committed or rolled back.
      *
      * @param status The status of the transaction completion.
+     *
+     * @since JTA 2.1
      */
-	public void afterCompletion(int status);
+    default void afterCompletion(Transaction.Status status) {}
+
+    /**
+     * This method is called by the transaction manager after the
+     * transaction is committed or rolled back, and after
+     * {@link #afterCompletion(Transaction.Status)} is called.
+     *
+     * @param status The status of the transaction completion.
+     *
+     * @deprecated Use {@link #afterCompletion(Transaction.Status)}
+     */
+    @Deprecated
+    default void afterCompletion(int status) {}
+
 }
