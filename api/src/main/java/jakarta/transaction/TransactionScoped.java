@@ -29,17 +29,17 @@ import jakarta.enterprise.context.NormalScope;
  * on classes which have non-contextual references such those defined as managed
  * beans by the Jakarta EE specification.</p>
  * The transaction scope is active when the return from a call to
- * <code>UserTransaction.getStatus</code> or
- * <code>TransactionManager.getStatus</code>
+ * <code>UserTransaction.getStatusEnum</code> or
+ * <code>TransactionManager.getStatusEnum</code>
  * is one of the following states:
  * <ul>
- * <li>Status.STATUS_ACTIVE
- * <li>Status.STATUS_MARKED_ROLLBACK
- * <li>Status.STATUS_PREPARED
- * <li>Status.STATUS_UNKNOWN
- * <li>Status.STATUS_PREPARING
- * <li>Status.STATUS_COMMITTING
- * <li>Status.STATUS_ROLLING_BACK
+ * <li>StatusEnum.STATUS_ACTIVE
+ * <li>StatusEnum.STATUS_MARKED_ROLLBACK
+ * <li>StatusEnum.STATUS_PREPARED
+ * <li>StatusEnum.STATUS_UNKNOWN
+ * <li>StatusEnum.STATUS_PREPARING
+ * <li>StatusEnum.STATUS_COMMITTING
+ * <li>StatusEnum.STATUS_ROLLING_BACK
  * </ul>
  * <p>It is not intended that the term "active" as defined here in relation to the
  * TransactionScoped annotation should also apply to its use in relation to

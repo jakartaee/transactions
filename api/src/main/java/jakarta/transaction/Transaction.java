@@ -113,13 +113,28 @@ public interface Transaction {
      *
      * @return The transaction status. If no transaction is associated with
      *    the target object, this method returns the 
-     *    Status.NoTransaction value.
+     *    {@link Status#STATUS_NO_TRANSACTION} value.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     *
+     * @deprecated use {@link #getStatusEnum()}
+     */
+    public int getStatus() throws SystemException;
+
+    /**
+     * Obtain the status of the transaction associated with the target
+     * Transaction object.
+     *
+     * @return The transaction status. If no transaction is associated with
+     *    the target object, this method returns the
+     *    {@link StatusEnum#STATUS_NO_TRANSACTION} value.
      *
      * @exception SystemException Thrown if the transaction manager
      *    encounters an unexpected error condition.
      *
      */
-    public int getStatus() throws SystemException;
+    public StatusEnum getStatusEnum() throws SystemException;
 
     /**
      * Register a synchronization object for the transaction currently

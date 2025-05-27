@@ -151,16 +151,31 @@ public interface TransactionSynchronizationRegistry {
     /**
      * Return the status of the transaction bound to the
      * current thread at the time this method is called.
-     * This is the result of executing TransactionManager.getStatus() in
+     * This is the result of executing TransactionManager.getStatusEnum() in
      * the context of the transaction bound to the current thread at the time
      * this method is called.
      *
-     * @return the status of the transaction bound to the current thread 
-     * at the time this method is called.
+     * @return the ordinal value of the status enum of the transaction bound to
+     * the current thread at the time this method is called.
      *
      * @since JTA 1.1
+     * @deprecated use getTransactionStatusEnum() instead.
      */
     int getTransactionStatus();
+
+    /**
+     * Return the status of the transaction bound to the
+     * current thread at the time this method is called.
+     * This is the result of executing TransactionManager.getStatusEnum() in
+     * the context of the transaction bound to the current thread at the time
+     * this method is called.
+     *
+     * @return the status enum of the transaction bound to the current
+     * thread at the time this method is called.
+     *
+     * @since JTA 2.1
+     */
+    StatusEnum getTransactionStatusEnum();
 
     /**
      * Set the rollbackOnly status of the transaction bound to the
