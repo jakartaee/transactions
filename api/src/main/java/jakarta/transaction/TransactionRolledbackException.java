@@ -42,5 +42,10 @@ public class TransactionRolledbackException extends java.rmi.RemoteException
 	{
 		super(message);
 	}
+
+	public TransactionRolledbackException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
 }
 
