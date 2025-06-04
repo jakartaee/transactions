@@ -23,21 +23,25 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class InvalidTransactionException extends java.rmi.RemoteException {
+public class InvalidTransactionException extends java.rmi.RemoteException
+{
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = 3597320220337691496L;
 
-    public InvalidTransactionException() {
+    public InvalidTransactionException()
+	{
 		super();
 	}
 
-	public InvalidTransactionException(String message) {
+	public InvalidTransactionException(String message)
+	{
 		super(message);
 	}
 
-	public InvalidTransactionException(String message, Throwable cause) {
+ 	public InvalidTransactionException(String message, Throwable cause)
+	{
 		super(message, cause);
 	}
 }

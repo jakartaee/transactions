@@ -25,18 +25,21 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class TransactionRolledbackException extends java.rmi.RemoteException {
+public class TransactionRolledbackException extends java.rmi.RemoteException
+{
 
 	/**
 	 * Specify serialVersionUID for backward compatibility
 	 */
 	private static final long serialVersionUID = -3142798139623020577L;
 
-	public TransactionRolledbackException() {
+	public TransactionRolledbackException()
+	{
 		super();
 	}
 
-	public TransactionRolledbackException(String message) {
+	public TransactionRolledbackException(String message)
+	{
 		super(message);
 	}
 }

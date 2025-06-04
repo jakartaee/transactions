@@ -28,21 +28,25 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class NotSupportedException extends java.lang.Exception {
+public class NotSupportedException extends java.lang.Exception
+{
 	/**
 	 * Specify serialVersionUID for backward compatibility
 	 */
 	private static final long serialVersionUID = 56870312332816390L;
 
-	public NotSupportedException() {
+	public NotSupportedException()
+	{
 		super();
 	}
 
-	public NotSupportedException(String message) {
+	public NotSupportedException(String message)
+	{
 		super(message);
 	}
 
-	public NotSupportedException(String message, Throwable cause) {
+	public NotSupportedException(String message, Throwable cause)
+	{
 		super(message, cause);
 	}
 }

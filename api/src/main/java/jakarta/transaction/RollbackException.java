@@ -25,21 +25,25 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class RollbackException extends java.lang.Exception {
+public class RollbackException extends java.lang.Exception
+{
 	/**
 	 * Specify serialVersionUID for backward compatibility
 	 */
 	private static final long serialVersionUID = 4151607774785285395L;
 
-	public RollbackException() {
+	public RollbackException()
+	{
 		super();
 	}
 
-	public RollbackException(String message) {
+	public RollbackException(String message)
+	{
 		super(message);
 	}
 
-	public RollbackException(String message, Throwable cause) {
+	public RollbackException(String message, Throwable cause)
+	{
 		super(message, cause);
 	}
 }

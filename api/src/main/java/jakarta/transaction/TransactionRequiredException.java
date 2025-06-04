@@ -22,18 +22,21 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class TransactionRequiredException extends java.rmi.RemoteException {
+public class TransactionRequiredException extends java.rmi.RemoteException
+{
 
 	/**
 	 * Specify serialVersionUID for backward compatibility
 	 */
 	private static final long serialVersionUID = -1898806419937446439L;
 
-	public TransactionRequiredException() {
+	public TransactionRequiredException()
+	{
 		super();
 	}
 
-	public TransactionRequiredException(String message) {
+	public TransactionRequiredException(String message)
+	{
 		super(message);
 	}
 }

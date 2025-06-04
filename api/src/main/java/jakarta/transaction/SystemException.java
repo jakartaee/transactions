@@ -23,7 +23,8 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class SystemException extends java.lang.Exception {
+public class SystemException extends java.lang.Exception
+{
 
     /**
      * Specify serialVersionUID for backward compatibility
@@ -37,7 +38,8 @@ public class SystemException extends java.lang.Exception {
      */
     public int errorCode;
 
-    public SystemException() {
+    public SystemException()
+    {
     	super();
     }    
     
@@ -46,7 +48,8 @@ public class SystemException extends java.lang.Exception {
      *
      * @param message The string message for the exception
      */
-    public SystemException(String message) {
+    public SystemException(String message)
+    {
     	super(message);
     }
     
@@ -55,7 +58,8 @@ public class SystemException extends java.lang.Exception {
      *
      * @param errorCode The error code for the exception
      */
-    public SystemException(int errorCode) {
+    public SystemException(int errorCode)
+    {
     	super();
     	this.errorCode = errorCode;
     }
@@ -66,7 +70,8 @@ public class SystemException extends java.lang.Exception {
      * @param errorCode The error code for the exception
      * @param message The string message for the exception
      */
-    public SystemException(int errorCode, String message, Throwable cause) {
+    public SystemException(int errorCode, String message, Throwable cause)
+    {
         super(message, cause);
         this.errorCode = errorCode;
     }

@@ -33,13 +33,15 @@ package jakarta.transaction;
  * @version Jakarta Transactions 2.0
  * @since JTA 1.2
  */
-public class TransactionalException extends RuntimeException {
+public class TransactionalException extends RuntimeException
+{
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -8196645329560986417L;
 
-    public TransactionalException(String message, Throwable throwable) {
+    public TransactionalException(String message, Throwable throwable)
+    {
         super(message, throwable);
     }
 }

@@ -22,21 +22,25 @@ package jakarta.transaction;
  *
  * @version Jakarta Transactions 2.0
  */
-public class HeuristicRollbackException extends java.lang.Exception {
+public class HeuristicRollbackException extends java.lang.Exception
+{
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -3483618944556408897L;
 
-    public HeuristicRollbackException() {
+    public HeuristicRollbackException()
+    {
         super();
     }
 
-    public HeuristicRollbackException(String message) {
+    public HeuristicRollbackException(String message)
+    {
         super(message);
     }
 
-    public HeuristicRollbackException(String message, Throwable cause) {
+    public HeuristicRollbackException(String message, Throwable cause)
+    {
         super(message, cause);
     }
 }
