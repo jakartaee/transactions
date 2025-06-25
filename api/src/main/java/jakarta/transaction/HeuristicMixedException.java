@@ -17,27 +17,22 @@
 package jakarta.transaction;
 
 /**
- * This exception is thrown to report that a heuristic decision was made and
- * that some relevant updates have been committed and others have been
- * rolled back.
+ * This exception is thrown to report that a heuristic decision was made and that some relevant updates have been
+ * committed and others have been rolled back.
  *
  * @version Jakarta Transactions 2.0
  */
-public class HeuristicMixedException extends java.lang.Exception  
-{
+public class HeuristicMixedException extends java.lang.Exception {
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = 2345014349685956666L;
 
-    public HeuristicMixedException()
-    {
-	super();
+    public HeuristicMixedException() {
+        super();
     }
 
-    public HeuristicMixedException(String msg)
-    {
-	super(msg);
+    public HeuristicMixedException(String msg) {
+        super(msg);
     }
 }
-

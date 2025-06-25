@@ -17,32 +17,25 @@
 package jakarta.transaction;
 
 /**
- * NotSupportedException exception indicates that the request cannot be
- * executed because the operation is not a supported feature. For example, 
- * because nested transactions are not supported, the Transaction Manager 
- * throws this exception when a calling thread
- * that is already associated with a transaction attempts to start a new 
- * transaction. (A nested transaction occurs when a thread is already
- * associated with one transaction and attempts to start a second 
+ * NotSupportedException exception indicates that the request cannot be executed because the operation is not a
+ * supported feature. For example, because nested transactions are not supported, the Transaction Manager throws this
+ * exception when a calling thread that is already associated with a transaction attempts to start a new transaction. (A
+ * nested transaction occurs when a thread is already associated with one transaction and attempts to start a second
  * transaction.)
  *
  * @version Jakarta Transactions 2.0
  */
-public class NotSupportedException extends java.lang.Exception 
-{
-        /**
-         * Specify serialVersionUID for backward compatibility
-         */
-        private static final long serialVersionUID = 56870312332816390L;
+public class NotSupportedException extends java.lang.Exception {
+    /**
+     * Specify serialVersionUID for backward compatibility
+     */
+    private static final long serialVersionUID = 56870312332816390L;
 
-        public NotSupportedException()
-	{
-		super();
-	}
+    public NotSupportedException() {
+        super();
+    }
 
-	public NotSupportedException(String msg)
-	{
-		super(msg);
-	}
+    public NotSupportedException(String msg) {
+        super(msg);
+    }
 }
-

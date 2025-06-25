@@ -17,27 +17,23 @@
 package jakarta.transaction;
 
 /**
- * This exception indicates that a request carried a null transaction context,
- * but the target object requires an active transaction.
+ * This exception indicates that a request carried a null transaction context, but the target object requires an active
+ * transaction.
  *
  * @version Jakarta Transactions 2.0
  */
-public class TransactionRequiredException extends java.rmi.RemoteException 
-{
-	    
+public class TransactionRequiredException extends java.rmi.RemoteException {
+
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -1898806419937446439L;
 
-        public TransactionRequiredException()
-	{
-		super();
-	}
+    public TransactionRequiredException() {
+        super();
+    }
 
-	public TransactionRequiredException(String msg)
-	{
-		super(msg);
-	}
+    public TransactionRequiredException(String msg) {
+        super(msg);
+    }
 }
-

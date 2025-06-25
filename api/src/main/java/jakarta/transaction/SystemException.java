@@ -17,9 +17,8 @@
 package jakarta.transaction;
 
 /**
- * The SystemException is thrown by the transaction manager to 
- * indicate that it has encountered an unexpected error condition
- * that prevents future transaction services from proceeding.
+ * The SystemException is thrown by the transaction manager to indicate that it has encountered an unexpected error
+ * condition that prevents future transaction services from proceeding.
  *
  * @version Jakarta Transactions 2.0
  */
@@ -37,31 +36,27 @@ public class SystemException extends java.lang.Exception {
      */
     public int errorCode;
 
-    public SystemException()
-    {
-    	super();
-    }    
-    
+    public SystemException() {
+        super();
+    }
+
     /**
      * Create a SystemException with a given string.
      *
      * @param s The string message for the exception
      */
-    public SystemException(String s)
-    {
-    	super(s);
+    public SystemException(String s) {
+        super(s);
     }
-    
+
     /**
      * Create a SystemException with a given error code.
      *
      * @param errcode The error code for the exception
      */
-    public SystemException(int errcode)
-    {
-    	super();
-    	errorCode = errcode;
+    public SystemException(int errcode) {
+        super();
+        errorCode = errcode;
     }
-
 
 }

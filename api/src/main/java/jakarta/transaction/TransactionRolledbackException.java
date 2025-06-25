@@ -17,30 +17,24 @@
 package jakarta.transaction;
 
 /**
- * This exception indicates that the transaction associated with processing
- * of the request has been rolled back, or it has been marked to roll back. 
- * Thus the requested operation either could not be performed or was not 
- * performed because further computation on behalf of the transaction would be
- * fruitless.
+ * This exception indicates that the transaction associated with processing of the request has been rolled back, or it
+ * has been marked to roll back. Thus the requested operation either could not be performed or was not performed because
+ * further computation on behalf of the transaction would be fruitless.
  *
  * @version Jakarta Transactions 2.0
  */
-public class TransactionRolledbackException extends java.rmi.RemoteException 
-{
-	    
+public class TransactionRolledbackException extends java.rmi.RemoteException {
+
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -3142798139623020577L;
-    
-    public TransactionRolledbackException()
-	{
-		super();
-	}
 
-	public TransactionRolledbackException(String msg)
-	{
-		super(msg);
-	}
+    public TransactionRolledbackException() {
+        super();
+    }
+
+    public TransactionRolledbackException(String msg) {
+        super(msg);
+    }
 }
-
