@@ -17,29 +17,23 @@
 package jakarta.transaction;
 
 /**
- * RollbackException exception is thrown when the transaction has been 
- * marked for rollback only or the transaction has been rolled back
- * instead of committed. This is a local exception thrown by methods 
- * in the <code>UserTransaction</code>, <code>Transaction</code>, and 
- * <code>TransactionManager</code> interfaces.
+ * RollbackException exception is thrown when the transaction has been marked for rollback only or the transaction has
+ * been rolled back instead of committed. This is a local exception thrown by methods in the
+ * <code>UserTransaction</code>, <code>Transaction</code>, and <code>TransactionManager</code> interfaces.
  *
  * @version Jakarta Transactions 2.0
  */
-public class RollbackException extends java.lang.Exception 
-{
-        /**
-         * Specify serialVersionUID for backward compatibility
-         */
-        private static final long serialVersionUID = 4151607774785285395L;
-        
-	public RollbackException()
-	{
-		super();
-	}
+public class RollbackException extends java.lang.Exception {
+    /**
+     * Specify serialVersionUID for backward compatibility
+     */
+    private static final long serialVersionUID = 4151607774785285395L;
 
-	public RollbackException(String msg)
-	{
-		super(msg);
-	}
+    public RollbackException() {
+        super();
+    }
+
+    public RollbackException(String msg) {
+        super(msg);
+    }
 }
-

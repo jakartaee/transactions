@@ -17,27 +17,22 @@
 package jakarta.transaction;
 
 /**
- * This exception is thrown by the rollback operation on a resource to
- * report that a heuristic decision was made and that all relevant updates
- * have been committed.
+ * This exception is thrown by the rollback operation on a resource to report that a heuristic decision was made and
+ * that all relevant updates have been committed.
  *
  * @version Jakarta Transactions 2.0
  */
-public class HeuristicCommitException extends java.lang.Exception  
-{
+public class HeuristicCommitException extends java.lang.Exception {
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = -3977609782149921760L;
-    
-    public HeuristicCommitException()
-    {
-	super();
+
+    public HeuristicCommitException() {
+        super();
     }
 
-    public HeuristicCommitException(String msg)
-    {
-	super(msg);
+    public HeuristicCommitException(String msg) {
+        super(msg);
     }
 }
-
