@@ -17,27 +17,22 @@
 package jakarta.transaction;
 
 /**
- * This exception indicates that the request carried an invalid transaction
- * context. For example, this exception could be raised if an error
- * occurred when trying to register a resource.
+ * This exception indicates that the request carried an invalid transaction context. For example, this exception could
+ * be raised if an error occurred when trying to register a resource.
  *
  * @version Jakarta Transactions 2.0
  */
-public class InvalidTransactionException extends java.rmi.RemoteException 
-{
+public class InvalidTransactionException extends java.rmi.RemoteException {
     /**
      * Specify serialVersionUID for backward compatibility
      */
     private static final long serialVersionUID = 3597320220337691496L;
 
-    public InvalidTransactionException()
-	{
-		super();
-	}
+    public InvalidTransactionException() {
+        super();
+    }
 
-	public InvalidTransactionException(String msg)
-	{
-		super(msg);
-	}
+    public InvalidTransactionException(String msg) {
+        super(msg);
+    }
 }
-
