@@ -22,11 +22,10 @@
 </head>
 <body bgcolor="white">
 
-Provides the XA specific API that defines the contract between the transaction
-manager and the various parties involved in a distributed transaction 
-namely : resource manager, application, and application server. 
-The implementation of this API is provided by the application 
-server vendor and the resource manager driver vendor.
+Provides extensions to the standard javax.transaction.xa API to specify
+XA resource-specific hints.
+The implementation of this API is expected to be provided by frameworks that can safely
+integrate compatible resource managers into the Jakarta Transactions implementation.
 
 <br>
 <p>Jakarta Transactions 2.1.
