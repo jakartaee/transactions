@@ -174,6 +174,9 @@ public @interface Transactional {
      *  If called inside a read-only transaction context, the managed bean method execution
      *  must then continue inside this transaction context.
      *  This is only valid with {@linkplain TxType#REQUIRED}, {@linkplain TxType#REQUIRES_NEW}, {@linkplain TxType#MANDATORY}, {@linkplain TxType#SUPPORTS}.
+     *  If a {@code readOnly = false} is called inside a read-only transaction context, the managed
+     *  bean method execution must then continue inside a new transaction context.
+     *  This is only valid with {@linkplain TxType#REQUIRES_NEW}.
      * @return The readOnly flag
      * @since 2.1
      */
