@@ -162,6 +162,18 @@ public @interface Transactional {
      * The readOnly element can be set to indicate that the transaction must be put into
      *  read-only mode. A read-only transaction may fail early if a non-read action is executed
      *  and also put participating resources into a read-only mode.
+     *  If called outside a transaction context, the interceptor must begin a new read-only
+     *  Jakarta Transactions transaction, the managed bean method execution must then continue
+     *  inside this transaction context, and the transaction must be completed by the interceptor.
+     *  This is only valid with {@linkplain TxType#REQUIRED}, {@linkplain TxType#REQUIRES_NEW}.
+     *  If called inside a non-read-only transaction context, the current transaction context must
+     *  be suspended, a new Jakarta Transactions transaction will begin, the managed bean method
+     *  execution must then continue inside this transaction context, the transaction
+     *  must be completed, and the previously suspended transaction must be resumed.
+     *  This is only valid with {@linkplain TxType#REQUIRES_NEW}.
+     *  If called inside a read-only transaction context, the managed bean method execution
+     *  must then continue inside this transaction context.
+     *  This is only valid with {@linkplain TxType#REQUIRED}, {@linkplain TxType#REQUIRES_NEW}, {@linkplain TxType#MANDATORY}, {@linkplain TxType#SUPPORTS}.
      * @return The readOnly flag
      * @since 2.1
      */
