@@ -416,9 +416,11 @@ its `XAResource.start` method call to the resource manager. The
 
 If the current transaction is in the read-only mode, the transaction
 manager tries to put the enlisted resource in the read-only mode by
-invoking the `ExtendedXAResource#setReadOnly` method.
-When the resource cannot be put into read-only mode, the transaction
-manager must roll back the `XAResource` at transaction commit.
+invoking the `ExtendedXAResource#setReadOnly` method if it implements
+the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
+be put into read-only mode or the `XAResource` does not implement the
+`ExtendedXAResource` interface, the transaction manager must roll back
+the `XAResource` at transaction commit.
 
 If the target transaction already has another
 `XAResource` object participating in the transaction, the transaction
@@ -1458,9 +1460,11 @@ when a transaction is in the read-only mode.
 "`<<resource-enlistment,See Resource Enlistment>>`": "If the current
 transaction is in the read-only mode, the transaction
 manager tries to put the enlisted resource in the read-only mode by
-invoking the `ExtendedXAResource#setReadOnly` method.
-When the resource cannot be put into read-only mode, the transaction
-manager must roll back the `XAResource` at transaction commit."
+invoking the `ExtendedXAResource#setReadOnly` method if it implements
+the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
+be put into read-only mode or the `XAResource` does not implement the
+`ExtendedXAResource` interface, the transaction manager must roll back
+the `XAResource` at transaction commit."
 * Added the following description to
 "`<<transactional-annotation,See Transactional Annotation>>`": "
 The `readOnly` element of the annotation indicates that the transaction

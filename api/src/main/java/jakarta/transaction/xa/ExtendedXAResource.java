@@ -21,30 +21,27 @@ import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 
 /**
- * Extended XAResource that can report additional capabilities.
+ * Extended XAResource for additional capabilities like read-only mode.
  *
  * @version Jakarta Transactions 2.1
  */
 public interface ExtendedXAResource extends XAResource
 {
 	/**
-	 * Sets the read-only state for the transaction of the given xid for this
-	 * <CODE>XAResource</CODE> instance.
+	 * Sets this {@code XAResource} instance into read-only mode for the transaction of the given xid.
 	 *
-	 * If the read-only state was updated successfully, the method returns
-	 * <i>true</i>; otherwise <i>false</i>. If a resource manager does not
-	 * support explicitly setting the transaction read-only value, this method
-	 * returns <i>false</i>.
+	 * If the {@code XAResource} was put into read-only mode for the transaction of the given xid successfully,
+	 * the method returns <i>true</i>; otherwise <i>false</i>. If a resource manager does not
+	 * support explicitly setting the {@code XAResource} into read-only mode, this method returns <i>false</i>.
 	 *
-	 * @param xid – A global transaction identifier with which the read-only flag shall be associated with the resource.
-	 * @param readOnly The value indicating the read-only state.
+	 * @param xid – A global transaction identifier for which this resource shall be set into read-only mode.
 	 *
-	 * @return <i>true</i> if the transaction read-only value is set successfully;
+	 * @return <i>true</i> if the {@code XAResource} was put into read-only mode successfully;
 	 *       otherwise <i>false</i>.
 	 *
 	 * @exception XAException An error has occurred. Possible exception values
 	 * are XAER_RMERR, XAER_RMFAIL, or XAER_INVAL.
 	 */
-	boolean setReadOnly(Xid xid, boolean readOnly) throws XAException;
+	boolean setReadOnly(Xid xid) throws XAException;
 }
 

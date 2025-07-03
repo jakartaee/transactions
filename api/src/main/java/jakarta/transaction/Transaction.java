@@ -86,9 +86,11 @@ public interface Transaction {
      * Enlist the resource specified with the transaction associated with the 
      * target Transaction object.
      * When this transaction is in read-only mode, the enlist operation tries
-     * to put the XAResource into read-only mode as well. If the XAResource
-     * cannot be put into read-only mode, the transaction manager may
-     * roll back the XAResource at transaction commit.
+     * to put the XAResource into read-only mode if it implements the
+     * ExtendedXAResource interface. If the ExtendedXAResource cannot be put
+     * into read-only mode or the XAResource does not implement the
+     * ExtendedXAResource interface, the transaction manager must roll back
+     * the XAResource at transaction commit.
      *
      * @param xaRes The XAResource object associated with the resource 
      *              (connection).
@@ -128,6 +130,8 @@ public interface Transaction {
     /**
      * Obtain the read-only value of the transaction associated with the
      * target Transaction object.
+     *
+     * <p> This is intended to be used by application servers or integrators
      *
      * @return The transaction read-only value. If no transaction is associated with
      *    the target object, this method returns {@code false}.
