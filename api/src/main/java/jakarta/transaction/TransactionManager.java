@@ -170,7 +170,7 @@ public interface TransactionManager {
      * Modify the read-only value that is associated with transactions started
      * by the current thread with the begin method.
      *
-     * <p> If an application has not called this method, the transaction
+     * <p> If this method has not been called before, the transaction
      * service uses the default value {@code false} for the transaction read-only flag.
      *
      * <p> This is intended to be used by application servers or integrators

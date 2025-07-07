@@ -160,8 +160,7 @@ public @interface Transactional {
 
     /**
      * The {@code readOnly} element can be set to indicate that the transaction must be read-only.
-     *  A read-only transaction may fail early if a non-read action is executed
-     *  and puts participating resources into read-only mode for this transaction.
+     *  A read-only transaction may fail early if a non-read action is executed.
      *  A read-only transaction may only run in a read-only transaction context, and similarly,
      *  a non-read-only transaction may only run in a non-read-only transaction context.
      *  As defined by the semantics of the configured {@code TxType}, a newly started transaction must
