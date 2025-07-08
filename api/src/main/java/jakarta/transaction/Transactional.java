@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -157,5 +157,21 @@ public @interface Transactional {
      */
     @Nonbinding
     public Class[] dontRollbackOn() default {};
+
+    /**
+     * The {@code readOnly} element can be set to indicate that the transaction must be read-only.
+     *  A read-only transaction may fail early if a non-read action is executed.
+     *  A read-only transaction may only run in a read-only transaction context, and similarly,
+     *  a non-read-only transaction may only run in a non-read-only transaction context.
+     *  As defined by the semantics of the configured {@code TxType}, a newly started transaction must
+     *  be read-only if the {@code readOnly} element is {@code true}, and be non-read-only if
+     *  the {@code readOnly} element is {@code false}.
+     *  <p>If called inside a non-compatible transaction context, a TransactionalException with
+     *  a nested InvalidTransactionException must be thrown.</p>
+     * @return The readOnly flag
+     * @since 2.1
+     */
+    @Nonbinding
+    public boolean readOnly() default false;
 
 }

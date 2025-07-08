@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -182,4 +182,16 @@ public interface TransactionSynchronizationRegistry {
      * @since JTA 1.1
      */
     boolean getRollbackOnly();
+
+    /**
+     * Obtain the read-only value of the transaction bound to the
+     * current thread at the time this method is called.
+     *
+     * @return The transaction read-only value.
+     *
+     * @exception IllegalStateException if no transaction is active.
+     *
+     * @since 2.1
+     */
+    public boolean isReadOnly();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -85,6 +85,12 @@ public interface Transaction {
     /**
      * Enlist the resource specified with the transaction associated with the 
      * target Transaction object.
+     * When this transaction is in read-only mode, the enlist operation tries
+     * to put the XAResource into read-only mode if it implements the
+     * ExtendedXAResource interface. If the ExtendedXAResource cannot be put
+     * into read-only mode or the XAResource does not implement the
+     * ExtendedXAResource interface, the transaction manager must roll back
+     * the XAResource at transaction commit.
      *
      * @param xaRes The XAResource object associated with the resource 
      *              (connection).
@@ -120,6 +126,21 @@ public interface Transaction {
      *
      */
     public int getStatus() throws SystemException;
+
+    /**
+     * Obtain the read-only value of the transaction associated with the
+     * target Transaction object.
+     *
+     * <p> This is intended to be used by application servers or integrators
+     *
+     * @return The transaction read-only value. If no transaction is associated with
+     *    the target object, this method returns {@code false}.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public boolean isReadOnly() throws SystemException;
 
     /**
      * Register a synchronization object for the transaction currently

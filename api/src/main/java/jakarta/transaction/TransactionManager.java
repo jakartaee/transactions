@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -165,6 +165,23 @@ public interface TransactionManager {
      *
      */
     public void setTransactionTimeout(int seconds) throws SystemException;
+
+    /**
+     * Modify the read-only value that is associated with transactions started
+     * by the current thread with the begin method.
+     *
+     * <p> If this method has not been called before, the transaction
+     * service uses the default value {@code false} for the transaction read-only flag.
+     *
+     * <p> This is intended to be used by application servers or integrators
+     *
+     * @param readOnly The value indicating the read-only state.
+     *
+     * @exception SystemException Thrown if the transaction manager
+     *    encounters an unexpected error condition.
+     * @since 2.1
+     */
+    public void setReadOnly(boolean readOnly) throws SystemException;
 
     /**
      * Suspend the transaction currently associated with the calling
