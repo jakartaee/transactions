@@ -166,6 +166,8 @@ public @interface Transactional {
      *  As defined by the semantics of the configured {@code TxType}, a newly started transaction must
      *  be read-only if the {@code readOnly} element is {@code true}, and be non-read-only if
      *  the {@code readOnly} element is {@code false}.
+     *  <p>If called inside a non-compatible transaction context, a TransactionalException with
+     *  a nested InvalidTransactionException must be thrown.</p>
      * @return The readOnly flag
      * @since 2.1
      */

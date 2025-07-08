@@ -1150,6 +1150,9 @@ may only run in a non-read-only transaction context. As defined by the
 semantics of the configured `TxType`, a newly started transaction must
 be read-only if the `readOnly` element is `true`, and be non-read-only if
 the `readOnly` element is `false`.
+If called inside a non-compatible transaction context, a
+`TransactionalException` with a nested `InvalidTransactionException` must
+be thrown.
 
 === TransactionScoped Annotation
 
