@@ -33,7 +33,11 @@ public class RollbackException extends java.lang.Exception {
         super();
     }
 
-    public RollbackException(String msg) {
-        super(msg);
+    public RollbackException(String message) {
+        super(message);
+    }
+
+    public RollbackException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
