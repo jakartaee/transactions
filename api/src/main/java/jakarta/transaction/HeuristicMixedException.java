@@ -32,7 +32,11 @@ public class HeuristicMixedException extends java.lang.Exception {
         super();
     }
 
-    public HeuristicMixedException(String msg) {
-        super(msg);
+    public HeuristicMixedException(String message) {
+        super(message);
+    }
+
+    public HeuristicMixedException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
