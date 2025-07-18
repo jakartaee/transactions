@@ -41,7 +41,7 @@ https://www.eclipse.org/projects/handbook/#resources-commit
 ## Project Contribution Guidelines
 
  * Code should adhere to the style defined at https://github.com/eclipse-ee4j/ee4j.
- * Contributions should be made via github pull requests at https://github.com/eclipse-ee4j/servlet-api/pulls 
+ * Contributions should be made via github pull requests at https://github.com/jakartaee/transactions/pulls 
  * Authors of Pull Requests should seek review from committers outside of their own organisation and perspective.
  * Committers and Contributors may review any Pull Requests or Commits, even if not requested or assigned.
  * Pull Request by Committers that receive no review responses after a reasonable time, considering time zones and working days, can be interpreted as approved.
