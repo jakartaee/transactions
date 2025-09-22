@@ -1071,18 +1071,31 @@ If called inside a transaction context, a
 `TransactionalException` with a nested `InvalidTransactionException`
 must be thrown
 
-By default checked exceptions do not result
-in the transactional interceptor marking the transaction for rollback
-and instances of `RuntimeException` and its subclasses do. This default
-behavior can be modified by specifying exceptions that result in the
-interceptor marking the transaction for rollback and/or exceptions that
-do not result in rollback. The `rollbackOn` element can be set to indicate
-exceptions that must cause the interceptor to mark the transaction for
-rollback. Conversely, the `dontRollbackOn` element can be set to
-indicate exceptions that must not cause the interceptor to mark the
-transaction for rollback. When a class is specified for either of these
-elements, the designated behavior applies to subclasses of that class as
-well. If both elements are specified, `dontRollbackOn` takes precedence.
+By default, a `Transactional` interceptor marks the transaction for
+rollback when it intercepts an exception assignable to `RuntimeException`.
+Checked exceptions are considered _application exceptions_ and do not,
+by default, cause the interceptor to mark the transaction for rollback.
+
+This default behavior can be modified by specifying additional types that
+cause the interceptor to mark the transaction for rollback and/or types
+that do not cause the interceptor to mark the transaction for rollback.
+
+* If an exception is an instance of a type listed by `rollbackOn`, and
+  also of `Exception`, and if the exception is not also an instance of
+  a type listed in `dontRollbackOn`, the interceptor must mark the
+  transaction for rollback.
+* If an exception is an instance of a type listed by `dontRollbackOn`,
+  the interceptor must not mark the transaction  for rollback, even if
+  the exception is also an instance of `RuntimeException` or of a type
+  listed in `rollbackOn`.
+
+If an exception is an instance of `Error`, the behavior is undefined.
+A `Transactional` interceptor is not required to catch Errors, and so
+portable applications should not depend on the behavior of the interceptor
+when an `Error` occurs.
+
+The types specified by `rollbackOn` and `dontRollbackOn` may be class
+or interface types.
 
 The following example will override behavior
 for application exceptions, causing the transaction to be marked for
