@@ -20,8 +20,6 @@ import javax.transaction.xa.XAResource;
 import java.lang.IllegalStateException;
 import java.lang.SecurityException;
 
-import static jakarta.transaction.Status.*;
-
 /**
  * The Transaction interface allows operations to be performed against
  * the transaction in the target Transaction object. A Transaction
@@ -277,25 +275,6 @@ public interface Transaction {
          * Resources.
          */
         ROLLING_BACK;
-
-        /**
-         * The equivalent legacy integer-valued code defined by {@link jakarta.transaction.Status}.
-         */
-        public int code() {
-            switch (this) {
-                case ACTIVE: return STATUS_ACTIVE;
-                case MARKED_FOR_ROLLBACK: return STATUS_MARKED_ROLLBACK;
-                case PREPARED: return STATUS_PREPARED;
-                case COMMITTED: return STATUS_COMMITTED;
-                case ROLLED_BACK: return STATUS_ROLLEDBACK;
-                case UNKNOWN: return STATUS_UNKNOWN;
-                case NO_TRANSACTION: return STATUS_NO_TRANSACTION;
-                case PREPARING: return STATUS_PREPARING;
-                case COMMITTING: return STATUS_COMMITTING;
-                case ROLLING_BACK: return STATUS_ROLLING_BACK;
-                default: throw new IllegalStateException(); // impossible
-            }
-        }
     }
 
 }

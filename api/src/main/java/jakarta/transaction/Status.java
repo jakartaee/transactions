@@ -16,6 +16,8 @@
 
 package jakarta.transaction;
 
+import static jakarta.transaction.Transaction.Status.*;
+
 /**
  * The Status interface defines static variables used for transaction 
  * status codes.
@@ -32,13 +34,13 @@ public interface Status {
      * transaction has been started and prior to a Coordinator issuing
      * any prepares, unless the transaction has been marked for rollback.
      */  
-    public final static int STATUS_ACTIVE = 0;
+    int STATUS_ACTIVE = 0;
 
     /**
      * A transaction is associated with the target object and it has been
      * marked for rollback, perhaps as a result of a setRollbackOnly operation.
      */  
-    public final static int STATUS_MARKED_ROLLBACK = 1;
+    int STATUS_MARKED_ROLLBACK = 1;
 
     /**
      * A transaction is associated with the target object and it has been
@@ -46,14 +48,14 @@ public interface Status {
      * target object may be waiting for instructions from a superior as to how
      * to proceed.
      */  
-    public final static int STATUS_PREPARED = 2;
+    int STATUS_PREPARED = 2;
  
     /**
      * A transaction is associated with the target object and it has been
      * committed. It is likely that heuristics exist; otherwise, the
      * transaction would have been destroyed and NoTransaction returned.
      */  
-    public final static int STATUS_COMMITTED = 3;
+    int STATUS_COMMITTED = 3;
 
     /**
      * A transaction is associated with the target object and the outcome
@@ -61,20 +63,20 @@ public interface Status {
      * otherwise, the transaction would have been destroyed and NoTransaction
      * returned.
      */  
-    public final static int STATUS_ROLLEDBACK = 4;
+    int STATUS_ROLLEDBACK = 4;
 
     /**
      * A transaction is associated with the target object but its
      * current status cannot be determined. This is a transient condition
      * and a subsequent invocation will ultimately return a different status.
      */  
-    public final static int STATUS_UNKNOWN = 5;
+    int STATUS_UNKNOWN = 5;
 
     /**
      * No transaction is currently associated with the target object. This
      * will occur after a transaction has completed.
      */  
-    public final static int STATUS_NO_TRANSACTION = 6;
+    int STATUS_NO_TRANSACTION = 6;
 
     /**
      * A transaction is associated with the target object and it is in the
@@ -84,7 +86,7 @@ public interface Status {
      * waiting for responses to prepare from one or more
      * Resources.
      */  
-    public final static int STATUS_PREPARING = 7;
+    int STATUS_PREPARING = 7;
 
     /**
      * A transaction is associated with the target object and it is in the
@@ -93,7 +95,7 @@ public interface Status {
      * This occurs because the implementation is probably waiting for 
      * responses from one or more Resources.
      */  
-    public final static int STATUS_COMMITTING = 8;
+    int STATUS_COMMITTING = 8;
 
     /**
      * A transaction is associated with the target object and it is in the
@@ -102,5 +104,45 @@ public interface Status {
      * The implementation is probably waiting for responses from one or more
      * Resources.
      */  
-    public final static int STATUS_ROLLING_BACK = 9;
+    int STATUS_ROLLING_BACK = 9;
+
+    /**
+     * The legacy integer-valued code equivalent to the given
+     * {@link jakarta.transaction.Status}.
+     */
+    static int code(Transaction.Status code) {
+        switch (code) {
+            case ACTIVE: return STATUS_ACTIVE;
+            case MARKED_FOR_ROLLBACK: return STATUS_MARKED_ROLLBACK;
+            case PREPARED: return STATUS_PREPARED;
+            case COMMITTED: return STATUS_COMMITTED;
+            case ROLLED_BACK: return STATUS_ROLLEDBACK;
+            case UNKNOWN: return STATUS_UNKNOWN;
+            case NO_TRANSACTION: return STATUS_NO_TRANSACTION;
+            case PREPARING: return STATUS_PREPARING;
+            case COMMITTING: return STATUS_COMMITTING;
+            case ROLLING_BACK: return STATUS_ROLLING_BACK;
+            default: throw new IllegalStateException(); // impossible
+        }
+    }
+
+    /**
+     * The {@link jakarta.transaction.Status} equivalent to the given
+     * legacy integer-valued code defined by this class.
+     */
+    static Transaction.Status status(int code) {
+        switch (code) {
+            case STATUS_ACTIVE: return ACTIVE;
+            case STATUS_MARKED_ROLLBACK: return MARKED_FOR_ROLLBACK;
+            case STATUS_PREPARED: return PREPARED;
+            case STATUS_COMMITTED: return COMMITTED;
+            case STATUS_ROLLEDBACK: return ROLLED_BACK;
+            case STATUS_UNKNOWN: return UNKNOWN;
+            case STATUS_NO_TRANSACTION: return NO_TRANSACTION;
+            case STATUS_PREPARING: return PREPARING;
+            case STATUS_COMMITTING: return COMMITTING;
+            case STATUS_ROLLING_BACK: return ROLLING_BACK;
+            default: throw new IllegalStateException(); // impossible
+        }
+    }
 }
