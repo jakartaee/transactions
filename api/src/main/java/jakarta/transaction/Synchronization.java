@@ -38,7 +38,11 @@ public interface Synchronization {
 
     /**
      * This method is called by the transaction manager after the
-     * transaction is committed or rolled back.
+     * transaction is committed or rolled back. An implementation
+     * of {@code Synchronization} may override both this method
+     * and its overload {@link #afterCompletion(Transaction.Status)}.
+     * Both overloads must be called by the transaction manager
+     * after the transaction completes.
      *
      * @param status The status of the transaction completion.
      *
