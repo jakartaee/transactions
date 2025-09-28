@@ -16,8 +16,6 @@
 
 package jakarta.transaction;
 
-import java.util.function.Supplier;
-
 /**
  * Declares methods allowing an application program to explicitly manage
  * transaction boundaries.
@@ -158,10 +156,12 @@ public interface TransactionController {
      * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
      * or if committing the transaction fails.
      */
-    void runInTransaction(Runnable work);
+    default void runInTransaction(Runnable work) {
+        inTransaction().run(work);
+    }
 
     /**
-     * Call the given {@linkplain Supplier supplier} in a transaction.
+     * Call the given {@linkplain Callable operation} in a transaction.
      * If there is no active transaction associated with the current
      * thread, {@linkplain #begin} a new transaction before running
      * the operation. If the operation completes without throwing an
@@ -182,5 +182,122 @@ public interface TransactionController {
      * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
      * or if committing the transaction fails.
      */
-    <R> R callInTransaction(Supplier<R> work);
+    default <R> R callInTransaction(Callable<R> work) {
+        return inTransaction().call(work);
+    }
+
+    /**
+     * Obtain a {@link Runner}, specifying options for the transactions
+     * it initiates. If this method is called inside a transaction
+     * context, the {@linkplain TransactionPropagation propagation}
+     * must be explicitly specified as an option.
+     *
+     * @param options Any number of {@link TransactionOption}s.
+     *
+     * @throws TransactionalException if called inside a transaction
+     * context and if no {@link TransactionPropagation} is explicitly
+     * specified as an option.
+     *
+     */
+    Runner inTransaction(TransactionOption... options);
+
+    /**
+     * Executes transactional operations with a given set of options
+     * specified as arguments to {@link #inTransaction(TransactionOption...)}.
+     */
+    interface Runner {
+        /**
+         * Run the given {@linkplain Runnable operation} in a transaction.
+         * If there is no active transaction associated with the current
+         * thread, {@linkplain #begin} a new transaction before running
+         * the operation. If the operation completes without throwing an
+         * exception, {@linkplain #commit} the transaction. If the
+         * operation does throw an exception, {@linkplain #rollback} the
+         * transaction and rethrow the exception. Otherwise, if there is
+         * already an active transaction associated with the current
+         * thread, simply call the operation.
+         *
+         * @param work Some work to be performed in a transaction
+         *
+         * @exception IllegalStateException Thrown if the current
+         * {@linkplain #getStatus status} is anything other than
+         * {@link Status#STATUS_ACTIVE STATUS_ACTIVE} or
+         * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
+         * or if committing the transaction fails.
+         */
+        void run(Runnable work);
+
+        /**
+         * Call the given {@linkplain Callable operation} in a transaction.
+         * If there is no active transaction associated with the current
+         * thread, {@linkplain #begin} a new transaction before running
+         * the operation. If the operation completes without throwing an
+         * exception, {@linkplain #commit} the transaction and return the
+         * value produced by the supplier. If the operation does throw an
+         * exception, {@linkplain #rollback} the transaction and rethrow
+         * the exception. Otherwise, if there is already an active
+         * transaction associated with the current thread, simply call the
+         * supplier and return the value it produces.
+         *
+         * @param work A supplier to be called in a transaction
+         * @return The value returned by the given supplier
+         * @param <R> The type of the value returned by the supplier
+         *
+         * @exception IllegalStateException Thrown if the current
+         * {@linkplain #getStatus status} is anything other than
+         * {@link Status#STATUS_ACTIVE STATUS_ACTIVE} or
+         * {@link Status#STATUS_MARKED_ROLLBACK STATUS_MARKED_ROLLBACK}
+         * or if committing the transaction fails.
+         */
+        <R> R call(Callable<R> work);
+    }
+
+    /**
+     * Represents a transaction under the control of {@link #runInTransaction}.
+     * Allows an operation to mark the transaction for rollback.
+     */
+    interface RunningTransaction {
+        /**
+         * Modify the transaction associated with the current thread such that
+         * the only possible outcome of the transaction is to roll back the
+         * transaction.
+         *
+         * @exception IllegalStateException Thrown if the current thread is
+         *    not associated with a transaction or if the transaction manager
+         *    encounters an unexpected error condition.
+         *
+         */
+        void setRollbackOnly();
+
+        /**
+         * Determine whether the transaction associated with the current thread
+         * has been marked so that the only possible outcome of the transaction
+         * is to roll back the transaction.
+         *
+         * @return {@code true} if the current transaction has been marked for
+         *    rollback, or {@code false} otherwise.
+         */
+        boolean isRollbackOnly();
+    }
+
+    /**
+     * An operation that should be performed in a transaction.
+     */
+    @FunctionalInterface
+    interface Runnable {
+        void run(RunningTransaction transaction)
+                throws Exception;
+    }
+
+    /**
+     * An operation that should be performed in a transaction
+     * and which returns a value.
+     *
+     * @param <T> The type of the return value
+     */
+    @FunctionalInterface
+    interface Callable<T> {
+        T call(RunningTransaction transaction)
+                throws Exception;
+    }
 }
