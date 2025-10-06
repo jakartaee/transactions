@@ -16,12 +16,12 @@
 
 package jakarta.transaction;
 
-import static jakarta.transaction.Transaction.Status.*;
+import static jakarta.transaction.TransactionStatus.*;
 
 /**
  * The Status interface defines static variables used for transaction status codes.
  *
- * @deprecated Use {@link Transaction.Status}.
+ * @deprecated Use {@link TransactionStatus}.
  *
  * @version Jakarta Transactions 2.0
  */
@@ -93,7 +93,7 @@ public interface Status {
     /**
      * The legacy integer-valued code equivalent to the given {@link jakarta.transaction.Status}.
      */
-    static int code(Transaction.Status code) {
+    static int code(TransactionStatus code) {
         switch (code) {
         case ACTIVE:
             return STATUS_ACTIVE;
@@ -123,7 +123,7 @@ public interface Status {
     /**
      * The {@link jakarta.transaction.Status} equivalent to the given legacy integer-valued code defined by this class.
      */
-    static Transaction.Status status(int code) {
+    static TransactionStatus status(int code) {
         switch (code) {
         case STATUS_ACTIVE:
             return ACTIVE;

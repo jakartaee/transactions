@@ -95,7 +95,7 @@ public interface UserTransaction {
      *
      * @since JTA 2.1
      */
-    Transaction.Status getCurrentStatus() throws SystemException;
+    TransactionStatus getCurrentStatus() throws SystemException;
 
     /**
      * Obtain the status of the transaction associated with the current thread.

@@ -35,23 +35,23 @@ public interface Synchronization {
     /**
      * This method is called by the transaction manager after the transaction is committed or rolled back. An implementation
      * of {@code Synchronization} may override both this method and its overload
-     * {@link #afterCompletion(Transaction.Status)}. Both overloads must be called by the transaction manager after the
+     * {@link #afterCompletion(TransactionStatus)}. Both overloads must be called by the transaction manager after the
      * transaction completes.
      *
      * @param status The status of the transaction completion.
      *
      * @since JTA 2.1
      */
-    default void afterCompletion(Transaction.Status status) {
+    default void afterCompletion(TransactionStatus status) {
     }
 
     /**
      * This method is called by the transaction manager after the transaction is committed or rolled back, and after
-     * {@link #afterCompletion(Transaction.Status)} is called.
+     * {@link #afterCompletion(TransactionStatus)} is called.
      *
      * @param status The status of the transaction completion.
      *
-     * @deprecated Use {@link #afterCompletion(Transaction.Status)}
+     * @deprecated Use {@link #afterCompletion(TransactionStatus)}
      */
     @Deprecated
     default void afterCompletion(int status) {

@@ -132,7 +132,7 @@ public interface TransactionSynchronizationRegistry {
      *
      * @since JTA 2.1
      */
-    Transaction.Status getCurrentStatus();
+    TransactionStatus getCurrentStatus();
 
     /**
      * Return the status of the transaction bound to the current thread at the time this method is called. This is the
