@@ -97,7 +97,8 @@ public interface UserTransaction {
     int getStatus() throws SystemException;
 
     /**
-     * Modify the timeout value that is associated with transactions started by the current thread with the begin method.
+     * Specifies the timeout value to be associated with transactions
+     * subsequently started by the current thread with the begin method.
      *
      * <p>
      * If an application has not called this method, the transaction service uses some default value for the transaction
@@ -112,7 +113,8 @@ public interface UserTransaction {
     void setTransactionTimeout(int seconds) throws SystemException;
 
     /**
-     * Modify the read-only value that is associated with transactions started by the current thread with the begin method.
+     * Specifies the read-only value to be associated with transactions
+     * subsequently started by the current thread with the begin method.
      *
      * <p>
      * If an application has not called this method, the transaction service uses the default value {@code false} for the
