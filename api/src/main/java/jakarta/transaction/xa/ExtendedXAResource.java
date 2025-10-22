@@ -33,6 +33,15 @@ public interface ExtendedXAResource extends XAResource {
      * returns <i>true</i>; otherwise <i>false</i>. If a resource manager does not support explicitly setting the
      * {@code XAResource} into read-only mode, this method returns <i>false</i>.
      *
+     * <p>
+     * The transaction manager must invoke this method <i>before</i> invoking
+     * {@link XAResource#start(Xid,int)} to indicate that the transaction with
+     * the respective {@code Xid} is requested to participate in a read-only
+     * transaction. The {@code setReadOnly} method must not be invoked while a
+     * transaction is active on the thread or after the respective transaction
+     * is suspended or completed.
+     * </p>
+     *
      * @param xid – A global transaction identifier for which this resource shall be set into read-only mode.
      *
      * @return <i>true</i> if the {@code XAResource} was put into read-only mode successfully; otherwise <i>false</i>.
