@@ -169,7 +169,7 @@ specifies each of these elements in detail.
 
 The `jakarta.transaction.UserTransaction`
 interface provides the application the ability to control transaction
-boundaries programmatically and set a transaction into read-only mode.
+boundaries and resolution programmatically.
 
 The implementation of the `UserTransaction`
 object must be both `javax.naming.Referenceable` and
@@ -400,6 +400,17 @@ allows the transaction manager to conduct the two-phase commit
 transaction protocol between the transaction manager and the resource
 managers, as defined by the X/Open XA specification.
 
+Before enlisting resources, the transaction manager invokes the
+`Transaction.isReadOnly` method to determine if the current transaction
+is in read-only mode. If the transaction is in read-only mode, the
+transaction manager must attempt to put the resource into read-only
+mode by invoking the `ExtendedXAResource#setReadOnly` method on the
+resource if it implements the `ExtendedXAResource` interface. If the
+`ExtendedXAResource` cannot be put into read-only mode or the
+`XAResource` does not implement the `ExtendedXAResource` interface,
+the transaction manager must roll back the `XAResource` and raise
+`RollbackException` upon any attempt to commit the transaction.
+
 For each resource in use by the application,
 the application server invokes the `enlistResource` method and
 specifies the `XAResource` object that identifies the resource in
@@ -413,14 +424,6 @@ transaction manager is responsible for passing the appropriate flag in
 its `XAResource.start` method call to the resource manager. The
 `XAResource` interface is described in
 "`<<xaresource-interface,See XAResource Interface>>.`"
-
-If the current transaction is in the read-only mode, the transaction
-manager tries to put the enlisted resource in the read-only mode by
-invoking the `ExtendedXAResource#setReadOnly` method if it implements
-the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
-be put into read-only mode or the `XAResource` does not implement the
-`ExtendedXAResource` interface, the transaction manager must roll back
-the `XAResource` at transaction commit.
 
 If the target transaction already has another
 `XAResource` object participating in the transaction, the transaction
@@ -1142,14 +1145,16 @@ transaction is begun as a result of a call to a bean annotated with
 bean annotated with `Transactional(TxType.NEVER)`, the transaction
 begun by the first bean will be marked for rollback.
 
-The `readOnly` element of the annotation indicates that the transaction
-must be put into read-only mode. A read-only transaction may fail early
+The `allowCommit` element of the annotation indicates whether the
+transaction is permitted to commit. When the transaction is not
+permitted to commit, participating resources may consider the
+transaction as effectively read-only. Such a transaction may fail early
 if a non-read action is executed. A read-only transaction may only run in a
 read-only transaction context, and similarly, a non-read-only transaction
 may only run in a non-read-only transaction context. As defined by the
 semantics of the configured `TxType`, a newly started transaction must
-be read-only if the `readOnly` element is `true`, and be non-read-only if
-the `readOnly` element is `false`.
+be allow commit if the `allowCommit` element is `true` and disallow commit if
+the `allowCommit` element is `false`.
 If called inside a non-compatible transaction context, a
 `TransactionalException` with a nested `InvalidTransactionException` must
 be thrown.
@@ -1445,11 +1450,14 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 
 * New interface `ExtendedXAResource` to enable read-only mode
 * Interface `jakarta.transaction.UserTransaction`, add method
-`setReadOnly` to put subsequent started transactions into read-only mode.
+`begin(allowCommit)` to start transactions in read-only mode
+when the value is `false`.
 * Interface `jakarta.transaction.TransactionManager`, add method
-`setReadOnly` to put subsequent started transactions into read-only mode.
+`begin(allowCommit)` to start transactions in read-only mode
+when the value is `false`.
 * Annotation interface `jakarta.transaction.Transactional`, add method
-`readOnly` to allow putting a transaction into read-only mode.
+`allowCommit` to allow starting transaction in read-only mode
+when the value is `false`.
 * Interface `jakarta.transaction.UserTransaction`, add method
 `isReadOnly` to obtain the read-only status of the current transaction.
 * Interface `jakarta.transaction.Transaction`, add method
@@ -1457,26 +1465,13 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 * Interface `jakarta.transaction.TransactionSynchronizationRegistry`,
 add method `isReadOnly` to obtain the read-only status of the current transaction.
 * Define behavior of `jakarta.transaction.Transaction#enlistResource`,
-when a transaction is in the read-only mode.
-* Added the following description to
-"`<<resource-enlistment,See Resource Enlistment>>`": "If the current
-transaction is in the read-only mode, the transaction
-manager tries to put the enlisted resource in the read-only mode by
-invoking the `ExtendedXAResource#setReadOnly` method if it implements
-the `ExtendedXAResource` interface. If the `ExtendedXAResource` cannot
-be put into read-only mode or the `XAResource` does not implement the
-`ExtendedXAResource` interface, the transaction manager must roll back
-the `XAResource` at transaction commit."
-* Added the following description to
-"`<<transactional-annotation,See Transactional Annotation>>`": "
-The `readOnly` element of the annotation indicates that the transaction
-must be put into read-only mode. A read-only transaction may fail early
-if a non-read action is executed and also put participating resources
-into a read-only mode. If called outside a read-only transaction
-context, the interceptor must begin a new Jakarta Transactions transaction,
-the managed bean method execution must then continue inside this
-transaction context, and the transaction must be completed by the
-interceptor."
+for a transaction that does not allow commit.
+* Updated the description of
+"`<<resource-enlistment,See Resource Enlistment>>`" to cover transactions
+that do not allow commit and effectively operate in read-only mode.
+* Update the description of
+"`<<transactional-annotation,See Transactional Annotation>>`"
+to cover the `allowCommit` element of the `Transactional` annotation.
 
 === Changes for Version 2.0
 

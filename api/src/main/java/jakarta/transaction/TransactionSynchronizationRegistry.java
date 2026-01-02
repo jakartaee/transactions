@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -154,7 +154,11 @@ public interface TransactionSynchronizationRegistry {
     boolean getRollbackOnly();
 
     /**
-     * Obtain the read-only value of the transaction bound to the current thread at the time this method is called.
+     * <p>
+     * Indicates if the transaction bound to the current thread is effectively read-only because the transaction was started
+     * with a value of {@code false} for {@link Transactional#allowCommit()}, {@link UserTransaction#begin(boolean)}, or
+     * {@link TransactionManager#begin(boolean)}, indicating that the transaction will not commit.
+     * </p>
      *
      * @return The transaction read-only value.
      *
