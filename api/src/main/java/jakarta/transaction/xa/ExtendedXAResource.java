@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -27,15 +27,25 @@ import javax.transaction.xa.Xid;
  */
 public interface ExtendedXAResource extends XAResource {
     /**
-     * Sets this {@code XAResource} instance into read-only mode for the transaction of the given xid.
+     * <p>
+     * Puts this {@code XAResource} instance into read-only mode for the transaction of the given xid.
+     * </p>
      *
+     * <p>
      * If the {@code XAResource} was put into read-only mode for the transaction of the given xid successfully, the method
-     * returns <i>true</i>; otherwise <i>false</i>. If a resource manager does not support explicitly setting the
-     * {@code XAResource} into read-only mode, this method returns <i>false</i>.
+     * returns {@code true}; otherwise {@code false}. If a resource manager does not support explicitly setting the
+     * {@code XAResource} into read-only mode, this method returns {@code false}, in which case the {@code XAResource} will
+     * be {@linkplain #rollback(Xid) rolled back} when the transaction ends.
+     * </p>
+     *
+     * <p>
+     * The transaction manager can invoke this method on a {@code XAResource} at most once for a given {@code Xid}. If the
+     * transaction manager invokes this method for an {@code Xid}, it must do so prior to invoking {@link #start(Xid, int)}.
+     * </p>
      *
      * @param xid – A global transaction identifier for which this resource shall be set into read-only mode.
      *
-     * @return <i>true</i> if the {@code XAResource} was put into read-only mode successfully; otherwise <i>false</i>.
+     * @return {@code true} if the {@code XAResource} was put into read-only mode successfully; otherwise {@code false}.
      *
      * @exception XAException An error has occurred. Possible exception values are XAER_RMERR, XAER_RMFAIL, or XAER_INVAL.
      */

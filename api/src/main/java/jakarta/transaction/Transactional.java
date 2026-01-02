@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -193,20 +193,36 @@ public @interface Transactional {
     public Class[] dontRollbackOn() default {};
 
     /**
-     * The {@code readOnly} element can be set to indicate that the transaction must be read-only. A read-only transaction
-     * may fail early if a non-read action is executed. A read-only transaction may only run in a read-only transaction
-     * context, and similarly, a non-read-only transaction may only run in a non-read-only transaction context. As defined
-     * by the semantics of the configured {@code TxType}, a newly started transaction must be read-only if the
-     * {@code readOnly} element is {@code true}, and be non-read-only if the {@code readOnly} element is {@code false}.
+     * <p>
+     * Indicates whether the transaction is allowed to commit.
+     * </p>
+     *
+     * <p>
+     * A resource manager might be able to optimize its participation in a transaction by restricting usage to read-only
+     * access when the application indicates the transaction will never commit.
+     * </p>
+     *
+     * <p>
+     * A value of {@code false} restricts transaction resolution such that the only possible outcome is to roll back the
+     * transaction. The transaction status does not transition to {@link Status#STATUS_MARKED_ROLLBACK} unless the
+     * transaction is explicitly marked for rollback only. Prior to that point, resource managers must continue to permit
+     * read-only operations within the transaction. Some resource managers might also permit write operations that will
+     * ultimately roll back.
+     * </p>
+     *
+     * <p>
+     * A value of {@code false} takes precedence over {@link #rollbackOn()} and {@link #dontRollbackOn()}.
+     * </p>
+     *
      * <p>
      * If called inside a non-compatible transaction context, a TransactionalException with a nested
      * InvalidTransactionException must be thrown.
      * </p>
      *
-     * @return The readOnly flag
+     * @return whether the transaction is allowed to commit.
      * @since 2.1
      */
     @Nonbinding
-    public boolean readOnly() default false;
+    public boolean allowCommit() default true;
 
 }

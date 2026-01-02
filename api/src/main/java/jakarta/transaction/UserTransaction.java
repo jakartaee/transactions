@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -37,6 +37,40 @@ public interface UserTransaction {
      *
      */
     void begin() throws NotSupportedException, SystemException;
+
+    /**
+     * <p>
+     * Create a new transaction, indicate whether the transaction will be allowed to commit, and associate the transaction
+     * with the current thread.
+     * </p>
+     *
+     * <p>
+     * A resource manager might be able to optimize its participation in a transaction by restricting usage to read-only
+     * access when the application indicates the transaction will never commit.
+     * </p>
+     *
+     * <p>
+     * A value of {@code true} for {@code allowCommit} permits the transaction to be resolved by the {@link commit()}
+     * operation. This is the same behavior offered by the {@link #begin()} method.
+     * </p>
+     *
+     * <p>
+     * A value of {@code false} restricts transaction resolution such that the only possible outcome is to
+     * {@linkplain #rollback() roll back} the transaction. The transaction {@linkplain #getStatus() status} does not
+     * transition to {@link Status#STATUS_MARKED_ROLLBACK} unless {@link #setRollbackOnly()} is invoked on the transaction.
+     * Prior to that point, resource managers must continue to permit read-only operations within the transaction. Some
+     * resource managers might also permit write operations that will ultimately roll back.
+     * </p>
+     *
+     * @param allowCommit controls whether the transaction is permitted to commit.
+     *
+     * @exception NotSupportedException Thrown if the thread is already associated with a transaction and the Transaction
+     * Manager implementation does not support nested transactions.
+     *
+     * @exception SystemException Thrown if the transaction manager encounters an unexpected error condition.
+     * @since 2.1
+     */
+    void begin(boolean allowCommit) throws NotSupportedException, SystemException;
 
     /**
      * Complete the transaction associated with the current thread. When this method completes, the thread is no longer
@@ -112,21 +146,9 @@ public interface UserTransaction {
     void setTransactionTimeout(int seconds) throws SystemException;
 
     /**
-     * Modify the read-only value that is associated with transactions started by the current thread with the begin method.
-     *
-     * <p>
-     * If an application has not called this method, the transaction service uses the default value {@code false} for the
-     * transaction read-only flag.
-     *
-     * @param readOnly The value indicating the read-only state.
-     *
-     * @exception SystemException Thrown if the transaction manager encounters an unexpected error condition.
-     * @since 2.1
-     */
-    public void setReadOnly(boolean readOnly) throws SystemException;
-
-    /**
-     * Obtain the read-only value of the transaction associated with the current thread.
+     * Indicates if the transaction bound to the current thread is effectively read-only because the transaction was started
+     * with a value of {@code false} for {@link Transactional#allowCommit()}, {@link UserTransaction#begin(boolean)}, or
+     * {@link TransactionManager#begin(boolean)}, indicating that the transaction will not commit.
      *
      * @return The transaction read-only value. If no transaction is associated with the current thread, this method returns
      * {@code false}.
