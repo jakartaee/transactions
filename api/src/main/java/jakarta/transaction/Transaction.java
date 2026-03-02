@@ -99,7 +99,21 @@ public interface Transaction {
      *
      * @exception SystemException Thrown if the transaction manager encounters an unexpected error condition.
      *
+     * @since JTA 2.1
      */
+    public TransactionStatus getCurrentStatus() throws SystemException;
+
+    /**
+     * Obtain the status of the transaction associated with the target Transaction object.
+     *
+     * @return The transaction status. If no transaction is associated with the target object, this method returns the
+     * Status.NoTransaction value.
+     *
+     * @exception SystemException Thrown if the transaction manager encounters an unexpected error condition.
+     *
+     * @deprecated Use {@link #getCurrentStatus()}
+     */
+    @Deprecated
     public int getStatus() throws SystemException;
 
     /**
