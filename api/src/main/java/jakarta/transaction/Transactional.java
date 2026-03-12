@@ -51,21 +51,23 @@ import java.lang.annotation.*;
  * </p>
  *
  * <p>
- * By default checked exceptions do not result in the transactional interceptor marking the transaction for rollback and
- * instances of RuntimeException and its subclasses do. This default behavior can be modified by specifying exceptions
- * that result in the interceptor marking the transaction for rollback and/or exceptions that do not result in rollback.
+ * By default, a Transactional interceptor marks the transaction for rollback when it intercepts an exception assignable
+ * to RuntimeException. Checked exceptions are considered <em>application exceptions</em> and do not, by default, cause
+ * the interceptor to mark the transaction for rollback.
  * </p>
  * <p>
- * The rollbackOn element can be set to indicate exceptions that must cause the interceptor to mark the transaction for
- * rollback.
+ * This default behavior can be modified by specifying additional types that cause the interceptor to mark the
+ * transaction for rollback and/or types that do not cause the interceptor to mark the transaction for rollback.
  * </p>
+ * <ul>
+ * <li>If an exception is an instance of a type listed by rollbackOn, and also of Exception, and if the exception is not
+ * also an instance of a type listed in dontRollbackOn, the interceptor must mark the transaction for rollback.</li>
+ * <li>If an exception is an instance of a type listed by dontRollbackOn, the interceptor must not mark the transaction
+ * for rollback, even if the exception is also an instance of RuntimeException or of a type listed in rollbackOn.</li>
+ * </ul>
  * <p>
- * Conversely, the dontRollbackOn element can be set to indicate exceptions that must not cause the interceptor to mark
- * the transaction for rollback.
- * </p>
- * <p>
- * When a class is specified for either of these elements, the designated behavior applies to subclasses of that class
- * as well. If both elements are specified, dontRollbackOn takes precedence.
+ * If an exception is an instance of Error, the behavior is undefined. A Transactional interceptor is not required to
+ * catch Errors, and so portable applications should not depend on the behavior of the interceptor when an Error occurs.
  * </p>
  *
  * @version Jakarta Transactions 2.0
@@ -169,28 +171,37 @@ public @interface Transactional {
     }
 
     /**
-     * The rollbackOn element can be set to indicate exceptions that must cause the interceptor to mark the transaction for
-     * rollback. Conversely, the dontRollbackOn element can be set to indicate exceptions that must not cause the
-     * interceptor to mark the transaction for rollback. When a class is specified for either of these elements, the
-     * designated behavior applies to subclasses of that class as well. If both elements are specified, dontRollbackOn takes
-     * precedence.
+     * <p>
+     * Specifies a list of class and interface types which cause the interceptor to mark the transaction for rollback
+     * when an exception assignable to one of the listed types is intercepted.
+     * </p>
+     * <ul>
+     * <li>If an exception is an instance of one of the listed types, and also of Exception, and if the exception is not
+     * also an instance of a type listed in dontRollbackOn, the interceptor must mark the transaction for rollback.</li>
+     * <li>If an exception is an instance of RuntimeException, and if the exception is not also an instance of a type
+     * listed in dontRollbackOn, the interceptor must mark the transaction for rollback.</li>
+     * <li>If an exception is an instance of one of the listed types, and also of Error, the behavior is undefined. The
+     * interceptor is not required to catch Errors, and so portable applications should not depend on the behavior of
+     * the interceptor when an Error occurs.</li>
+     * </ul>
      *
-     * @return Class[] of Exceptions
+     * @return A list of Class objects representing the class and interface types.
      */
     @Nonbinding
-    public Class[] rollbackOn() default {};
+    Class[] rollbackOn() default {};
 
     /**
-     * The dontRollbackOn element can be set to indicate exceptions that must not cause the interceptor to mark the
-     * transaction for rollback. Conversely, the rollbackOn element can be set to indicate exceptions that must cause the
-     * interceptor to mark the transaction for rollback. When a class is specified for either of these elements, the
-     * designated behavior applies to subclasses of that class as well. If both elements are specified, dontRollbackOn takes
-     * precedence.
+     * <p>
+     * Specifies a list of class and interface types which do not cause the interceptor to mark the transaction for
+     * rollback when an exception assignable to one of the listed types is intercepted. If an exception is an instance
+     * of one of the listed types, the interceptor must not mark the transaction for rollback, even if the exception is
+     * also an instance of RuntimeException or of a type listed in rollbackOn.
+     * </p>
      *
-     * @return Class[] of Exceptions
+     * @return A list of Class objects representing the class and interface types.
      */
     @Nonbinding
-    public Class[] dontRollbackOn() default {};
+    Class[] dontRollbackOn() default {};
 
     /**
      * The {@code readOnly} element can be set to indicate that the transaction must be read-only. A read-only transaction
