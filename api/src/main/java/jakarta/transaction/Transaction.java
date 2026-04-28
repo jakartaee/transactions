@@ -76,7 +76,7 @@ public interface Transaction {
      * </p>
      *
      * <p>
-     * If the transaction was started with a value of {@code false} for {@link Transactional#allowCommit()},
+     * If the transaction was started with a value of {@code true} for {@link Transactional#isReadOnly()},
      * {@link UserTransaction#begin(boolean)}, or {@link TransactionManager#begin(boolean)}, indicating the transaction will
      * not commit, the transaction manager must attempt {@link ExtendedXAResource#setReadOnly(Xid)} on participating
      * resources that implement {@link ExtendedXAResource} before invoking {@link XAResource#start(Xid, int)} on the
@@ -113,10 +113,10 @@ public interface Transaction {
 
     /**
      * <p>
-     * Indicates if the transaction associated with the target {@code Transaction} object is effectively read-only because
-     * the transaction was started with a value of {@code false} for {@link Transactional#allowCommit()},
-     * {@link UserTransaction#begin(boolean)}, or {@link TransactionManager#begin(boolean)}, indicating that the transaction
-     * will not commit.
+     * Indicates if the transaction associated with the target {@code Transaction} object is effectively read-only,
+     * indicating that the transaction will not commit. Read-only mode is requested for a transaction by supplying a value
+     * of {@code true} to {@link Transactional#isReadOnly()}, {@link UserTransaction#begin(boolean)}, or
+     * {@link TransactionManager#begin(boolean)}.
      * </p>
      *
      * <p>

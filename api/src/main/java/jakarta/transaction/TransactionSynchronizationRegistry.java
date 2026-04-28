@@ -156,7 +156,7 @@ public interface TransactionSynchronizationRegistry {
     /**
      * <p>
      * Indicates if the transaction bound to the current thread is effectively read-only because the transaction was started
-     * with a value of {@code false} for {@link Transactional#allowCommit()}, {@link UserTransaction#begin(boolean)}, or
+     * with a value of {@code true} for {@link Transactional#isReadOnly()}, {@link UserTransaction#begin(boolean)}, or
      * {@link TransactionManager#begin(boolean)}, indicating that the transaction will not commit.
      * </p>
      *

@@ -1145,16 +1145,16 @@ transaction is begun as a result of a call to a bean annotated with
 bean annotated with `Transactional(TxType.NEVER)`, the transaction
 begun by the first bean will be marked for rollback.
 
-The `allowCommit` element of the annotation indicates whether the
-transaction is permitted to commit. When the transaction is not
-permitted to commit, participating resources may consider the
-transaction as effectively read-only. Such a transaction may fail early
+The `isReadOnly` element of the annotation indicates if the
+transaction is effectively read-only in that its only permitted
+outcome is to roll back. Unlike rollback-only mode, the transaction must
+continue to allow read operations. Such a transaction may fail early
 if a non-read action is executed. A read-only transaction may only run in a
 read-only transaction context, and similarly, a non-read-only transaction
 may only run in a non-read-only transaction context. As defined by the
 semantics of the configured `TxType`, a newly started transaction must
-be allow commit if the `allowCommit` element is `true` and disallow commit if
-the `allowCommit` element is `false`.
+allow commit if the `isReadOnly` element is `false` and disallow commit if
+the `isReadOnly` element is `true`.
 If called inside a non-compatible transaction context, a
 `TransactionalException` with a nested `InvalidTransactionException` must
 be thrown.
@@ -1450,14 +1450,14 @@ _https://jakarta.ee/specifications/interceptors/2.0/_
 
 * New interface `ExtendedXAResource` to enable read-only mode
 * Interface `jakarta.transaction.UserTransaction`, add method
-`begin(allowCommit)` to start transactions in read-only mode
-when the value is `false`.
+`begin(isReadOnly)` to start transactions in read-only mode
+when the value is `true`.
 * Interface `jakarta.transaction.TransactionManager`, add method
-`begin(allowCommit)` to start transactions in read-only mode
-when the value is `false`.
+`begin(isReadOnly)` to start transactions in read-only mode
+when the value is `true`.
 * Annotation interface `jakarta.transaction.Transactional`, add method
-`allowCommit` to allow starting transaction in read-only mode
-when the value is `false`.
+`isReadOnly` to allow starting transaction in read-only mode
+when the value is `true`.
 * Interface `jakarta.transaction.UserTransaction`, add method
 `isReadOnly` to obtain the read-only status of the current transaction.
 * Interface `jakarta.transaction.Transaction`, add method
@@ -1471,7 +1471,7 @@ for a transaction that does not allow commit.
 that do not allow commit and effectively operate in read-only mode.
 * Update the description of
 "`<<transactional-annotation,See Transactional Annotation>>`"
-to cover the `allowCommit` element of the `Transactional` annotation.
+to cover the `isReadOnly` element of the `Transactional` annotation.
 
 === Changes for Version 2.0
 
