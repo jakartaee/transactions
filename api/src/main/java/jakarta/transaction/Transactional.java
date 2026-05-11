@@ -51,9 +51,10 @@ import java.lang.annotation.*;
  * </p>
  *
  * <p>
- * By default checked exceptions do not result in the transactional interceptor marking the transaction for rollback and
- * instances of RuntimeException and its subclasses do. This default behavior can be modified by specifying exceptions
- * that result in the interceptor marking the transaction for rollback and/or exceptions that do not result in rollback.
+ * By default, checked exceptions and unchecked exceptions annotated Recoverable do not result in the transactional
+ * interceptor marking the transaction for rollback and instances of RuntimeException and its subclasses do. This
+ * default behavior can be modified by specifying exceptions that result in the interceptor marking the transaction for
+ * rollback and/or exceptions that do not result in rollback.
  * </p>
  * <p>
  * The rollbackOn element can be set to indicate exceptions that must cause the interceptor to mark the transaction for
