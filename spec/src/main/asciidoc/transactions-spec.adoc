@@ -1,0 +1,29 @@
+//
+// Copyright (c) 2017, 2020 Contributors to the Eclipse Foundation
+//
+
+= Jakarta Transactions 2.0
+:authors: Jakarta Transactions Team, https://projects.eclipse.org/projects/ee4j.jta
+:email: https://dev.eclipse.org/mailman/listinfo/jta-dev
+:version-label!:
+:doctype: book
+:license: Eclipse Foundation Specification License v1.0
+:source-highlighter: coderay
+:toc: left
+:toclevels: 3
+:sectnumlevels: 4
+:sectanchors:
+:imagesdir: images
+ifdef::backend-pdf[]
+:pagenums:
+:numbered:
+:title-logo-image: image:jakarta_ee_logo_schooner_color_stacked_default.png[pdfwidth=4.25in,align=right]
+endif::[]
+
+// == License
+:sectnums!:
+include::license-efsl.adoc[]
+
+:sectnums!:
+
+include::Transactions.adoc[]
