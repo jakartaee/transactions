@@ -32,11 +32,7 @@ public class HeuristicRollbackException extends java.lang.Exception {
         super();
     }
 
-    public HeuristicRollbackException(String message) {
-        super(message);
-    }
-
-    public HeuristicRollbackException(String message, Throwable cause) {
-        super(message, cause);
+    public HeuristicRollbackException(String msg) {
+        super(msg);
     }
 }
