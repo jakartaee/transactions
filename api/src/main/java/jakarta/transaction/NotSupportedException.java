@@ -35,11 +35,7 @@ public class NotSupportedException extends java.lang.Exception {
         super();
     }
 
-    public NotSupportedException(String message) {
-        super(message);
-    }
-
-    public NotSupportedException(String message, Throwable cause) {
-        super(message, cause);
+    public NotSupportedException(String msg) {
+        super(msg);
     }
 }

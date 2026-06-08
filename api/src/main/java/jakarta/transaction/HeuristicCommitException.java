@@ -32,11 +32,7 @@ public class HeuristicCommitException extends java.lang.Exception {
         super();
     }
 
-    public HeuristicCommitException(String message) {
-        super(message);
-    }
-
-    public HeuristicCommitException(String message, Throwable cause) {
-        super(message, cause);
+    public HeuristicCommitException(String msg) {
+        super(msg);
     }
 }
