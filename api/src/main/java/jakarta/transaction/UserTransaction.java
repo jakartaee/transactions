@@ -40,25 +40,29 @@ public interface UserTransaction {
 
     /**
      * <p>
-     * Create a new transaction, indicate if it is effectively read-only, and associate the transaction with the current
-     * thread.
+     * Create a new transaction, indicate whether the transaction will be allowed to commit, and associate the transaction
+     * with the current thread.
      * </p>
      *
      * <p>
-     * A value of {@code true} for {@code isReadOnly} restricts transaction resolution such that the only possible outcome
-     * is to {@linkplain #rollback() roll back} the transaction. The transaction {@linkplain #getStatus() status} does not
+     * A resource manager might be able to optimize its participation in a transaction by restricting usage to read-only
+     * access when the application indicates the transaction will never commit.
+     * </p>
+     *
+     * <p>
+     * A value of {@code true} for {@code allowCommit} permits the transaction to be resolved by the {@link commit()}
+     * operation. This is the same behavior offered by the {@link #begin()} method.
+     * </p>
+     *
+     * <p>
+     * A value of {@code false} restricts transaction resolution such that the only possible outcome is to
+     * {@linkplain #rollback() roll back} the transaction. The transaction {@linkplain #getStatus() status} does not
      * transition to {@link Status#STATUS_MARKED_ROLLBACK} unless {@link #setRollbackOnly()} is invoked on the transaction.
      * Prior to that point, resource managers must continue to permit read-only operations within the transaction. Some
-     * resource managers might also permit write operations that will ultimately roll back. A resource manager might be able
-     * to optimize its participation in a transaction when the application indicates the transaction will never commit.
+     * resource managers might also permit write operations that will ultimately roll back.
      * </p>
      *
-     * <p>
-     * A value of {@code false} for {@code isReadOnly} does not restrict resolution of the transaction. This is the same
-     * behavior offered by the {@link #begin()} method.
-     * </p>
-     *
-     * @param isReadOnly designates a transaction as read-only and requires a resolution of {@link #rollback()}.
+     * @param allowCommit controls whether the transaction is permitted to commit.
      *
      * @exception NotSupportedException Thrown if the thread is already associated with a transaction and the Transaction
      * Manager implementation does not support nested transactions.
@@ -66,7 +70,7 @@ public interface UserTransaction {
      * @exception SystemException Thrown if the transaction manager encounters an unexpected error condition.
      * @since 2.1
      */
-    void begin(boolean isReadOnly) throws NotSupportedException, SystemException;
+    void begin(boolean allowCommit) throws NotSupportedException, SystemException;
 
     /**
      * Complete the transaction associated with the current thread. When this method completes, the thread is no longer
@@ -143,7 +147,7 @@ public interface UserTransaction {
 
     /**
      * Indicates if the transaction bound to the current thread is effectively read-only because the transaction was started
-     * with a value of {@code true} for {@link Transactional#isReadOnly()}, {@link UserTransaction#begin(boolean)}, or
+     * with a value of {@code false} for {@link Transactional#allowCommit()}, {@link UserTransaction#begin(boolean)}, or
      * {@link TransactionManager#begin(boolean)}, indicating that the transaction will not commit.
      *
      * @return The transaction read-only value. If no transaction is associated with the current thread, this method returns
