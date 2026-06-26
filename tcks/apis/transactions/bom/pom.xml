@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2021, 2025  Contributors to the Eclipse Foundation
+    All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.eclipse.ee4j</groupId>
+    <artifactId>project</artifactId>
+    <version>2.0.0</version>
+    <relativePath/>
+  </parent>
+
+  <!-- This can be generated from the VersionRelease program -->
+  <!-- This is the BOM for the Jakarta TCK Test Artifacts -->
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>jakarta.tck</groupId>  
+  <artifactId>artifacts-bom</artifactId>
+  <version>12.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Jakarta EE TCK Artifacts BOM</name>
+
+  <properties>
+    <!-- Arquillian -->
+    <arquillian.container.se.api.version>1.0.2.Final</arquillian.container.se.api.version>
+    <arquillian.version>1.10.0.Final</arquillian.version>
+    <!-- The version of the jakarta platform api bom -->
+    <jakarta.jakartaee-bom.version>11.0.0</jakarta.jakartaee-bom.version>
+    <!-- Jakarta TCK Tools version from the independently released tools submodule -->
+    <!-- The Arquillian protocol artifacts -->
+    <jakarta.tck.arquillian.version>11.1.2</jakarta.tck.arquillian.version>
+    <!-- The released version of tools/common -->
+    <jakarta.tck.common.version>11.1.1-M1</jakarta.tck.common.version>
+    <!-- The released version of tools/signaturetest -->
+    <jakarta.tck.sigtest.version>11.1.0</jakarta.tck.sigtest.version>
+
+    <shrinkwrap.api.version>2.0.0-beta-2</shrinkwrap.api.version>
+    <shrinkwrap.descriptors.version>2.0.0</shrinkwrap.descriptors.version>
+    <shrinkwrap.resolver.version>3.3.1</shrinkwrap.resolver.version>
+  </properties>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.11.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>${arquillian.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.jakarta</groupId>
+        <artifactId>arquillian-jakarta-bom</artifactId>
+        <version>10.0.0.Final</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-bom</artifactId>
+        <version>${jakarta.jakartaee-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap</groupId>
+        <artifactId>shrinkwrap-bom</artifactId>
+        <version>${shrinkwrap.api.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+        <artifactId>shrinkwrap-descriptors-bom</artifactId>
+        <version>${shrinkwrap.descriptors.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap.resolver</groupId>
+        <artifactId>shrinkwrap-resolver-depchain</artifactId>
+        <version>${shrinkwrap.resolver.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Jakarta TCK Test Artifacts -->
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>websocket-tck-common</artifactId>
+        <version>2.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>cdi-tck-ee-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>jsonb-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>websocket-docs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>persistence-platform-tck-tests</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>assembly-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>rest-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!-- <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>tags-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency> -->
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>websocket-tck-platform-tests</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>connector</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>el-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>xa</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>persistence-platform-tck-dbprocedures</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>project</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>transactions-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>persistence-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>pages-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>integration</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>jdbc-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>jsonp-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>appclient</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>javamail</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>persistence-platform-tck-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>jms-platform-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>javaee-tck</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>signaturevalidation</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- TCK common dependencies -->
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>common</artifactId>
+        <version>${jakarta.tck.common.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>signaturetest</artifactId>
+        <version>${jakarta.tck.sigtest.version}</version>
+      </dependency>
+
+      <!-- Platform TCK Whitebox RARs and common JAR -->
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>annotated</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>ibanno</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>mdcomplete</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>mixedmode</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>multianno</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-notx</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-notx-param</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-tx</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-tx-param</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-xa</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck</groupId>
+        <artifactId>whitebox-xa-param</artifactId>
+        <version>${project.version}</version>
+        <type>rar</type>
+      </dependency>
+
+      <!-- TCK Arquillian artifacts -->
+      <dependency>
+        <groupId>jakarta.tck.arquillian</groupId>
+        <artifactId>arquillian-protocol-common</artifactId>
+        <version>${jakarta.tck.arquillian.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck.arquillian</groupId>
+        <artifactId>arquillian-protocol-appclient</artifactId>
+        <version>${jakarta.tck.arquillian.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck.arquillian</groupId>
+        <artifactId>arquillian-protocol-javatest</artifactId>
+        <version>${jakarta.tck.arquillian.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck.arquillian</groupId>
+        <artifactId>arquillian-protocol-lib</artifactId>
+        <version>${jakarta.tck.arquillian.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.tck.arquillian</groupId>
+        <artifactId>tck-porting-lib</artifactId>
+        <version>${jakarta.tck.arquillian.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap</groupId>
+        <artifactId>shrinkwrap-api</artifactId>
+        <version>1.2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap.resolver</groupId>
+        <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+        <version>${shrinkwrap.resolver.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement> 
+</project>
