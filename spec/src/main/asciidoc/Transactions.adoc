@@ -411,6 +411,9 @@ resource if it implements the `ExtendedXAResource` interface. If the
 the transaction manager must roll back the `XAResource` and raise
 `RollbackException` upon any attempt to commit the transaction.
 
+However, the behavior of the readOnly feature is not defined for 
+transactions propagated remotely, for example, via OTS/JTS.
+
 For each resource in use by the application,
 the application server invokes the `enlistResource` method and
 specifies the `XAResource` object that identifies the resource in
@@ -1159,6 +1162,9 @@ If called inside a non-compatible transaction context, a
 `TransactionalException` with a nested `InvalidTransactionException` must
 be thrown.
 
+However, the behavior of the readOnly feature is not defined for 
+transactions propagated remotely, for example, via OTS/JTS.
+
 === TransactionScoped Annotation
 
 The `jakarta.transaction.TransactionScoped`
@@ -1469,9 +1475,11 @@ for a transaction that does not allow commit.
 * Updated the description of
 "`<<resource-enlistment,See Resource Enlistment>>`" to cover transactions
 that do not allow commit and effectively operate in read-only mode.
-* Update the description of
+* Updated the description of
 "`<<transactional-annotation,See Transactional Annotation>>`"
 to cover the `isReadOnly` element of the `Transactional` annotation.
+* Added description of readOnly to define that behavior for
+transactions propagated remotely is not defined
 
 === Changes for Version 2.0
 
