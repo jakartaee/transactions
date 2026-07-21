@@ -21,9 +21,17 @@ import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 
 /**
- * Extended XAResource for additional capabilities like read-only mode.
+ * Extended XAResource for additional capabilities such as read-only mode and completion-phase ordering hints.
  *
- * @version Jakarta Transactions 2.1
+ * <p>
+ * A resource adapter may implement this interface in addition to {@link XAResource} to signal to the transaction
+ * manager that it requires specific ordering during the prepare or commit phases of the two-phase commit protocol, or
+ * that it supports read-only mode.
+ * </p>
+ *
+ * @version Jakarta Transactions 2.2
+ * @see PreparePriority
+ * @see CommitPriority
  */
 public interface ExtendedXAResource extends XAResource {
     /**
@@ -43,11 +51,55 @@ public interface ExtendedXAResource extends XAResource {
      * transaction manager invokes this method for an {@code Xid}, it must do so prior to invoking {@link #start(Xid, int)}.
      * </p>
      *
-     * @param xid – A global transaction identifier for which this resource shall be set into read-only mode.
+     * @param xid A global transaction identifier for which this resource shall be set into read-only mode.
      *
      * @return {@code true} if the {@code XAResource} was put into read-only mode successfully; otherwise {@code false}.
      *
      * @exception XAException An error has occurred. Possible exception values are XAER_RMERR, XAER_RMFAIL, or XAER_INVAL.
      */
     boolean setReadOnly(Xid xid) throws XAException;
+
+    /**
+     * Returns the prepare-phase ordering preference for this resource.
+     *
+     * <p>
+     * The transaction manager must call this method after invoking {@link #end(Xid, int)} and before starting the prepare
+     * phase, so that the resource manager has had the opportunity to determine whether the work performed is likely to be
+     * read-only.
+     * </p>
+     *
+     * <p>
+     * If this resource returns {@link PreparePriority#EXCLUSIVE_LAST} and a second resource with the same priority is
+     * already enlisted in the transaction, the transaction manager must throw {@link jakarta.transaction.SystemException}
+     * during enlistment of the second such resource via {@link jakarta.transaction.Transaction#enlistResource}.
+     * </p>
+     *
+     * @return the {@link PreparePriority} for this resource; never {@code null}.
+     * @since Jakarta Transactions 2.2
+     */
+    default PreparePriority getPreparePriority() {
+        return PreparePriority.NORMAL;
+    }
+
+    /**
+     * Returns the commit-phase ordering preference for this resource.
+     *
+     * <p>
+     * The transaction manager must commit a resource returning {@link CommitPriority#EXCLUSIVE_FIRST} before all other
+     * enlisted resources, and must commit a resource returning {@link CommitPriority#LATE} after all resources with
+     * {@link CommitPriority#NORMAL} or {@link CommitPriority#EXCLUSIVE_FIRST} priority.
+     * </p>
+     *
+     * <p>
+     * If this resource returns {@link CommitPriority#EXCLUSIVE_FIRST} and a second resource with the same priority is
+     * already enlisted in the transaction, the transaction manager must throw {@link jakarta.transaction.SystemException}
+     * during enlistment of the second such resource via {@link jakarta.transaction.Transaction#enlistResource}.
+     * </p>
+     *
+     * @return the {@link CommitPriority} for this resource; never {@code null}.
+     * @since Jakarta Transactions 2.2
+     */
+    default CommitPriority getCommitPriority() {
+        return CommitPriority.NORMAL;
+    }
 }
