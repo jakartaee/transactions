@@ -57,7 +57,7 @@ public class ReadOnlyTestBean {
 		}
 	}
 
-    @Transactional(value = TxType.REQUIRED, readOnly = true)
+    @Transactional(value = TxType.REQUIRED, isReadOnly = true)
     public void insert() {
 		try {
 			ds.getConnection().insert("1", "Hello");
@@ -67,7 +67,7 @@ public class ReadOnlyTestBean {
 		}
 	}
 
-    @Transactional(value = TxType.REQUIRED, readOnly = true)
+    @Transactional(value = TxType.REQUIRED, isReadOnly = true)
     public String get() {
         try {
             return ds.getConnection().readValue("1");

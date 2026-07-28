@@ -23,7 +23,7 @@ package com.sun.ts.tests.jta.ee.usertransaction.setreadonly;
 import java.io.Serializable;
 import java.util.Properties;
 
-import com.sun.ts.lib.harness.ServiceEETest;
+import com.sun.ts.tests.common.base.ServiceEETest;
 import com.sun.ts.tests.jta.ee.common.Transact;
 import jakarta.transaction.RollbackException;
 import jakarta.transaction.Status;
@@ -86,12 +86,9 @@ public class UserSetReadOnlyClient extends ServiceEETest implements Serializable
                 pass1 = true;
             }
 
-            // Sets the readOnly value for the current transaction
-            userTransaction.setReadOnly(true);
-
-            // Starts a Global Transaction & associates with
+            // Starts a read-only Global Transaction & associates with
             // Current Thread.
-            userTransaction.begin();
+            userTransaction.begin(true);
             logMsg("UserTransaction Started");
 
             if (userTransaction.isReadOnly()) {
@@ -141,9 +138,7 @@ public class UserSetReadOnlyClient extends ServiceEETest implements Serializable
             userTransaction.begin();
             logMsg("UserTransaction Started");
 
-            // Sets the readOnly value for the current transaction
-            userTransaction.setReadOnly(true);
-
+            // setReadOnly on an already-active transaction has no effect
             if (!userTransaction.isReadOnly()) {
                 pass2 = true;
             }

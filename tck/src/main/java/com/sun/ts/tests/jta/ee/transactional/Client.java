@@ -85,16 +85,13 @@ public class Client extends EJBLiteClientBase {
      */
     public void txTypeRequiredReadOnly_withReadOnlyTransaction() throws Exception {
         try {
-            ut.setReadOnly(true);
-            ut.begin();
+            ut.begin(true);
             Helper.assertEquals( null, "readOnly", one.txTypeRequiredReadOnly(), callRecords);
             appendReason(Helper.compareResult("readOnly", one.txTypeRequiredReadOnly()));
             ut.commit();
         } catch (Exception e) {
             Helper.getLogger().log(INFO, null, e);
             throw new Exception("txTypeRequiredReadOnly_withReadOnlyTransaction failed");
-        } finally {
-            ut.setReadOnly(false);
         }
     }
 

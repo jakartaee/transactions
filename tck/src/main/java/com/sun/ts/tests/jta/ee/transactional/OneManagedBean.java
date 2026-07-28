@@ -58,7 +58,7 @@ public class OneManagedBean {
     public OneManagedBean() {
     }
 
-    @Transactional(value = TxType.REQUIRED, readOnly = true)
+    @Transactional(value = TxType.REQUIRED, isReadOnly = true)
     public String txTypeRequiredReadOnly() {
         String result = "not readOnly";
         if (tsr.isReadOnly()) {
@@ -67,7 +67,7 @@ public class OneManagedBean {
         return result;
     }
 
-    @Transactional(value = TxType.REQUIRES_NEW, readOnly = true)
+    @Transactional(value = TxType.REQUIRES_NEW, isReadOnly = true)
     public String txTypeRequiresNewReadOnly() {
         String result = "not readOnly";
         if (tsr.isReadOnly()) {
