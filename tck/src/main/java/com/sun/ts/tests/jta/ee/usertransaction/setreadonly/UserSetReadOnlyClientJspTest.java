@@ -3,6 +3,10 @@ package com.sun.ts.tests.jta.ee.usertransaction.setreadonly;
 import java.lang.System.Logger;
 import java.net.URL;
 
+import com.sun.ts.lib.harness.Fault;
+import com.sun.ts.lib.harness.SetupException;
+import com.sun.ts.tests.common.base.EETest;
+import com.sun.ts.tests.common.base.ServiceEETest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -62,8 +66,8 @@ public class UserSetReadOnlyClientJspTest
                 UserSetReadOnlyClient.class,
                 com.sun.ts.tests.jta.ee.common.InitFailedException.class, com.sun.ts.tests.jta.ee.common.TransactionStatus.class,
                 com.sun.ts.tests.common.vehicle.VehicleRunnable.class, com.sun.ts.tests.jta.ee.common.InvalidStatusException.class,
-                com.sun.ts.tests.jta.ee.common.InitFailedException.class, com.sun.ts.lib.harness.EETest.class,
-                com.sun.ts.lib.harness.ServiceEETest.class, com.sun.ts.tests.jta.ee.common.TransactionStatus.class,
+                com.sun.ts.tests.jta.ee.common.InitFailedException.class, EETest.class,
+                ServiceEETest.class, com.sun.ts.tests.jta.ee.common.TransactionStatus.class,
                 SetupException.class, com.sun.ts.tests.common.vehicle.VehicleClient.class,
                 UserSetReadOnlyClientJspTest.class);
         // The web.xml descriptor

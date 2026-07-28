@@ -168,16 +168,13 @@ public class ClientEjblitejsfTest extends EJBLiteJsfClientBase implements Serial
     @TargetVehicle("ejblitejsf")
     public void txTypeRequiredReadOnly_withReadOnlyTransaction() throws Exception {
         try {
-            ut.setReadOnly(true);
-            ut.begin();
+            ut.begin(true);
             Helper.assertEquals( null, "readOnly", one.txTypeRequiredReadOnly(), callRecords);
             appendReason(Helper.compareResult("readOnly", one.txTypeRequiredReadOnly()));
             ut.commit();
         } catch (Exception e) {
             Helper.getLogger().log( Level.INFO, null, e);
             throw new Exception("txTypeRequiredReadOnly_withReadOnlyTransaction failed");
-        } finally {
-            ut.setReadOnly(false);
         }
     }
 
