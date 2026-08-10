@@ -80,6 +80,7 @@ public class UserSetReadOnlyClient extends ServiceEETest implements Serializable
         boolean pass1 = false;
         boolean pass2 = false;
         boolean pass3 = false;
+        boolean pass4 = false;
 
         try {
             if (!userTransaction.isReadOnly()) {
@@ -96,25 +97,34 @@ public class UserSetReadOnlyClient extends ServiceEETest implements Serializable
                 pass2 = true;
             }
 
-            // Commits the transaction.
-            userTransaction.commit();
-
-            if (!userTransaction.isReadOnly()) {
+            // A read-only transaction's only permitted outcome is to roll
+            // back: commit() must roll the transaction back and throw
+            // RollbackException.
+            try {
+                userTransaction.commit();
+            } catch (RollbackException rollback) {
+                logMsg("RollbackException was caught as expected in commit()");
                 pass3 = true;
             }
 
-            if (pass1 && pass2 && pass3) {
+            if (!userTransaction.isReadOnly()) {
+                pass4 = true;
+            }
+
+            if (pass1 && pass2 && pass3 && pass4) {
                 logMsg( "testUserSetReadOnly001 Passed" );
             } else if (!pass1) {
                 throw new Exception("UserTransaction isReadOnly expected false on non active transaction");
             } else if (!pass2) {
                 throw new Exception("UserTransaction isReadOnly expected true on new active transaction after setReadOnly");
+            } else if (!pass3) {
+                throw new Exception("RollbackException was not thrown as expected in commit()");
             } else {
                 throw new Exception("UserTransaction isReadOnly expected false on non active transaction");
             }
-        } catch (Exception exception) {
-            logErr("Exception " + exception.toString() + " was caught");
-            throw new Exception("Exception was not thrown as" + " Expected in commit()", exception);
+        } catch (SystemException system) {
+            logErr("Exception " + system.toString() + " was caught");
+            throw new Exception("UnExpected Exception was caught:" + " Failed", system);
         }
 
     }// End of testUserSetReadOnly001
