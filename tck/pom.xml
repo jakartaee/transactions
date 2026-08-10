@@ -29,8 +29,8 @@
     <artifactId>transactions-tck</artifactId>
     <version>12.0.0-SNAPSHOT</version>
 
-    <name>Jakarta Transactions</name>
-    <description>Jakarta Transactions</description>
+    <name>Jakarta Transactions TCK</name>
+    <description>Jakarta Transactions TCK</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
