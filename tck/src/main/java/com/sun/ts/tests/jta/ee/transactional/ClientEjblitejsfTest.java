@@ -10,6 +10,7 @@ import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ContextNotActiveException;
 import jakarta.inject.Inject;
 import jakarta.transaction.InvalidTransactionException;
+import jakarta.transaction.RollbackException;
 import jakarta.transaction.Status;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.TransactionRequiredException;
@@ -167,15 +168,29 @@ public class ClientEjblitejsfTest extends EJBLiteJsfClientBase implements Serial
     @Test
     @TargetVehicle("ejblitejsf")
     public void txTypeRequiredReadOnly_withReadOnlyTransaction() throws Exception {
+        boolean gotRollbackException = false;
+
         try {
             ut.begin(true);
             Helper.assertEquals( null, "readOnly", one.txTypeRequiredReadOnly(), callRecords);
             appendReason(Helper.compareResult("readOnly", one.txTypeRequiredReadOnly()));
-            ut.commit();
+            // A read-only transaction's only permitted outcome is to roll back:
+            // commit() must roll the transaction back and throw RollbackException.
+            try {
+                ut.commit();
+            } catch (RollbackException e) {
+                gotRollbackException = true;
+            }
         } catch (Exception e) {
             Helper.getLogger().log( Level.INFO, null, e);
             throw new Exception("txTypeRequiredReadOnly_withReadOnlyTransaction failed");
         }
+
+        if (!gotRollbackException) {
+            throw new Exception("txTypeRequiredReadOnly_withReadOnlyTransaction failed: "
+                    + "expected RollbackException from commit() of a read-only transaction");
+        }
+        appendReason("Got expected RollbackException from commit() of a read-only transaction");
     }
 
     /*
