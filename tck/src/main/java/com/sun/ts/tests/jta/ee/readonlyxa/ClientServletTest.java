@@ -37,6 +37,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import com.sun.ts.tests.common.base.ServiceEETest;
 import tck.arquillian.porting.lib.spi.TestArchiveProcessor;
+import tck.arquillian.protocol.common.TargetVehicle;
 
 @ExtendWith(ArquillianExtension.class)
 @Tag("platform")
@@ -52,9 +53,33 @@ public class ClientServletTest extends Client {
         // War
         // the war with the correct archive name
         WebArchive servlet_resourcedefs_web = ShrinkWrap.create( WebArchive.class, "servlet_resourcedefs_web.war");
-        // The class files
+        // The class files: the readonlyxa tests plus the EJBLite servlet
+        // vehicle machinery, so the test logic executes in-server (CDI
+        // injection, JNDI and the Transactional interceptor are available).
+        // Whitebox classes are deliberately NOT packaged here: the war links
+        // to the rar module's copies so the Client's ConnectorStatus toggle
+        // reaches the same statics the resource adapter reads.
         servlet_resourcedefs_web.addClasses(
-                com.sun.ts.tests.connector.resourceDefs.servlet.Client.class
+                com.sun.ts.tests.connector.resourceDefs.servlet.Client.class,
+                com.sun.ts.tests.common.vehicle.VehicleRunnerFactory.class,
+                com.sun.ts.tests.common.vehicle.VehicleRunnable.class,
+                com.sun.ts.tests.common.vehicle.VehicleClient.class,
+                com.sun.ts.tests.common.vehicle.ejbliteshare.EJBLiteClientIF.class,
+                com.sun.ts.tests.common.vehicle.ejbliteshare.ReasonableStatus.class,
+                com.sun.ts.tests.ejb30.common.lite.NumberEnum.class,
+                com.sun.ts.tests.ejb30.common.helper.Helper.class,
+                com.sun.ts.tests.ejb30.common.lite.EJBLiteClientBase.class,
+                com.sun.ts.tests.ejb30.common.lite.NumberIF.class,
+                com.sun.ts.lib.harness.Fault.class,
+                com.sun.ts.tests.common.base.EETest.class,
+                com.sun.ts.lib.harness.SetupException.class,
+                ServiceEETest.class,
+                com.sun.ts.tests.jta.ee.transactional.Helper.class,
+                ReadOnlyTestBean.class,
+                EJBLiteServletVehicle.class,
+                HttpServletDelegate.class,
+                Client.class,
+                ClientServletTest.class
         );
         // The web.xml descriptor
         URL warResURL = ClientServletTest.class.getResource( "servlet_resourcedefs_web.xml");
@@ -62,6 +87,11 @@ public class ClientServletTest extends Client {
         // The sun-web.xml descriptor
         warResURL = ClientServletTest.class.getResource( "servlet_resourcedefs_web.war.sun-web.xml");
         servlet_resourcedefs_web.addAsWebInfResource(warResURL, "sun-web.xml");
+        // beans.xml with discovery-mode=all so ReadOnlyTestBean is a CDI bean
+        warResURL = ClientServletTest.class.getResource("/vehicle/ejbliteservlet/beans.xml");
+        if (warResURL != null) {
+            servlet_resourcedefs_web.addAsWebInfResource(warResURL, "beans.xml");
+        }
 
         // Call the archive processor
         archiveProcessor.processWebArchive( servlet_resourcedefs_web, ClientServletTest.class, warResURL);
@@ -69,30 +99,29 @@ public class ClientServletTest extends Client {
         // RAR
         // the rar with the correct archive name
         JavaArchive conn_resourcedefs_jar = ShrinkWrap.create(JavaArchive.class, "resouredef.jar");
-        // The class files
-        conn_resourcedefs_jar.addClasses(
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDActivationSpec.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDAdminObject.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDManagedConnectionFactory.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDMessageListener.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDMessageWork.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDResourceAdapterImpl.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.CRDWorkManager.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.MsgXAResource.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.NestedWorkXid1.ContextType.class,
-                com.sun.ts.tests.common.connector.embedded.adapter1.NestedWorkXid1.class,
-                com.sun.ts.tests.common.connector.util.ConnectorStatus.class,
-                com.sun.ts.tests.common.connector.util.Log.class,
-                com.sun.ts.tests.common.connector.whitebox.Debug.class,
-                com.sun.ts.tests.common.connector.whitebox.NestedWorkXid.class,
-                com.sun.ts.tests.common.connector.whitebox.TSConnectionFactory.class,
-                com.sun.ts.tests.common.connector.whitebox.TSDataSource.class,
-                com.sun.ts.tests.common.connector.whitebox.WorkImpl.class,
-                com.sun.ts.tests.common.connector.whitebox.WorkListenerImpl.class,
-                com.sun.ts.tests.common.connector.whitebox.XidImpl.class
+        // The class files: the complete adapter1/whitebox/util packages. The
+        // adapter's @ConnectionDefinition references TSEISDataSource and
+        // TSEISConnection, whose implementations pull in the rest of the
+        // whitebox resource manager; a partial class list fails annotation
+        // scanning at deployment (ClassNotFoundException). Only
+        // CRDResourceAdapterImpl carries @Connector, so packaging the whole
+        // whitebox package adds no competing connector annotations.
+        conn_resourcedefs_jar.addPackages(false,
+                "com.sun.ts.tests.common.connector.embedded.adapter1",
+                "com.sun.ts.tests.common.connector.util",
+                "com.sun.ts.tests.common.connector.whitebox"
         );
         JavaArchive conn_resourcedefs_rar = ShrinkWrap.create(JavaArchive.class, "whitebox-rd.rar");
         conn_resourcedefs_rar.add(conn_resourcedefs_jar, "/", ZipExporter.class);
+        // The whitebox-xa deployment descriptor (metadata-complete): the CRD
+        // adapter's outbound connections do not support XA (its
+        // createManagedConnection builds TSManagedConnection with
+        // supportsXA=false), so the read-only XA handshake can never happen
+        // through it. The whitebox-xa connection definition activates
+        // XAManagedConnectionFactory instead, whose managed connections
+        // expose the ExtendedXAResource-implementing XAResourceImpl.
+        conn_resourcedefs_rar.addAsManifestResource(
+                ClientServletTest.class.getResource("whitebox-xa-ra.xml"), "ra.xml");
 
         // Ear
         EnterpriseArchive servlet_resourcedefs_ear = ShrinkWrap.create(EnterpriseArchive.class, "servlet_resourcedefs.ear");
@@ -106,8 +135,11 @@ public class ClientServletTest extends Client {
 
 
 
-        // The application.xml descriptor
-        URL earResURL = null;
+        // The application.xml descriptor: pins the war's context-root to the
+        // ear base name, which the EJBLite web vehicle client uses as the
+        // request URL
+        URL earResURL = ClientServletTest.class.getResource( "servlet_resourcedefs_application.xml");
+        servlet_resourcedefs_ear.addAsManifestResource(earResURL, "application.xml");
         // The sun-application.xml descriptor
         earResURL = ClientServletTest.class.getResource( "servlet_resourcedefs.ear.sun-application.xml");
         servlet_resourcedefs_ear.addAsManifestResource(earResURL, "sun-application.xml");
@@ -118,12 +150,14 @@ public class ClientServletTest extends Client {
 
     @Test
     @Override
+    @TargetVehicle("ejbliteservlet")
     public void testInsertWithReadOnlyXAResource() throws Exception {
         super.testInsertWithReadOnlyXAResource();
     }
 
     @Test
     @Override
+    @TargetVehicle("ejbliteservlet")
     public void testInsertWithNonReadOnlyXAResource() throws Exception {
         super.testInsertWithNonReadOnlyXAResource();
     }

@@ -21,7 +21,6 @@ import com.sun.ts.tests.ejb30.common.lite.EJBLiteClientBase;
 import com.sun.ts.tests.jta.ee.transactional.Helper;
 import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
-import jakarta.transaction.TransactionalException;
 import jakarta.transaction.UserTransaction;
 
 import static java.util.logging.Level.INFO;
@@ -40,18 +39,13 @@ public class Client extends EJBLiteClientBase {
 	 * By default, read-only mode is supported on TSDataSource.
 	 */
 	public void testInsertWithReadOnlyXAResource() throws Exception {
-		String result = "TransactionalException not received";
+		String result = "no exception received: insert was not rejected in read-only mode";
 		try {
 			bean.setup();
 			try {
 				bean.insert();
-			} catch (TransactionalException te) {
-				if (te.getCause() instanceof RuntimeException ) {
-					result = "Received expected TransactionalException with nested RuntimeException";
-				} else {
-					throw new Exception("Received TransactionalException without nested RuntimeException");
-				}
-
+			} catch (RuntimeException re) {
+				result = "Received expected RuntimeException from insert rejected in read-only mode";
 			} catch (Exception e) {
 				e.printStackTrace();
 				result = "Received unexcepted Exception :" + e.getMessage();
@@ -60,9 +54,9 @@ public class Client extends EJBLiteClientBase {
 			bean.tearDown();
 		}
 
-		if (result.equals("Received expected TransactionalException with nested RuntimeException")) {
+		if (result.equals("Received expected RuntimeException from insert rejected in read-only mode")) {
 			Helper.getLogger().log(INFO, result);
-			appendReason("Received expected TransactionalException with nested RuntimeException");
+			appendReason(result);
 		} else {
 			throw new Exception(result);
 		}
@@ -74,20 +68,15 @@ public class Client extends EJBLiteClientBase {
 	 * so the lookup after the insert must fail.
 	 */
 	public void testInsertWithNonReadOnlyXAResource() throws Exception {
-		String result = "TransactionalException not received";
+		String result = "no exception received: inserted row survived, resource was not rolled back";
 		try {
 			ConnectorStatus.getConnectorStatus().setSupportReadOnly(false);
 			bean.setup();
 			bean.insert();
 			try {
 				bean.get();
-			} catch (TransactionalException te) {
-				if (te.getCause() instanceof RuntimeException ) {
-					result = "Received expected TransactionalException with nested RuntimeException";
-				} else {
-					throw new Exception("Received TransactionalException without nested RuntimeException");
-				}
-
+			} catch (RuntimeException re) {
+				result = "Received expected RuntimeException: inserted row was rolled back with the read-only transaction";
 			} catch (Exception e) {
 				e.printStackTrace();
 				result = "Received unexcepted Exception :" + e.getMessage();
@@ -97,9 +86,9 @@ public class Client extends EJBLiteClientBase {
 			ConnectorStatus.getConnectorStatus().setSupportReadOnly(true);
 		}
 
-		if (result.equals("Received expected TransactionalException with nested RuntimeException")) {
+		if (result.equals("Received expected RuntimeException: inserted row was rolled back with the read-only transaction")) {
 			Helper.getLogger().log(INFO, result);
-			appendReason("Received expected TransactionalException with nested RuntimeException");
+			appendReason(result);
 		} else {
 			throw new Exception(result);
 		}

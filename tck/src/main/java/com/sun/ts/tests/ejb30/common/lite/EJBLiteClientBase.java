@@ -209,7 +209,8 @@ public class EJBLiteClientBase extends ServiceEETest implements EJBLiteClientIF 
     public void setup(String[] args, Properties p) {
         if (!inVehicle && (testName == null) && p != null) {
             String s = p.getProperty("testName"); // strip off _from_<vehicle>
-            testName = s.substring(0, s.indexOf("_from_"));
+            int fromIndex = s.indexOf("_from_");
+            testName = fromIndex == -1 ? s : s.substring(0, fromIndex);
             String m = p.getProperty("vehicle_archive_name");
             setModuleName(m);
             Helper.getLogger().fine("testName from test properties: " + s + ", setting testName field to the short name: " + testName

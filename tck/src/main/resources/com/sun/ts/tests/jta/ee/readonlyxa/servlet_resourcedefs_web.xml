@@ -19,12 +19,25 @@
 
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
   <display-name>servlet_resourcedefs_web</display-name>
-  <resource-ref>
-    <res-ref-name>whitebox-rd</res-ref-name>
-    <res-type>com.sun.ts.tests.common.connector.whitebox.TSConnectionFactory</res-type>
-    <res-auth>Container</res-auth>
-    <res-sharing-scope>Shareable</res-sharing-scope>
-  </resource-ref>
+  <servlet>
+    <servlet-name>EJBLiteServletVehicle</servlet-name>
+    <servlet-class>com.sun.ts.tests.jta.ee.readonlyxa.EJBLiteServletVehicle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EJBLiteServletVehicle</servlet-name>
+    <url-pattern>/ejbliteservlet_vehicle.jsp</url-pattern>
+  </servlet-mapping>
+  <!-- Binds the embedded whitebox-rd adapter's connection factory where
+       ReadOnlyTestBean injects it. A plain resource-ref has no portable
+       binding for an embedded adapter; the connection-factory element is
+       the standard mechanism and matches the adapter1
+       @ConnectionDefinition's connectionfactory-interface. -->
+  <connection-factory>
+    <name>java:comp/env/eis/whitebox-tx</name>
+    <interface-name>com.sun.ts.tests.common.connector.whitebox.TSConnectionFactory</interface-name>
+    <resource-adapter>#whitebox-rd</resource-adapter>
+    <transaction-support>XATransaction</transaction-support>
+  </connection-factory>
   <login-config>
     <auth-method>BASIC</auth-method>
     <realm-name>default</realm-name>
