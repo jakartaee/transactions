@@ -29,12 +29,32 @@ public interface Synchronization {
      * The beforeCompletion method is called by the transaction manager prior to the start of the two-phase transaction
      * commit process. This call is executed with the transaction context of the transaction that is being committed.
      */
-    public void beforeCompletion();
+    default void beforeCompletion() {
+    }
 
     /**
-     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * This method is called by the transaction manager after the transaction is committed or rolled back. An implementation
+     * of {@code Synchronization} may override both this method and its overload
+     * {@link #afterCompletion(TransactionStatus)}. Both overloads must be called by the transaction manager after the
+     * transaction completes.
      *
      * @param status The status of the transaction completion.
+     *
+     * @since JTA 2.1
      */
-    public void afterCompletion(int status);
+    default void afterCompletion(TransactionStatus status) {
+    }
+
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back, and after
+     * {@link #afterCompletion(TransactionStatus)} is called.
+     *
+     * @param status The status of the transaction completion.
+     *
+     * @deprecated Use {@link #afterCompletion(TransactionStatus)}
+     */
+    @Deprecated
+    default void afterCompletion(int status) {
+    }
+
 }
