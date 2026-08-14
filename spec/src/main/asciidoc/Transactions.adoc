@@ -635,6 +635,59 @@ The `jakarta.transaction.xa.ExtendedXAResource` interface is an optional
 extension that can be implemented to additionally report capabilities:
 
 * Read-only mode to allow only read interactions with a resource
+* Prepare-phase ordering via `getPreparePriority()`
+* Commit-phase ordering via `getCommitPriority()`
+
+[[resource-ordering]]
+==== Resource Ordering
+
+Resource adapters may implement `jakarta.transaction.xa.ExtendedXAResource`
+to indicate to the transaction manager the order in which the resource should
+participate in the prepare and commit phases of the two-phase commit protocol.
+
+===== Prepare-Phase Ordering
+
+The `getPreparePriority()` method returns a `jakarta.transaction.xa.PreparePriority`
+value. The transaction manager must call this method after invoking
+`XAResource.end` for a given resource and before issuing `XAResource.prepare`
+to any resource in the transaction, giving the resource manager the opportunity
+to reflect on the work that was performed.
+
+The transaction manager must respect the following rules:
+
+* Resources returning `PreparePriority.EXCLUSIVE_LAST` must be prepared after
+  all resources with `PreparePriority.EARLY` or `PreparePriority.NORMAL` priority.
+  This supports the _Last Resource Commit Optimisation_ (LRCO), in which a
+  non-XA resource participates by mapping its prepare call to a real commit.
+* Resources returning `PreparePriority.EARLY` should be prepared before resources
+  with `PreparePriority.NORMAL` priority. They may be prepared concurrently
+  with each other to reduce overall latency.
+* At most one resource per transaction may return `PreparePriority.EXCLUSIVE_LAST`.
+  If a second such resource is enlisted, the transaction manager must throw
+  `SystemException`.
+
+===== Commit-Phase Ordering
+
+The `getCommitPriority()` method returns a `jakarta.transaction.xa.CommitPriority`
+value. The transaction manager must query this value before beginning the commit
+phase.
+
+The transaction manager must respect the following rules:
+
+* Resources returning `CommitPriority.EXCLUSIVE_FIRST` must be committed before
+  all resources with `CommitPriority.NORMAL` or `CommitPriority.LATE` priority.
+* Resources returning `CommitPriority.LATE` must be committed after all resources
+  with `CommitPriority.EXCLUSIVE_FIRST` or `CommitPriority.NORMAL` priority.
+  Resources with `CommitPriority.LATE` may be committed concurrently with each other.
+* At most one resource per transaction may return `CommitPriority.EXCLUSIVE_FIRST`.
+  If a second such resource is enlisted, the transaction manager must throw
+  `SystemException`.
+
+A common use case for commit ordering is a transaction that involves both a
+relational database (DB) and a message broker (JMS). Marking the JMS resource
+`CommitPriority.LATE` ensures that messages become visible to downstream consumers
+only after the database has committed and released its row locks, preventing the
+race condition where a message is consumed before the corresponding data can be read.
 
 ==== Opening a Resource Manager
 
