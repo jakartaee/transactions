@@ -1019,6 +1019,11 @@ significantly enhanced by the addition of the `getResource` and
 [#transactional-annotation]
 === Transactional Annotation
 
+NOTE: Support for `@Transactional` is only required in environments where Jakarta Context Dependency
+Injection is available. In environments without CDI, the annotation is present in the API but
+implementations are not required to provide runtime support for it. Applications that use
+`@Transactional` without CDI present may encounter a `NoClassDefFoundError` or similar error at runtime.
+
 The `jakarta.transaction.Transactional`
 annotation provides the application the ability to declaratively control
 transaction boundaries on Jakarta Context Dependency Injection managed beans, as well as classes defined
@@ -1166,6 +1171,10 @@ However, the behavior of the readOnly feature is not defined for
 transactions propagated remotely, for example, via OTS/JTS.
 
 === TransactionScoped Annotation
+
+NOTE: Support for `@TransactionScoped` is only required in environments where Jakarta Context Dependency
+Injection is available. In environments without CDI, the annotation is present in the API but
+implementations are not required to provide runtime support for it.
 
 The `jakarta.transaction.TransactionScoped`
 annotation provides the ability to specify a standard Jakarta Context Dependency Injection scope to
